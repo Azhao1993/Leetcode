@@ -23,6 +23,7 @@ public class MoveZeroes {
 				nums[i - count] = nums[i];
 			}
 		}
+		
 		// ²¹³äÊý×é
 		for (int i = length - count; i < length; i++) {
 			nums[i] = 0;
