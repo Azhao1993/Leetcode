@@ -22,7 +22,7 @@ package Leetcode_766_ToeplitzMatrix;
 			matrix = [
 			  [1,2],
 			  [2,2]
-			]
+			 ]
 		输出: False
 		解释: 
 			对角线"[1, 2]"上的元素不同。
