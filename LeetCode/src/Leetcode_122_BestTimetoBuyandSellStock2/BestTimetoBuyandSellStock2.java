@@ -56,6 +56,6 @@ public class BestTimetoBuyandSellStock2 {
 		return sum;
 	}
 	
-	//算法2：动态规划
+	//算法2：动态规划（未完成）
 	
 }
