@@ -8,10 +8,10 @@ package Leetcode_566_ReshapeTheMatrix;
 
 	示例 1:
 		输入: 
-		nums = 
-			[[1,2],
- 			 [3,4]]
-		r = 1, c = 4
+			nums = 
+				[[1,2],
+	 			 [3,4]]
+			r = 1, c = 4
 		输出: 
 			[[1,2,3,4]]
 		解释:
