@@ -1,4 +1,4 @@
-package Leetcoe_217_ContainsDuplicate;
+package Leetcode_217_ContainsDuplicate;
 
 //import java.lang.reflect.Array;
 //import java.util.HashSet;
