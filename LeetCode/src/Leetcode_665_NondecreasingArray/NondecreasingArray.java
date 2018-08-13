@@ -33,11 +33,14 @@ public class NondecreasingArray {
 		while((i<j)&&nums[j]>=nums[j-1]) {
 			j--;
 		}
-		System.out.println("i:"+i+",j:"+j);
+		//System.out.println("i:"+i+",j:"+j);
+		//两个断点的位置要小于1
 		if(j-i<=1) {
+			//如果断点位置在开始和结尾，一定可以
 			if((i==0)|| (j==length-1)){
 				return true;
 			}
+			//如果不在结尾，需判断i-1和j或i和j+1的大小
 			if((nums[i-1]<=nums[j])|(nums[i]<=nums[j+1])){
 				return true;
 			}
