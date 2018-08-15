@@ -1,4 +1,4 @@
-package Math.Leetcode_171_ExcelSheetColumnNumber;
+package Leetcode_171_ExcelSheetColumnNumber;
 /*
 	给定一个Excel表格中的列名称，返回其相应的列序号。
 	
