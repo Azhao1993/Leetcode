@@ -14,15 +14,12 @@ package Leetcode_537_ComplexNumberMultiplication;
 */
 public class ComplexNumberMultiplication {
 
-	public static void main(String[] args) {
-		// TODO 自动生成的方法存根
-		System.out.println(complexNumberMultiply("1+1i","1+1i"));
-	}
-    public static String complexNumberMultiply(String a, String b) {
+	//537.复数乘法
+    public  String complexNumberMultiply(String a, String b) {
         //将a、b转成数组
     	String[] arr = a.split("\\+");
     	arr[1] = arr[1].substring(0, arr[1].length()-1);
-    	String[] brr = b.split("\\+");
+    	String[] brr = b.split("\\+");//特殊字符需要转义
     	brr[1] = brr[1].substring(0, brr[1].length()-1);
     	//将字符串数组转成整形数组
     	int[] ant = {Integer.parseInt(arr[0]),Integer.parseInt(arr[1])};
