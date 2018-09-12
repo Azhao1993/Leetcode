@@ -79,7 +79,7 @@ public class RomantoInteger {
 			if(a<b) {
 				result -= a;
 			}else {
-				result += b;
+				result += a;
 			}
 		}
 		return result;
