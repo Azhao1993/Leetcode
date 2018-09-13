@@ -5,7 +5,7 @@ import java.util.HashMap;
 /*
 	罗马数字包含以下七种字符： I， V， X， L，C，D 和 M。
 	
-	字符          数值
+	字符       		   数值
 	I             1
 	V             5
 	X             10
@@ -50,30 +50,101 @@ public class IntegertoRoman {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-
+		IntegertoRoman itor = new IntegertoRoman();
+		System.out.println(itor.intToRoman(1994));
+		System.out.println("MCMXCIV");
 	}
-	//12. 整数转罗马数字
+
+	// 12. 整数转罗马数字:152 ms
 	public String intToRoman(int num) {
-		StringBuilder result = new StringBuilder();
-		HashMap<Integer, String> map = new HashMap<Integer, String>();
-		map.put(1, "I");//1
-		map.put(5, "V");//5
-		map.put(10, "X");//10
-		map.put(50, "L");//50
-		map.put(100, "C");//100
-		map.put(500, "D");//500
-		map.put(1000, "M");//1000
-		map.put(40, "IV");//40
-		map.put(90, "IX");//90
-		map.put(400, "XL");//400
-		map.put(900, "CM");//900
-		//1000以上
-		while(num>=1000) {
-			num -= 1000;
-			result.append(map.get(1000));
+		StringBuffer result = new StringBuffer();
+		int index = 0;
+		// 创建字符串数组
+		String[] str = { "M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I" };
+		// 创建整形数组
+		int[] nums = { 1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1 };
+		while (num > 0) {
+			if (num >= nums[index]) {
+				num -= nums[index];
+				result.append(str[index]);
+			}else{
+				index++;
+			}
 		}
-		
+
 		return result.toString();
-        
-    }
+	}
+
+	// 12. 整数转罗马数字:104 ms
+//	public String intToRoman(int num) {
+//		StringBuilder result = new StringBuilder();		
+//		//1000以上
+//		while(num>=1000) {
+//			num -= 1000;
+//			result.append("M");
+//		}
+//		//1000以下900以上
+//		if(num>=900) {
+//			num -= 900;
+//			result.append("CM");
+//		}
+//		//900以下500以上
+//		if(num>=500) {
+//			num -= 500;
+//			result.append("D");
+//		}
+//		//500以下400以上
+//		if(num>=400) {
+//			num-=400;
+//			result.append("CD");
+//		}
+//		//400以下100以上
+//		while(num>=100) {
+//			num-=100;
+//			result.append("C");
+//		}
+//		//100以下90以上
+//		if(num>=90) {
+//			num-=90;
+//			result.append("XC");
+//		}
+//		//90以下50以上
+//		if(num>=50) {
+//			num-=50;
+//			result.append("L");		
+//		}
+//		//50以下40以上
+//		if(num>=40) {
+//			num-=40;
+//			result.append("XL");		
+//		}
+//		//40以下10以上
+//		while(num>=10) {
+//			num-=10;
+//			result.append("X");		
+//		}
+//		//10以下9以上
+//		if(num>=9) {
+//			num-=9;
+//			result.append("IX");
+//		}
+//		//9以下5以上
+//		if(num>=5) {
+//			num-=5;
+//			result.append("V");
+//		}
+//		//5以下4以上
+//		if(num>=4) {
+//			num-=4;
+//			result.append("IV");
+//		}
+//		//4以下1以上
+//		while(num>=1) {
+//			num-=1;
+//			result.append("I");
+//		}
+//		    
+//		return result.toString();
+//	}
+
 }
