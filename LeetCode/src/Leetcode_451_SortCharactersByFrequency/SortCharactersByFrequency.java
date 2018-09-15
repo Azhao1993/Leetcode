@@ -35,7 +35,7 @@ public class SortCharactersByFrequency {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		SortCharactersByFrequency scby = new SortCharactersByFrequency();
-		System.out.println(scby.frequencySort("tree"));
+		System.out.println(scby.frequencySort("eeeee"));
 	}
 	//451. 根据字符出现频率排序
     public String frequencySort(String s) {
@@ -52,6 +52,9 @@ public class SortCharactersByFrequency {
     			}
     		}
     	}
+    	if(buffer.length()==1) {
+    		return s;
+    	}
     	//统计字符的频率 tre
     	int[] requency = new int[buffer.length()];//112
     	for(int i = 0;i<buffer.length();i++) {
@@ -61,21 +64,30 @@ public class SortCharactersByFrequency {
     			}
     		}
     	}
-    	//根据频率排序//211 etr
+    	
+    	//根据频率排序
+    	char[] bufferchar = buffer.toString().toCharArray();
     	for(int i = 0;i<requency.length-1;i++) {
     		for(int j=i+1;j<requency.length;j++) {
     			if(requency[i]<requency[j]) {
     				int temp = requency[i];
-    				char tempchar = buffer.charAt(i);
+    				char tempchar = bufferchar[i];
     				requency[i] = requency[j];
-    				buffer.deleteCharAt(i).insert(i, buffer.charAt(j));
+    				bufferchar[i] = bufferchar[j];
     				requency[j]=temp;
-    				buffer.deleteCharAt(j).insert(j, tempchar);    				
+    				bufferchar[j] = tempchar;    				  				
     			}
     		}
     		for(int m = 0;m<requency[i];m++) {
-    			result.append(buffer.charAt(i));
+    			result.append(bufferchar[i]);
     		}
+    		//最后一个字母
+    		if(i==requency.length-2) {
+    			for(int m = 0;m<requency[requency.length-1];m++) {
+        			result.append(bufferchar[requency.length-1]);
+        		}
+    		}
+    		
     	}
     	
     	return result.toString();
