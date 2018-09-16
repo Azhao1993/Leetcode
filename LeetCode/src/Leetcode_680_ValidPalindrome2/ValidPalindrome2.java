@@ -20,8 +20,8 @@ public class ValidPalindrome2 {
 	}
 	//680. 验证回文字符串 Ⅱ
     public boolean validPalindrome(String s) {
-        
-    	}
+        return false;
     }
-
 }
+
+
