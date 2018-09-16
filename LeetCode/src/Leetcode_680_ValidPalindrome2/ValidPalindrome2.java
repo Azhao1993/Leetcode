@@ -20,12 +20,7 @@ public class ValidPalindrome2 {
 	}
 	//680. 验证回文字符串 Ⅱ
     public boolean validPalindrome(String s) {
-        //创建字符串缓冲器
-    	StringBuilder builder = new StringBuilder();
-    	int length  =s.length();
-    	//诸位判断
-    	for(int i  =0;i<builder.length();i++) {
-    		
+        
     	}
     }
 
