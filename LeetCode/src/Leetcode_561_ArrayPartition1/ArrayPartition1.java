@@ -1,5 +1,7 @@
 package Leetcode_561_ArrayPartition1;
-//失败
+
+import java.util.Arrays;
+
 /*
 	给定长度为 2n 的数组, 你的任务是将这些数分成 n对, 
 	例如 (a1, b1), (a2, b2), ..., (an, bn) ，使得从1 到 n 的 min(ai, bi) 总和最大。
@@ -11,19 +13,22 @@ package Leetcode_561_ArrayPartition1;
 */
 
 public class ArrayPartition1 {
+	public static void main(String[] args) {
+		ArrayPartition1 ap = new ArrayPartition1();
+		int[] nums = {1,4,3,2};
+		System.out.println(ap.arrayPairSum(nums));
+	}
 	public int arrayPairSum(int[] nums) {
+		Arrays.sort(nums);
+		System.out.println(Arrays.toString(nums));		
 		int sum = 0;
-		for (int i = 0; i < nums.length - 1; i++) {
-			for (int j = i + 1; j < nums.length; j++) {
-				if (nums[i] > nums[j]) {
-					int temp = nums[i];
-					nums[i] = nums[j];
-					nums[j] = temp;
-				}				
+		for(int i =0;i<nums.length-1;i++) {
+			if(nums[i]>=nums[i+1]) {
+				sum+=nums[i+1];
+			}else {
+				sum+=nums[i];
 			}
-			if (i % 2 == 0) {
-				sum += nums[i];
-			}
+			i++;
 		}
 		return sum;
 	}
