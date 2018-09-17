@@ -46,7 +46,7 @@ public class MonotonicArray {
     		if(A[i]!=0) {
     			B[index] = A[i];    			
     			if(index>0) {
-    				if((index-1)*(index)<0) {
+    				if(B[index-1]*B[index]<0) {
     					return false;
     				}
     			}
