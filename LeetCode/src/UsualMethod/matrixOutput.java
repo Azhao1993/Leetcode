@@ -1,6 +1,7 @@
 package UsualMethod;
-
+//数组输出
 public class matrixOutput {
+	//二维数组输出
 	public void ArrayOutput(int[][] grid) {
 		// 获取grid的行和列
 		int row = grid.length;
