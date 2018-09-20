@@ -6,12 +6,12 @@ public class SetMatrixZeroes2 {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		SetMatrixZeroes smz = new SetMatrixZeroes();
+		SetMatrixZeroes2 smz2 = new SetMatrixZeroes2();
 		matrixOutput mo = new matrixOutput();
 		int[][] matrix = {{0,1,2,0},{3,4,5,2},{1,3,1,5}};
 		System.out.println("÷√¡„«∞£∫");
 		mo.ArrayOutput(matrix);
-		smz.setZeroes(matrix);
+		smz2.setZeroes(matrix);
 		System.out.println("÷√¡„∫Û£∫");
 		mo.ArrayOutput(matrix);
 	}	
