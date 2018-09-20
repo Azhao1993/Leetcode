@@ -48,8 +48,7 @@ public class FloodFill {
 			return image;
 		}
 		// Ê×ÏÈäÖÈ¾£¨sr£¬sc£©		
-		image[sr][sc] = newColor;
-		
+		image[sr][sc] = newColor;	
 		
 		// ÅĞ¶ÏÉÏ
 		if ((sr > 0) && (image[sr - 1][sc] == old)) {
