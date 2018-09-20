@@ -21,18 +21,8 @@ public class FindMinimuminRotatedSortedArray {
 	}
 	//153. 寻找旋转排序数组中的最小值
     public int findMin(int[] nums) {
-        //二分查找,找到两个组数的端点，比较两个端点    	
-    	int min=0;
-    	int max=nums.length-1;
-    	int mid = (min+max)/2;
-    	while(min<max) {
-    		//中间的数比左边的大，最小值在右边
-    		if(nums[mid]>nums[mid]) {
-    			min = mid+1;
-    		}else {
-    			max
-    		}
-    	}
+        //二分查找,找到两个组数的端点，比较两个端点   	
+    	
         
     }
 
