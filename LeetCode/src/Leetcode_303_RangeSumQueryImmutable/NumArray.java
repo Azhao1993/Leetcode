@@ -22,6 +22,8 @@ public class NumArray {
 	 */
 	public static void main(String[] args) {
 		// TODO 自动生成的方法存根
+		//["NumArray","sumRange","sumRange","sumRange"]:["NumArray"]		
+		//[[[-2,0,3,-5,2,-1]],[0,2],[2,5],[0,5]]:[[[]]]
 		int[] nums = { -2, 0, 3, -5, 2, -1 };
 		NumArray obj = new NumArray(nums);
 		int param_1 = obj.sumRange(0, 2);
@@ -38,6 +40,10 @@ public class NumArray {
 
 	// 构造方法
 	public NumArray(int[] nums) {
+		if((nums==null)||(nums.length==0)) {
+			arr = null;
+			return;
+		}
 		arr = new int[nums.length];
 		arr[0]=nums[0];
 		for(int i=1;i<nums.length;i++ ) {
@@ -48,6 +54,9 @@ public class NumArray {
 	}
 
 	public int sumRange(int i, int j) {
+		if(arr==null) {
+			return 0;
+		}
 		if(i==0) {
 			return arr[j];
 		}else {
