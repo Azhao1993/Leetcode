@@ -39,17 +39,6 @@ import UsualMethod.matrixOutput;
 		本题中，我们使用二维数组来表示面板。原则上，面板是无限的，但当活细胞侵占了面板边界时会造成问题。你将如何解决这些问题？
 */
 public class GameofLife {
-
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		GameofLife gl = new GameofLife();
-		int[][] board = {{0,1,0},{0,0,1},{1,1,1},{0,0,0}};
-		gl.gameOfLife(board);
-		//二维数组输出
-		matrixOutput mo = new matrixOutput();
-		mo.ArrayOutput(board);
-	}
-
 	// 289.生命游戏
 	public void gameOfLife(int[][] board) {
 //		如果活细胞周围八个位置的活细胞数少于两个，则该位置活细胞死亡；livecount<2,1 —— 2 
