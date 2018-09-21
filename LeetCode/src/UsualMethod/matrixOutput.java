@@ -1,7 +1,7 @@
 package UsualMethod;
 //数组输出
 public class matrixOutput {
-	//一位数组输出
+	//一位数组输出；Array.toString(arr);
 	public void ArrayOutput(int[] grid) {
 		for(int i = 0;i<grid.length;i++) {
 			if(i!=grid.length-1) {
@@ -11,6 +11,7 @@ public class matrixOutput {
 			}
 		}
 	}
+	
 	//二维数组输出
 	public void ArrayOutput(int[][] grid) {
 		// 获取grid的行和列
