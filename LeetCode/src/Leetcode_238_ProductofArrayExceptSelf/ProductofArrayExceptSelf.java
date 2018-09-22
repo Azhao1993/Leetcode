@@ -20,20 +20,39 @@ public class ProductofArrayExceptSelf {
 
 	// 238. 除自身以外数组的乘积
 	public int[] productExceptSelf(int[] nums) {
-		
-		int[] result = new int[nums.length];
-		// 前部分和后部分
-		for (int i = 0; i < nums.length; i++) {
-			result[i] = 1;
-			// i的前半部分
-			for (int m = 0; m < i; m++) {
-				result[i] *= nums[m];
-			}
-			// i的后半部分
-			for (int m = i+1; m < nums.length; m++) {
-				result[i] *= nums[m];
-			}
+		//左边的乘积
+		int[] front = new int[nums.length];
+		front[0] = nums[0];
+		for(int i = 1;i<nums.length;i++) {
+			front[i] = front[i-1]*nums[i];
 		}
-		return result;
+		//右边的乘积
+		int[] behind = new int[nums.length];
+		behind[nums.length-1] = nums[nums.length-1];
+		for(int i = nums.length-2;i>=0;i--) {
+			behind[i] = behind[i+1]*nums[i];
+		}
+		//结果数组
+		nums[0] = behind[1];
+		nums[nums.length-1] = front[nums.length-2];
+		for(int i = 1;i<nums.length-1;i++) {
+			nums[i] = front[i-1]*behind[i+1];			
+		}
+		return nums;
+//		超时		
+//		int[] result = new int[nums.length];
+//		// 前部分和后部分
+//		for (int i = 0; i < nums.length; i++) {
+//			result[i] = 1;
+//			// i的前半部分
+//			for (int m = 0; m < i; m++) {
+//				result[i] *= nums[m];
+//			}
+//			// i的后半部分
+//			for (int m = i+1; m < nums.length; m++) {
+//				result[i] *= nums[m];
+//			}
+//		}
+//		return result;
 	}
 }
