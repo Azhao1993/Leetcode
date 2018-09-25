@@ -21,7 +21,7 @@ import java.util.Scanner;
    	int guess(int num); 
 */
 public class GuessNumberHigherorLower {	
-	
+	//374.²ÂÊı×Ö´óĞ¡
     public int guessNumber(int n) {
         int left = 1;
         int right = n;
