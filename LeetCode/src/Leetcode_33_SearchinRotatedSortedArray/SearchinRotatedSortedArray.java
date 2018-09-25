@@ -26,10 +26,7 @@ public class SearchinRotatedSortedArray {
         int left = 0;
         int right = nums.length-1;
         while(left<=right) {
-        	//target小于left的值，在后半段
-        	if(target <nums[left]) {
-        		
-        	}
+        	
         }
     }
 
