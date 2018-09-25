@@ -15,10 +15,7 @@ package BinarySearch_069_SqrtX;
 		     由于返回类型是整数，小数部分将被舍去。
 */
 public class SqrtX {
-	public static void main(String[] args) {
-		SqrtX sx = new SqrtX();
-		System.out.println(sx.mySqrt(9));
-	}
+	//69.x的平方根
 	public int mySqrt(int x) {
 		// 小于1
 		if (x <= 1) {
