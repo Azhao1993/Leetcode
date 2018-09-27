@@ -23,8 +23,8 @@ public class BinarySearch {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		BinarySearch bs = new BinarySearch();
-		int[] nums = {1,2,3,4,5};
-		int target = 6;
+		int[] nums = {0,0,0,0,0,1,1,2,4,5};
+		int target = 1;
 		bs.binarySearch3(nums, target);
 	}
 
