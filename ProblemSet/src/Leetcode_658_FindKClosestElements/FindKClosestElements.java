@@ -26,9 +26,9 @@ public class FindKClosestElements {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		FindKClosestElements fce = new FindKClosestElements();
-		int[] arr = { 1,2,3,4,5 };
+		int[] arr = { 1,2,3,4,5};
 		int k = 4;
-		int x = -1;
+		int x = 3;
 		//System.out.println(Arrays.toString(fce.findClosestElements(arr, k, x)));
 		List<Integer> list = fce.findClosestElements(arr,k,x);
 		for(int i = 0;i<list.size();i++) {
@@ -74,13 +74,27 @@ public class FindKClosestElements {
 		int[] result = new int[k];
 		int count = 0;
 		while(count<k) {
-			int temp = Math.abs(arr[left]-x);
-			int temp2 = Math.abs(arr[right]-x);
-			if(temp<=temp2) {
-				result[count++] = arr[left--];
-			}else {
+			//left!=right
+			if((left>=0)&&(right<=arr.length-1)) {
+				int temp = Math.abs(arr[left]-x);
+				int temp2 = Math.abs(arr[right]-x);
+				if(temp<=temp2) {
+					if(left==right) {
+						right++;
+					}
+					result[count++] = arr[left--];
+				}else {
+					result[count++] = arr[right++];
+				}
+			}
+			if((left<0)&&(right<=arr.length-1)&&(count<k)) {
 				result[count++] = arr[right++];
 			}
+			if((right>arr.length-1)&&(left>=0)&&(count<k)) {
+				result[count++] = arr[left--];
+			}
+			
+			
 		}
 		Arrays.sort(result);
 		return arrToList(result);
