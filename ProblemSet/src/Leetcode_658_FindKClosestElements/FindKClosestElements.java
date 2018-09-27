@@ -1,6 +1,12 @@
 package Leetcode_658_FindKClosestElements;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
+import java.util.ListIterator;
+import java.util.stream.Collectors;
 
 /*
 	给定一个排序好的数组，两个整数 k 和 x，从数组中找到最靠近 x（两数之差最小）的 k 个数。
@@ -24,75 +30,73 @@ public class FindKClosestElements {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		FindKClosestElements fce = new FindKClosestElements();
-		int[] arr = {1,2,3,4,5};
+		int[] arr = { 1,2,3,4,5 };
 		int k = 4;
-		int x = 5;
-		System.out.println(Arrays.toString(fce.findClosestElements(arr, k, x)));
+		int x = -1;
+		//System.out.println(Arrays.toString(fce.findClosestElements(arr, k, x)));
+		List<Integer> list = fce.findClosestElements(arr,k,x);
+		for(int i = 0;i<list.size();i++) {
+			System.out.print(list.get(i)+",");
+		}
 	}
 
 	// 658. 找到 K 个最接近的元素
-	public int[] findClosestElements(int[] arr, int k, int x) {
-		int[] result = new int[k];
-		int count = 0;
+	public List<Integer> findClosestElements(int[] arr, int k, int x) {
+		if(k==arr.length) {
+			return arrToList(arr);
+		}
+		if(x<=arr[0]) {
+			List<Integer> result = new ArrayList();
+			for(int i = 0;i<k;i++) {
+				result.add(arr[i]);
+			}
+			return result;
+		}
+		if(x>=arr[arr.length-1]) {
+			List<Integer> result = new ArrayList();
+			for(int i = arr.length-k;i<arr.length;i++) {
+				result.add(arr[i]);
+			}
+			return result;
+		}
 		int left = 0;
-		int right = arr.length - 1;	
-		int mid = 0;
-		
-		while (left +1 < right) {
-			mid = left + (right - left) / 2;
-			//x在mid右边
-			if(arr[mid]<x) {
+		int right = arr.length-1;
+		//找到x的范围
+		while(left+1<right) {
+			int mid = left+(right-left)/2;
+			if(arr[mid]>x) {
+				right=mid;
+			}else if(arr[mid]<x) {
 				left = mid;
-			}else if(arr[mid]>x) {
-				right = mid;
 			}else {
-				result[count++] = arr[mid];
+				left=mid;
+				right =mid;
 				break;
 			}
 		}
-		
-		
-		//找到了x
-		if(arr[mid]==x) {
-			left=mid-1;
-			right = mid+1;
-			while(count<k) {
-				int temp1 = Math.abs(arr[left]-x);
-				int temp2 = Math.abs(arr[right]-x);
-				if(temp1>temp2) {
-					result[count++] = arr[right++];
-				}else {
-					result[count++] = arr[left--];
-				}
-				
-			}
-			Arrays.sort(result);
-			return result;
-		}
-		//没找到x,找了left x right
+		//从范围开始找到k个数
+		int[] result = new int[k];
+		int count = 0;
 		while(count<k) {
-			if(left==0) {
-				for(int i = 0;i<k;i++) {
-					result[i] = arr[i];
-				}
-				return result;
-			}
-			if(right ==arr.length-1) {
-				for(int i = k-1;i>-1;i--) {
-					result[i] = arr[i];
-				}
-				return result;
-			}
-			int temp1 = Math.abs(arr[left]-x);
+			int temp = Math.abs(arr[left]-x);
 			int temp2 = Math.abs(arr[right]-x);
-			if(temp1>temp2) {
-				result[count++] = arr[right++];
-			}else {
+			if(temp<=temp2) {
 				result[count++] = arr[left--];
+			}else {
+				result[count++] = arr[right++];
 			}
-			
 		}
 		Arrays.sort(result);
+		return arrToList(result);
+		
+	}
+	
+	//arr to list
+	public List<Integer> arrToList(int[] arr) {
+		List<Integer> result = new ArrayList();
+		for(int i = 0;i<arr.length;i++) {
+			result.add(arr[i]);
+		}
 		return result;
 	}
 
