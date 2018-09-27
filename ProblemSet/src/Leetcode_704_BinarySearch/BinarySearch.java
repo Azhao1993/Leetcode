@@ -23,12 +23,12 @@ public class BinarySearch {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		BinarySearch bs = new BinarySearch();
-		int[] nums = {5,7,7,8,8,10};
-		int target = 8;
+		int[] nums = {0,0,0,0,0,1,1,2,4,5};
+		int target = 1;
 		bs.binarySearch3(nums, target);
 	}
 
-	// 模板1
+	// 模板1:
 	public int binarySearch(int[] nums, int target) {
 		if (nums == null || nums.length == 0)
 			return -1;
@@ -38,20 +38,21 @@ public class BinarySearch {
 			// Prevent (left + right) overflow
 			int mid = left + (right - left) / 2;
 			if (nums[mid] == target) {
+				//System.out.println("mid:"+mid);
 				return mid;
 			} else if (nums[mid] < target) {
 				left = mid + 1;
+				//System.out.println("left:"+left);
 			} else {
 				right = mid - 1;
+				System.out.println("right:"+right);
 			}
 		}
 
 		// End Condition: left > right
 		return -1;
 	}
-
-	// 模板2:用于查找需要访问数组中当前索引及其直接右邻居索引的元素或条件。
-	//
+	// 模板2:找不到target时，指针会停在target右侧
 	public int binarySearch2(int[] nums, int target) {
 		if (nums == null || nums.length == 0)
 			return -1;
@@ -61,20 +62,25 @@ public class BinarySearch {
 			// Prevent (left + right) overflow
 			int mid = left + (right - left) / 2;
 			if (nums[mid] == target) {
-				return mid;
+				//System.out.println("mid:"+mid);
+				return mid;				
 			} else if (nums[mid] < target) {
 				left = mid + 1;
+				//System.out.println("left:"+left);
 			} else {
 				right = mid;
+				//System.out.println("right:"+right);
 			}
 		}
 		// Post-processing:
 		// End Condition: left == right
-		if (left != nums.length && nums[left] == target)
+		if (left != nums.length && nums[left] == target) {
+			System.out.println(left);
 			return left;
+		}
 		return -1;
 	}
-	//模板3:用于搜索需要访问当前索引及其在数组中的直接左右邻居索引的元素或条件。
+	//模板3:找不到target时left和right会收缩在target两边,如果target小于最左边（0,1）,大于最右边(nums.length-2,length-1)
 	public int binarySearch3(int[] nums, int target) {
 	    if (nums == null || nums.length == 0)
 	        return -1;
@@ -85,11 +91,15 @@ public class BinarySearch {
 	        // Prevent (left + right) overflow
 	        int mid = left + (right - left) / 2;
 	        if (nums[mid] == target) {
+	        	System.out.println("mid"+mid);
 	            return mid;
+	            
 	        } else if (nums[mid] < target) {
 	            left = mid;
-	        } else {
+	            System.out.println("left:"+left);
+	        } else {	        	
 	            right = mid;
+	            System.out.println("right:"+right);
 	        }
 	    }
 
