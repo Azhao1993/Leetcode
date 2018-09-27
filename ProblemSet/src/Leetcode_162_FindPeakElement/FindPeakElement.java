@@ -71,5 +71,18 @@ public class FindPeakElement {
 		return left;
 		
 	}
+	
+	//Ä£°å3
+	public int findPeakElement2(int[] nums) {
+		int left = 0;
+		int right = nums.length-1;
+		while(left+1<right) {
+			int mid = left + (right-left)/2;
+			//midÊÇ·åÖµ
+			if((mid-1>=0)&&(nums[mid]>nums[mid-1])&&(mid+1<=nums.length-1)&&(nums[mid]>nums[mid+1])) {
+				return mid;
+			}
+		}
+	}
 
 }
