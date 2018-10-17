@@ -1,4 +1,4 @@
-package Leetcode_01_TwoSum;
+package Leetcode_001_TwoSum;
 
 /*
  	给定一个整数数组和一个目标值，找出数组中和为目标值的两个数。
