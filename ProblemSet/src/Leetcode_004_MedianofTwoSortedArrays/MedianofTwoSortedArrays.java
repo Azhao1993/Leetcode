@@ -34,8 +34,7 @@ public class MedianofTwoSortedArrays {
 	 * 比较其最大值，小的那一组，一定属于前k个数。 特殊情况：
 	 * 较短的一组已经全部加在前k个数中，此时len1-start1==0,第k个为nums2[k-1]; 如果k ==
 	 * 1,则表示前k-1小的数已经找过了，则第k个数肯定是nums1[start1]和nums2[start2]中较小的那个数。
-	 * 
-	 * 
+	 *  
 	 */
 	public double findMedianSortedArrays(int[] nums1, int[] nums2) {
 		// 获取nums1的长度
