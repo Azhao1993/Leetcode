@@ -1,4 +1,4 @@
-package LeetCode_70_ClimbingStairs;
+package Leetcode_070_ClimbingStairs;
 
 /*
 	假设你正在爬楼梯。需要 n 阶你才能到达楼顶。	
@@ -21,9 +21,8 @@ package LeetCode_70_ClimbingStairs;
 		2.  1 阶 + 2 阶
 		3.  2 阶 + 1 阶
 */
-public class ClimbingStairs {
-	
-
+public class ClimbingStairs {	
+	//70.爬楼梯
 	public static int climbStairs(int n) {
 		int[] Stairs = new int[n];		
 		if(n==1) {
