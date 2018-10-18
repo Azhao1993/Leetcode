@@ -1,4 +1,4 @@
-package Leetcode_69_SqrtX;
+package Leetcode_069_SqrtX;
 
 /*
 	实现 int sqrt(int x) 函数。	
@@ -15,6 +15,7 @@ package Leetcode_69_SqrtX;
 		     由于返回类型是整数，小数部分将被舍去。
 */
 public class SqrtX {
+	//
 	public static void main(String[] args) {
 		SqrtX sx = new SqrtX();
 		System.out.println(sx.mySqrt(9));
