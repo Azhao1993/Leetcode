@@ -1,4 +1,4 @@
-package Leetcode_63_UniquePaths2;
+package Leetcode_063_UniquePaths2;
 
 import UsualMethod.matrixOutput;
 
