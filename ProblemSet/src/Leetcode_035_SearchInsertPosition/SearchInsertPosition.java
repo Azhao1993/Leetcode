@@ -1,4 +1,4 @@
-package Leetcode_35_SearchInsertPosition;
+package Leetcode_035_SearchInsertPosition;
 
 /*
 	给定一个排序数组和一个目标值，在数组中找到目标值，并返回其索引。如果目标值不存在于数组中，返回它将会被按顺序插入的位置。
@@ -21,6 +21,7 @@ package Leetcode_35_SearchInsertPosition;
 		输出: 0
 */
 public class SearchInsertPosition {
+	//35.搜索插入位置
 	public int searchInsert(int[] nums, int target) {
 		 if(target <= nums[0]) {
 			 return 0;
