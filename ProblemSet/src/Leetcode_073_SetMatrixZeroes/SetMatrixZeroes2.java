@@ -1,4 +1,4 @@
-package Leetcode_73_SetMatrixZeroes;
+package Leetcode_073_SetMatrixZeroes;
 
 import UsualMethod.matrixOutput;
 
