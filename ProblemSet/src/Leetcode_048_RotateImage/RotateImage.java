@@ -1,4 +1,4 @@
-package Leetcode_48_RotateImage;
+package Leetcode_048_RotateImage;
 
 /*
 	给定一个 n × n 的二维矩阵表示一个图像。
