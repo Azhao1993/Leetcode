@@ -1,4 +1,4 @@
-package Leetcode_26_RemoveDuplicatesfromSortedArray;
+package Leetcode_026_RemoveDuplicatesfromSortedArray;
 
 /*
 
@@ -16,6 +16,7 @@ package Leetcode_26_RemoveDuplicatesfromSortedArray;
 		你不需要考虑数组中超出新长度后面的元素。
 */
 public class RemoveDuplicatesfromSortedArray {
+	//26.删除排序数组中的重复项
 	public int removeDuplicates(int[] nums) {
 		if (nums.length <= 1) {
 			return nums.length;
