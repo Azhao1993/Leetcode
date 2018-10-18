@@ -1,4 +1,4 @@
-package Leetcode_14_LongestCommonPrefix;
+package Leetcode_014_LongestCommonPrefix;
 /*
 	编写一个函数来查找字符串数组中的最长公共前缀。
 	
