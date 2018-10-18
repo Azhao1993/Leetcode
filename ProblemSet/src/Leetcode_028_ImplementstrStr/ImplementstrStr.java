@@ -1,4 +1,4 @@
-package Leetcode_28_ImplementstrStr;
+package Leetcode_028_ImplementstrStr;
 
 /*
 	实现 strStr() 函数。
@@ -26,7 +26,7 @@ public class ImplementstrStr {
 		System.out.println(issS.strStr("mississippi", "pi"));		
 		
 	}
-
+	//28.实现strStr() 
 	// 实现String.indexof(String str)的功能
 	public int strStr(String haystack, String needle) {
 		// needle为空时返回0
