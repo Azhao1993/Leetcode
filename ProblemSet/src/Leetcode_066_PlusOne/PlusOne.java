@@ -1,4 +1,4 @@
-package Leetcode_66_PlusOne;
+package Leetcode_066_PlusOne;
 /*
 
 给定一个非负整数组成的非空数组，在该数的基础上加一，返回一个新的数组。
@@ -16,6 +16,7 @@ package Leetcode_66_PlusOne;
 	解释: 输入数组表示数字 4321。
 */
 public class PlusOne {
+	//66.加一
 	public int[] plusOne(int[] digits) {
 		//获取数字的位数
 		int length = digits.length;
