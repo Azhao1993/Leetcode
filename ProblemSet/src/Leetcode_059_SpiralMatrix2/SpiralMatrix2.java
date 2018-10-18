@@ -1,4 +1,4 @@
-package Leetcode_59_SpiralMatrix2;
+package Leetcode_059_SpiralMatrix2;
 
 /*
 	给定一个正整数 n，生成一个包含 1 到 n2 所有元素，且元素按顺时针顺序螺旋排列的正方形矩阵。
@@ -12,6 +12,8 @@ package Leetcode_59_SpiralMatrix2;
 		]
  */
 public class SpiralMatrix2 {
+	
+	//59.螺旋矩阵 II
 	public int[][] generateMatrix(int n) {
 		// 创建二维输出
 		int[][] result = new int[n][n];
