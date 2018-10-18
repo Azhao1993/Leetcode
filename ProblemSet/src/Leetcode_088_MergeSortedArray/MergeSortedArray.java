@@ -1,4 +1,4 @@
-package Leetcode_88_MergeSortedArray;
+package Leetcode_088_MergeSortedArray;
 
 /*
 
@@ -15,6 +15,7 @@ package Leetcode_88_MergeSortedArray;
 	输出: [1,2,2,3,5,6]
 */
 public class MergeSortedArray {
+	//88.合并两个有序数组
 	public void merge(int[] nums1, int m, int[] nums2, int n) {
         //将两个数组重新放在一起重新排序
 		for(int i = 0;i<n;i++) {
