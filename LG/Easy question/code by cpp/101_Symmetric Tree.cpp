@@ -2,7 +2,7 @@
 #include<vector>
 using namespace std;
 /*
-101. 对称二叉树的最大深度
+101. 对称二叉树
 
 给定一个二叉树，检查它是否是镜像对称的。
 
