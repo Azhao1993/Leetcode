@@ -34,7 +34,7 @@ int removeDuplicates(vector<int>& nums) {
 int main(){
     int x[7] = {0,0,1,1,1,2,2};
     vector<int>nums(x,x+7);
-    int n = removeDuplicates(nums);
-    cout<<n<<endl;
+    int num = removeDuplicates(nums);
+    cout<<num<<endl;
 	return 0;
 }
