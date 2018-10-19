@@ -29,8 +29,8 @@ void reverse(vector<int>& nums, int left, int right)
 
 void rotate(vector<int>& nums, int k)
 {
-    if(nums.size() <= 0 ||  k < 0 )return;
     k = k%nums.size();  //防止溢出  [1,2] 3
+    if(nums.size() <= 1 ||  k <= 0 )return ;
     int left = 0;
     int right = nums.size()-1;
     int mid = right-k;
