@@ -49,6 +49,6 @@ vector<string> fizzBuzz(int n) {
 int main(){
     vector<string>nums = fizzBuzz(15);
     for(int i = 0;i<nums.size();i++)
-    cout<<nums[i]<<endl;
+        cout<<nums[i]<<endl;
 	return 0;
 }
