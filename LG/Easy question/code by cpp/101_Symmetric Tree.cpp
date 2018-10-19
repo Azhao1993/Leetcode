@@ -25,15 +25,14 @@ using namespace std;
 如果你可以运用递归和迭代两种方法解决这个问题，会很加分。
  */
 
-/**
- * Definition for a binary tree node.
- * struct TreeNode {
- *     int val;
- *     TreeNode *left;
- *     TreeNode *right;
- *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
- * };
- */
+// Definition for a binary tree node.
+struct TreeNode {
+    int val;
+    TreeNode *left;
+    TreeNode *right;
+    TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+  };
+
 class Solution {
 public:
     bool isSymmetric(TreeNode* root) {
