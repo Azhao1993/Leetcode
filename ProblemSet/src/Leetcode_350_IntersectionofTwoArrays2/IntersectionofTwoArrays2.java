@@ -2,6 +2,8 @@ package Leetcode_350_IntersectionofTwoArrays2;
 
 import java.util.Arrays;
 
+import UsualMethod.matrixOutput;
+
 /*
 	给定两个数组，编写一个函数来计算它们的交集。
 	
@@ -23,19 +25,49 @@ public class IntersectionofTwoArrays2 {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-
+		int[] nums1 = {-2147483648,1,2,3};
+		int[] nums2 = {1,-2147483648,-2147483648};		
+		IntersectionofTwoArrays2 it2 = new IntersectionofTwoArrays2();
+		//输出数组
+		matrixOutput mo = new matrixOutput();
+		mo.ArrayOutput(it2.intersect(nums1, nums2));
+		
 	}
 	//350. 两个数组的交集 II
-    public int[] intersect(int[] nums1, int[] nums2) {
+    public int[] intersect(int[] nums1, int[] nums2) {    	     
+    	//nums2大nums1小
+    	int length1 = nums1.length;
+    	int length2 = nums2.length;
+    	if(length1>length2) {
+    		return intersect(nums2,nums1);
+    	}
     	//数组是排序的
     	Arrays.sort(nums1);
-    	Arrays.sort(nums2);        
-    	//nums2大nums1小
+    	Arrays.sort(nums2);    	
+    	int i = 0;
+    	int j = 0 ;
+    	int count = 0;
     	//遍历小数组
-    	for(int i = 0;i<nums1.length;i++) {
-    		//二分查找
-    		
+    	for(;i<length1;i++) {
+    		//遍历查找
+    		for(;j<length2;j++) {
+    			if(nums1[i]==nums2[j]) {
+    				nums1[count++] = nums2[j];
+    				j++;
+    				break;
+    			}
+    			if(nums1[i]<nums2[j]) {
+    				break;
+    			}
+    			
+    		}
     	}
+    	//存入数组
+    	int[] result = new int[count];
+    	for(int x = 0;x<count;x++) {
+    		result[x] =  nums1[x];
+    	}
+    	return result;
     	
     }
 
