@@ -9,7 +9,7 @@ package Leetcode_001_TwoSum;
 		所以返回 [0, 1]
  */
 public class TwoSum {
-	//1. 两数之和
+	//1.两数之和
 	public int[] twoSum(int[] nums, int target) {
         int[] result = new int[] {-1,-1};
         for(int i = 0;i<nums.length-1;i++) {
