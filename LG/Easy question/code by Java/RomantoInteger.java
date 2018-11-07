@@ -56,7 +56,6 @@ public class RomantoInteger {
 		System.out.println(romanToInt("MCMXCIV"));
 		
 	}
-	//13.罗马数字转整数
 	public static int romanToInt(String s) {
 		//hashmap数据结构
 		 HashMap<Character, Integer> map = new HashMap<Character, Integer>();
