@@ -23,11 +23,10 @@ public class ImplementstrStr {
 	public static void main(String[] args) {
 		// TODO 自动生成的方法存根
 		ImplementstrStr issS = new ImplementstrStr();
-		System.out.println(issS.strStr("mississippi", "pi"));
-
+		System.out.println(issS.strStr("mississippi", "pi"));		
+		
 	}
-
-	// 28.实现strStr()
+	//28.实现strStr() 
 	// 实现String.indexof(String str)的功能
 	public int strStr(String haystack, String needle) {
 		// needle为空时返回0
@@ -38,17 +37,17 @@ public class ImplementstrStr {
 		int hlength = haystack.length();
 		// needle的长度
 		int nlength = needle.length();
-		if (nlength == hlength) {
-			if (haystack.equals(needle)) {
+		if(nlength==hlength) {
+			if(haystack.equals(needle)) {
 				return 0;
 			}
-		} else if (nlength > hlength) {
+		}else if(nlength>hlength) {
 			return -1;
 		}
 		StringBuffer haystackbuffer = new StringBuffer(haystack);
-
-		for (int i = 0; i < hlength - nlength + 1; i++) {
-			if (haystackbuffer.substring(i, i + nlength).equals(needle)) {
+		
+		for(int i =0;i<hlength-nlength+1;i++) {
+			if(haystackbuffer.substring(i, i+nlength).equals(needle)) {
 				return i;
 			}
 		}
