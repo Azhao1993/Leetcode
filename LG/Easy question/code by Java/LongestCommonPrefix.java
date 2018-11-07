@@ -22,7 +22,7 @@ public class LongestCommonPrefix {
 		LongestCommonPrefix lcp = new LongestCommonPrefix();
 		System.out.println(lcp.longestCommonPrefix(strs));
 	}
-	//14.最长公共前缀
+	//14. 最长公共前缀
     public String longestCommonPrefix(String[] strs) {
     	if(strs.length==0) {
     		return "";
