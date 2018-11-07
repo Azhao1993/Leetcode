@@ -33,7 +33,7 @@ public class ValidParentheses {
 		ValidParentheses vp = new ValidParentheses();
 		System.out.println(vp.isValid(""));
 	}
-	//20.有效的括号
+	//20. 有效的括号
     public boolean isValid(String s) {
     	//空字符串
     	if(s.equals("")) {
