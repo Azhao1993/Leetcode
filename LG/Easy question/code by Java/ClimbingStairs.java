@@ -21,20 +21,20 @@ package Leetcode_070_ClimbingStairs;
 		2.  1 論 + 2 論
 		3.  2 論 + 1 論
 */
-public class ClimbingStairs {
-	// 70.鰾瞼枍
+public class ClimbingStairs {	
+	//70.鰾瞼枍
 	public static int climbStairs(int n) {
-		int[] Stairs = new int[n];
-		if (n == 1) {
+		int[] Stairs = new int[n];		
+		if(n==1) {
 			return 1;
-		} else if (n == 2) {
+		}else if(n==2) {
 			return 2;
 		}
-		Stairs[0] = 1;
-		Stairs[1] = 2;
-		for (int i = 2; i < n; i++) {
-			Stairs[i] = Stairs[i - 1] + Stairs[i - 2];
+		Stairs[0]=1;
+		Stairs[1]=2;
+		for(int i=2;i<n;i++) {
+			Stairs[i] = Stairs[i-1]+Stairs[i-2];
 		}
-		return Stairs[n - 1];
+		return Stairs[n-1];	
 	}
 }
