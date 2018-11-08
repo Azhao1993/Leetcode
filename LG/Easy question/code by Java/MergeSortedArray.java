@@ -15,20 +15,20 @@ package Leetcode_088_MergeSortedArray;
 	输出: [1,2,2,3,5,6]
 */
 public class MergeSortedArray {
-	// 88.合并两个有序数组
+	//88.合并两个有序数组
 	public void merge(int[] nums1, int m, int[] nums2, int n) {
-		// 将两个数组重新放在一起重新排序
-		for (int i = 0; i < n; i++) {
-			nums1[m + i] = nums2[i];
+        //将两个数组重新放在一起重新排序
+		for(int i = 0;i<n;i++) {
+			nums1[m+i]= nums2[i];
 		}
-		for (int i = 1; i < nums1.length; i++) {
-			for (int j = 0; j < i; j++) {
-				if (nums1[i] < nums1[j]) {
+		for(int i = 1;i<nums1.length;i++) {
+			for(int j = 0;j<i;j++) {
+				if(nums1[i]<nums1[j]) {
 					int temp = nums1[i];
 					nums1[i] = nums1[j];
 					nums1[j] = temp;
 				}
 			}
 		}
-	}
+    }
 }
