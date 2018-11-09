@@ -28,23 +28,23 @@ vector<int> findDiagonalOrder(vector<vector<int> > & matrix) {
     vector<int> arr;
     if(!matrix.size())return arr;
     int arrLength = matrix.size()*matrix[0].size();
-    int left = 0,right = 0;
+    int row = 0,column = 0;
     for(int i = 0; i < arrLength; i++){
-        arr.push_back(matrix[left][right]);
-        if((left + right) % 2 ){
+        arr.push_back(matrix[row][column]);
+        if((row + column) % 2 ){
             // 左下
-            if(left == matrix.size()-1)// 右
-                right++;
-            else if(right == 0)// 下
-                left++;
-            else left++,right--;// 左下
+            if(row == matrix.size()-1)// 右
+                column++;
+            else if(column == 0)// 下
+                row++;
+            else row++,column--;// 左下
         }else{
             // 右上
-            if(right == matrix[0].size()-1)// 下
-                left++;
-            else if(left == 0)// 右
-                right++;
-            else left--,right++;// 右上
+            if(column == matrix[0].size()-1)// 下
+                row++;
+            else if(row == 0)// 右
+                column++;
+            else row--,column++;// 右上
         }
     }
     return arr;
