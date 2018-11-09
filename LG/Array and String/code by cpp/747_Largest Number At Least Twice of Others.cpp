@@ -32,12 +32,20 @@ nums 的长度范围在[1, 50].
 */
 
 int dominantIndex(vector<int>& nums) {
-    int maxValue = 0, secondMax = 0;
-
+    int maxValue = 0, secondMax = 0, index = 0;
+    for(int i = 0;i<nums.size();i++){
+    	if(nums[i]>=maxValue){
+    		secondMax = maxValue;
+    		maxValue = nums[i];
+    		index = i;
+    	}else if(nums[i]>secondMax)secondMax = nums[i];
+    }
+    if(maxValue >= 2*secondMax)return index;
+    return -1;
 }
 
 int main(){
-    int x[6] = {3,6,1,0,1,1};
+    int x[6] = {3,4,1,0,1,1};
     vector<int>nums(x,x+4);
     cout<<dominantIndex(nums)<<endl;
 	return 0;
