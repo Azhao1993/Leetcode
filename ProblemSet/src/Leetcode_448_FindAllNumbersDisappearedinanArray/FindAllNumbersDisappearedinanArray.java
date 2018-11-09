@@ -15,7 +15,5 @@ package Leetcode_448_FindAllNumbersDisappearedinanArray;
 */
 public class FindAllNumbersDisappearedinanArray {
 	//448. 找到所有数组中消失的数字
-    public List<Integer> findDisappearedNumbers(int[] nums) {
-        
-    }
+    
 }
