@@ -1,9 +1,9 @@
 #include<iostream>
 #include<vector>
-#include<map>
+#include<set>
 using namespace std;
 /*
-3 49. 两个数组的交集
+349. 两个数组的交集
 
 给定两个数组，编写一个函数来计算它们的交集。
 
@@ -18,14 +18,13 @@ using namespace std;
 */
 vector<int> intersection(vector<int>& nums1, vector<int>& nums2) {
     // 给定两个数组，写一个方法来计算它们的交集。
-    map<int,int> cnt;
+    set<int> cnt(nums1.begin(),nums1.end());
     vector<int> inter;
-    for(int i=0;i<nums1.size();i++){
-        cnt[nums1[i]]=1;
-    }
     for(int i=0;i<nums2.size();i++)
-        if(cnt.find(nums2[i])!=cnt.end())
-            if(cnt[nums2[i]]-- > 0)inter.push_back(nums2[i]);
+        if(cnt.find(nums2[i])!=cnt.end()){
+            inter.push_back(nums2[i]);
+            cnt.erase(nums2[i]);
+        }
     return inter;
 }
 
