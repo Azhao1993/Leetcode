@@ -31,7 +31,6 @@ public class Powerof3 {
 	}
 
 	// 326. 3µÄÃÝ
-
 	public boolean isPowerOfThree1(int n) {
 		// ±©Á¦Ëã·¨
 		if (n == 0) {
