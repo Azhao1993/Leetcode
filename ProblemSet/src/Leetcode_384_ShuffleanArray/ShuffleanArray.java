@@ -1,6 +1,7 @@
 package Leetcode_384_ShuffleanArray;
 
 import java.util.Arrays;
+import java.util.Random;
 
 /*
 	打乱一个没有重复元素的数组。
@@ -21,19 +22,22 @@ import java.util.Arrays;
  */
 public class ShuffleanArray {
 	
-
+	// 384. 打乱数组	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		
+		int[] nums = {1,2,3};
+		ShuffleanArray sa = new ShuffleanArray(nums);
+		int[] reset = sa.reset();
+		int[] cur = sa.shuffle();
 	}
 
-	
-	//初始化数组
-	private int[] orgn;//用于保存数组的原始顺序	
+	// 初始化数组
+	private int[] orgn;// 用于保存数组的原始顺序
 	private int[] cur;
-	
-	// 384. 打乱数组
-	public Solution(int[] nums) {
+
+	//构造函数
+	public ShuffleanArray(int[] nums) {
+		//保留原数组
         orgn = nums;
     }
 
@@ -44,12 +48,36 @@ public class ShuffleanArray {
 
 	/** Returns a random shuffling of the array. */
 	public int[] shuffle() {
-		
+		//获取原数组的长度
+		int len = orgn.length;
+		//创建运算数组
+		cur = new int[len];
+		//
+		for (int i = 0; i < len; i++) {
+			cur[i] = orgn[i];
+			
+		}			
+		// 记录要交换元素的位置
+		int pos;
+		// 记录要交换的值
+		int temp; 
+		//随机函数对象
+		Random ran = new Random();
+		for (int i = len - 1; i >= 0; i--) {
+			//0-i随机数
+			pos = ran.nextInt(i + 1);
+			//交换
+			temp = cur[pos];
+			cur[pos] = cur[i];
+			cur[i] = temp;
+		}
+		return cur;
 	}
 }
 
 /**
- * Your Solution object will be instantiated and called as such: Solution obj =
- * new Solution(nums); int[] param_1 = obj.reset(); int[] param_2 =
- * obj.shuffle();
+ * Your Solution object will be instantiated and called as such: 
+ * Solution obj =  new Solution(nums); 
+ * int[] param_1 = obj.reset(); 
+ * int[] param_2 = obj.shuffle();
  */
