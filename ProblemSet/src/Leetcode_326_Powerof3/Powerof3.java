@@ -27,11 +27,10 @@ public class Powerof3 {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		System.out.println(new Powerof3().isPowerOfThree(27));
+		System.out.println(new Powerof3().isPowerOfThree2(27));
 	}
 
 	// 326. 3µÄÃÝ
-
 	public boolean isPowerOfThree1(int n) {
 		// ±©Á¦Ëã·¨
 		if (n == 0) {
