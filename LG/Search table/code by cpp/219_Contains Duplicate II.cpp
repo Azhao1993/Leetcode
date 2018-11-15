@@ -20,13 +20,14 @@ using namespace std;
 输入: nums = [1,2,3,1,2,3], k = 2
 输出: false
 */
-bool containsDuplicate(vector<int>& nums, int k) {
-	// 放进set里进行查找
+
+bool containsNearbyDuplicate(vector<int>& nums, int k) {
+    // 放进set里进行查找
     set<int> cnt;
     for(int i=0;i<nums.size();i++){
         if(cnt.find(nums[i])!=cnt.end())return true;
         cnt.insert(nums[i]);
-        if(i>=k)cnt.remove(nums[i-k]);
+        if(i>=k)cnt.erase(nums[i-k]);
     }
     return false;
 }
@@ -34,6 +35,6 @@ bool containsDuplicate(vector<int>& nums, int k) {
 int main(){
     int x[7] = {0,1,6,7,8,9,0};
     vector<int>nums(x,x+7);
-    cout<<containsDuplicate(nums,7)<<endl;
+    cout<<containsNearbyDuplicate(nums,7)<<endl;
 	return 0;
 }
