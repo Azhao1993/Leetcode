@@ -22,7 +22,8 @@ package Leetcode_121_BestTimetoBuyandSellStock;
 //（2）动态规划法。从前向后遍历数组，记录当前出现过的最低价格，作为买入价格，并计算以当天价格出售的收益，作为可能的最大收益，整个遍历过程中，出现过的最大收益就是所求。
 
 public class BestTimetoBuyandSellStock {
-	// 算法1
+	//121.买卖股票的最佳时机
+	//算法1
 	public int maxProfit(int[] prices) {
 		// 数组的长度
 		if (prices.length < 2) {

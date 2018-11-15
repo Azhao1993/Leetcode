@@ -28,8 +28,8 @@ public class FindPeakElement {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		FindPeakElement fpe = new FindPeakElement();
-		int[] nums = { 1,2,1,3,5,6,4 };
-		System.out.println(fpe.findPeakElement(nums));
+		int[] nums = { 1,2,3,1 };
+		System.out.println(fpe.findPeakElement2(nums));
 	}
 
 	// 162. 寻找峰值
@@ -70,6 +70,35 @@ public class FindPeakElement {
 		//此处返回值不影响结果
 		return left;
 		
+	}
+	
+	//模板3
+	public int findPeakElement2(int[] nums) {
+		// 长度为1
+		if (nums.length == 1) {
+			return 0;
+		}		
+		int left = 0;
+		int right = nums.length-1;
+		if(nums[left]>nums[left+1]){
+			return left;
+		}
+		if(nums[right]>nums[right-1]) {
+			return right;
+		}
+		
+		while(left+1<right) {			
+			int mid = left + (right-left)/2;
+			//mid是峰值
+			if((mid>0)&&(nums[mid]>nums[mid-1])&&(mid<nums.length-1)&&(nums[mid]>nums[mid+1])) {
+				return mid;
+			}else if(nums[mid]<nums[mid+1]) {
+				left = mid;
+			}else  {
+				right = mid;
+			}			
+		}
+		return left;
 	}
 
 }
