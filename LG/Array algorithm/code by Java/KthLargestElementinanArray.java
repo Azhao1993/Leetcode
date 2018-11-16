@@ -48,13 +48,13 @@ public class KthLargestElementinanArray {
     	while(i<=r) {
     		if(nums[i]<val) {
     			//½»»»
-    			array.exchange(nums,i,l);
-    			//exchange(nums,i,l);
+    			//array.exchange(nums,i,l);
+    			exchange(nums,i,l);
     			i++;
     			l++;
     		}else if(nums[i]>val) {
-    			array.exchange(nums,i,r);
-    			//exchange(nums,i,r);
+    			//array.exchange(nums,i,r);
+    			exchange(nums,i,r);
     			r--;
     		}else {
     			i++;
@@ -74,6 +74,12 @@ public class KthLargestElementinanArray {
 		}    
     	
     	
+    }
+    
+	public  void exchange(int[] nums,int i ,int j) {
+    	int temp = nums[i];
+    	nums[i] =nums[j];
+    	nums[j] = temp;
     }
     
 
