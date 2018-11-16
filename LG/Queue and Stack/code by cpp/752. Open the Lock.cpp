@@ -1,6 +1,7 @@
 #include<iostream>
 #include<vector>
 #include<queue>
+#include<unordered_set>
 using namespace std;
 /*
 752. 打开转盘锁
@@ -13,7 +14,7 @@ using namespace std;
 
 字符串 target 代表可以解锁的数字，你需要给出最小的旋转次数，如果无论如何不能解锁，返回 -1。
 
- 
+
 
 示例 1:
 
@@ -39,7 +40,7 @@ using namespace std;
 
 输入: deadends = ["0000"], target = "8888"
 输出：-1
- 
+
 
 提示：
 
@@ -49,25 +50,44 @@ using namespace std;
 */
 
 int openLock(vector<string>& deadends, string target) {
-        
+    queue<string> que;
+    string sta = "0000";
+    unordered_set<string> hash_dead;
+    unordered_set<string> visited;
+    visited.insert(sta);
+    for(auto it:deadends)hash_dead.insert(it);
+    if(hash_dead.find(sta)!=hash_dead.end())return -1;
+    int res = 0;
+    que.push(sta);
+    while(!que.empty()){
+        for(int i= que.size();i>0;i--){
+            string top = que.front();que.pop();
+            if(!top.compare(target))return res;
+            string back = top;
+            for(int j=0;j<4;j++){
+                top[j] = (top[j]-'0'+1)%10+'0';
+                if(visited.find(top)==visited.end() && hash_dead.find(top)==hash_dead.end()){
+                    visited.insert(top);
+                    que.push(top);
+                }
+                top[j] = (top[j]-'0'+8)%10+'0';
+                if(visited.find(top)==visited.end() && hash_dead.find(top)==hash_dead.end()){
+                    visited.insert(top);
+                    que.push(top);
+                }
+                top = back;
+            }
+        }
+        res++;
+    }
+    return -1;
 }
 
 int main(){
-    char cha[5]={'1','1','0','0','0'};
-    vector<char> a(cha,cha+5);
-    char chb[5]={'0','0','1','0','0'};
-    vector<char> b(chb,chb+5);
-    char chc[5]={'0','0','0','1','1'};
-    vector<char> c(chc,chc+5);
-    vector<vector<char> > grid;
-    grid.push_back(a);grid.push_back(a);grid.push_back(b);
-    grid.push_back(c);grid.push_back(c);
-    for (int i = 0; i < grid.size(); ++i){
-        for (int j = 0; j < grid[i].size(); ++j)
-            cout<<grid[i][j]<<' ';
-        cout<<endl;
-    }    
-    int n = numIslands(grid);
+    string a = "8888";
+    vector<string> dead;
+    dead.push_back(a);
+    int n = openLock(dead, "0009");
     cout<<n<<endl;
     return 0;
 }
