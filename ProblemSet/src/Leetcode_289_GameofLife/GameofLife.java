@@ -2,7 +2,7 @@ package Leetcode_289_GameofLife;
 
 import java.util.Arrays;
 
-import UsualMethod.matrixOutput;
+
 
 /*
 	根据百度百科，生命游戏，简称为生命，是英国数学家约翰·何顿·康威在1970年发明的细胞自动机。
