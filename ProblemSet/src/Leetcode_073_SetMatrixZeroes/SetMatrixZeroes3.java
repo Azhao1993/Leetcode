@@ -5,15 +5,7 @@ import UsualMethod.matrixOutput;
 public class SetMatrixZeroes3 {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		SetMatrixZeroes3 smz3 = new SetMatrixZeroes3();
-		matrixOutput mo = new matrixOutput();
-		int[][] matrix = {{0,1,2,0},{3,4,5,2},{1,3,1,5}};
-		System.out.println("÷√¡„«∞£∫");
-		mo.ArrayOutput(matrix);
-		smz3.setZeroes(matrix);
-		System.out.println("÷√¡„∫Û£∫");
-		mo.ArrayOutput(matrix);
+		
 	}
 	//73. æÿ’Û÷√¡„
 	//≥£ ˝ø’º‰
