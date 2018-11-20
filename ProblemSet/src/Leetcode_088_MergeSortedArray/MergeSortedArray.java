@@ -1,6 +1,6 @@
 package Leetcode_088_MergeSortedArray;
 
-import UsualMethod.array;
+import UsualMethod.ArrayUtil;
 
 /*
 
@@ -32,7 +32,7 @@ public class MergeSortedArray {
 			nums1[i] = nums2[i-m];
 			int j = i;
 			while((m>0)&&(j>0)&&(nums1[j]<nums1[j-1])) {
-				array.exchange(nums1, j, j-1);
+				ArrayUtil.exchange(nums1, j, j-1);
 				j--;
 			}
 		}
