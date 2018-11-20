@@ -34,13 +34,14 @@ public class FizzBuzz {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-
+		FizzBuzz fb = new FizzBuzz();
+		System.out.println(fb.fizzBuzz(1));
 	}
 
 	// 412.Fizz Buzz
 	public List<String> fizzBuzz(int n) {
 		List<String> list = new ArrayList<String>();
-		for (int i = 0; i <= n; i++) {
+		for (int i = 1; i <= n; i++) {
 			if ((i % 3 == 0) && (i % 5 == 0)) {
 				list.add("FizzBuzz");				
 			}else if (i % 3 == 0) {
