@@ -1,6 +1,6 @@
 package Leetcode_215_KthLargestElementinanArray;
 
-import UsualMethod.array;
+import UsualMethod.ArrayUtil;
 
 /*
 	在未排序的数组中找到第 k 个最大的元素。
@@ -48,12 +48,12 @@ public class KthLargestElementinanArray {
     	while(i<=r) {
     		if(nums[i]<val) {
     			//交换
-    			array.exchange(nums,i,l);
+    			ArrayUtil.exchange(nums,i,l);
     			//exchange(nums,i,l);
     			i++;
     			l++;
     		}else if(nums[i]>val) {
-    			array.exchange(nums,i,r);
+    			ArrayUtil.exchange(nums,i,r);
     			//exchange(nums,i,r);
     			r--;
     		}else {
