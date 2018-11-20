@@ -1,6 +1,6 @@
 package Leetcode_733_FloodFill;
 
-import UsualMethod.matrixOutput;
+
 
 /*
 	有一幅以二维整数数组表示的图画，每一个整数表示该图画的像素值大小，数值在 0 到 65535 之间。
@@ -66,9 +66,7 @@ public class FloodFill {
 		if ((sc < image[0].length - 1) && (image[sr][sc + 1] == old)) {
 			floodFill(image, sr , sc+ 1, newColor);
 		}
-		// 输出二维数组
-		matrixOutput mo = new matrixOutput();
-		mo.ArrayOutput(image);
+		
 		return image;
 	}
 
