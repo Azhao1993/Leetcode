@@ -26,7 +26,7 @@ public class SumofTwoIntegers {
 		int carry = a & b;
 		if (carry != 0) {
 			carry <<= 1;
-			return getSum(carry,result);
+			return getSum(carry, result);
 		}
 		return result;
 
