@@ -37,7 +37,8 @@ public class PrimeNumberofSetBitsinBinaryRepresentation {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-
+		PrimeNumberofSetBitsinBinaryRepresentation pnsbbr = new PrimeNumberofSetBitsinBinaryRepresentation();
+		System.out.println(pnsbbr.countPrimeSetBits(244, 269));
 	}
 
 	// 762. 二进制表示中质数个计算置位
@@ -50,18 +51,32 @@ public class PrimeNumberofSetBitsinBinaryRepresentation {
 				if (temp % 2 == 1) {
 					primecount++;
 				}
+				temp /= 2;
 			}
 			// 判断primecount是否是质数
-			for (int j = 2; j < primecount; j++) {
-				if (primecount % j == 0) {
-					continue;
-				}
-				if (j == primecount - 1) {
-					count++;
-				}
+			if (isPrime(primecount)) {
+				count++;
 			}
 		}
 		return count;
+	}
+
+	// 判断是不是质数
+	public boolean isPrime(int primecount) {
+		if (primecount == 1) {
+			return false;
+		}
+		if ((primecount == 2) || (primecount == 3)) {
+			// System.out.println(primecount);
+			return true;
+		}
+		for (int j = 2; j < primecount; j++) {
+			if (primecount % j == 0) {
+				return false;
+			}
+		}
+		// System.out.println(primecount);
+		return true;
 	}
 
 }
