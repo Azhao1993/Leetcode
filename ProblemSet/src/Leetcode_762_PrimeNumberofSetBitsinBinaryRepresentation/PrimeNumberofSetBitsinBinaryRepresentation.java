@@ -1,4 +1,5 @@
 package Leetcode_762_PrimeNumberofSetBitsinBinaryRepresentation;
+
 /*
 	给定两个整数 L 和 R ，找到闭区间 [L, R] 范围内，计算置位位数为质数的整数个数。
 	
@@ -38,28 +39,29 @@ public class PrimeNumberofSetBitsinBinaryRepresentation {
 		// TODO Auto-generated method stub
 
 	}
-	//762. 二进制表示中质数个计算置位
-    public int countPrimeSetBits(int L, int R) {
-    	int count = 0;
-        for(int i = L;i<=R;i++) {
-        	int primecount  = 0;
-        	int temp = i;
-        	while(temp>0) {
-        		if(temp%2==1) {
-        			primecount++;
-        		}
-        	}
-        	//判断primecount是否是质数        	
-        	for(int j = 2;j<primecount;j++) {
-        		if(primecount%j==0) {
-        			continue;
-        		}
-        		if(j==primecount-1) {
-        			count++;
-        		}
-        	}
-        }
-        return count;
-    }
+
+	// 762. 二进制表示中质数个计算置位
+	public int countPrimeSetBits(int L, int R) {
+		int count = 0;
+		for (int i = L; i <= R; i++) {
+			int primecount = 0;
+			int temp = i;
+			while (temp > 0) {
+				if (temp % 2 == 1) {
+					primecount++;
+				}
+			}
+			// 判断primecount是否是质数
+			for (int j = 2; j < primecount; j++) {
+				if (primecount % j == 0) {
+					continue;
+				}
+				if (j == primecount - 1) {
+					count++;
+				}
+			}
+		}
+		return count;
+	}
 
 }
