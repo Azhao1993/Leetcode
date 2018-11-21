@@ -1,4 +1,5 @@
 package Leetcode_693_BinaryNumberwithAlternatingBits;
+
 /*
 	给定一个正整数，检查他是否为交替位二进制数：换句话说，就是他的二进制数相邻的两个位数永不相等。
 	
@@ -32,20 +33,21 @@ public class BinaryNumberwithAlternatingBits {
 		// TODO 自动生成的方法存根
 
 	}
-	//693. 交替位二进制数
-    public boolean hasAlternatingBits(int n) {
-        while(n>0) {
-        	int temp = n%2;
-        	n/=2;
-        	if(n<=0) {
-        		return true;
-        	}
-        	if(n>0) {
-        		if(temp==n%2) {
-        			return false;
-        		}
-        	}
-        }
-        return true;
-    }
+
+	// 693. 交替位二进制数
+	public boolean hasAlternatingBits(int n) {
+		while (n > 0) {
+			int temp = n % 2;
+			n /= 2;
+			if (n <= 0) {
+				return true;
+			}
+			if (n > 0) {
+				if (temp == n % 2) {
+					return false;
+				}
+			}
+		}
+		return true;
+	}
 }
