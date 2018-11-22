@@ -1,6 +1,6 @@
 package Leetcode_167_TwoSum2Inputarrayissorted;
 
-import UsualMethod.matrixOutput;
+
 
 /*
 
@@ -21,11 +21,7 @@ import UsualMethod.matrixOutput;
 public class TwoSum2 {
 
 	public static void main(String[] args) {
-		int[] numbers = { 2, 7, 11, 15 };
-		int target = 9;
-		TwoSum2 ts2 = new TwoSum2();
-		matrixOutput mo = new matrixOutput();
-		mo.ArrayOutput(ts2.twoSum(numbers, target));
+		
 	}
 
 	// 167. 两数之和 II - 输入有序数组

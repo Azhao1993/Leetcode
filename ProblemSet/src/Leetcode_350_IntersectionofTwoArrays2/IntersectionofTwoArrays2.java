@@ -2,7 +2,7 @@ package Leetcode_350_IntersectionofTwoArrays2;
 
 import java.util.Arrays;
 
-import UsualMethod.matrixOutput;
+
 
 /*
 	给定两个数组，编写一个函数来计算它们的交集。
@@ -24,14 +24,7 @@ import UsualMethod.matrixOutput;
 public class IntersectionofTwoArrays2 {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		int[] nums1 = { -2147483648, 1, 2, 3 };
-		int[] nums2 = { 1, -2147483648, -2147483648 };
-		IntersectionofTwoArrays2 it2 = new IntersectionofTwoArrays2();
-		// 输出数组
-		matrixOutput mo = new matrixOutput();
-		mo.ArrayOutput(it2.intersect(nums1, nums2));
-
+		
 	}
 
 	// 350. 两个数组的交集 II

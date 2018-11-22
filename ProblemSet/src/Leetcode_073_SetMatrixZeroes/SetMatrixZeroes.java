@@ -1,6 +1,5 @@
 package Leetcode_073_SetMatrixZeroes;
 
-import UsualMethod.matrixOutput;
 
 /*
 	给定一个 m x n 的矩阵，如果一个元素为 0，则将其所在行和列的所有元素都设为 0。请使用原地算法。
@@ -39,15 +38,7 @@ import UsualMethod.matrixOutput;
 public class SetMatrixZeroes {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		SetMatrixZeroes smz = new SetMatrixZeroes();
-		matrixOutput mo = new matrixOutput();
-		int[][] matrix = {{0,1,2,0},{3,4,5,2},{1,3,1,5}};
-		System.out.println("置零前：");
-		mo.ArrayOutput(matrix);
-		smz.setZeroes(matrix);
-		System.out.println("置零后：");
-		mo.ArrayOutput(matrix);
+		
 	}
 	//73. 矩阵置零
 	//左乘变行，右乘变列

@@ -10,7 +10,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.Vector;
 
-import UsualMethod.matrixOutput;
+
 
 
 
@@ -30,13 +30,7 @@ import UsualMethod.matrixOutput;
 public class IntersectionofTwoArrays {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		int[] nums1 = {4,9,5};
-		int[] nums2 = {9,4,9,8,4};
-		IntersectionofTwoArrays it = new IntersectionofTwoArrays();		
-		//Arrays.toString( it.intersection(nums1, nums2));
-		matrixOutput  mo = new matrixOutput();
-		mo.ArrayOutput( it.intersection2(nums1, nums2));
+		
 	}
 	//349. 两个数组的交集
 	//集合的处理方式有两种set和map
