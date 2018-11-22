@@ -1,4 +1,7 @@
 package Leetcode_893_GroupsofSpecialEquivalentStrings;
+
+import java.util.Arrays;
+
 /*
 	你将得到一个字符串数组 A。
 	如果经过任意次数的移动，S == T，那么两个字符串 S 和 T 是特殊等价的。
@@ -39,11 +42,91 @@ public class GroupsofSpecialEquivalentStrings {
 
 	public static void main(String[] args) {
 		// TODO 自动生成的方法存根
+		GroupsofSpecialEquivalentStrings gses = new GroupsofSpecialEquivalentStrings();
+		String[] A = { "abcd", "cdab", "adcb", "cbad" };
+
+		System.out.println(gses.numSpecialEquivGroups(A));
+	}
+
+	// 893. 特殊等价字符串组(269 ms)
+	public int numSpecialEquivGroups(String[] A) {
+		int count = 0;
+		for (int i = 0; i < A.length; i++) {
+			if (A[i] != null) {
+				count++;
+				int j = i + 1;
+				while (j < A.length) {
+					if (A[i].equals(A[j])) {
+						A[j] = null;
+						j++;
+						continue;
+					}
+					// 判断是否是等价，等价置空
+					if (A[j] == null) {
+						j++;
+						continue;
+					}
+					if (A[i].length() == A[j].length()) {
+						// A[i] A[j]
+						// 是等价字符串
+						if (isSpecialEquivalent(A[i], A[j])) {
+							A[j] = null;
+						} else {
+							j++;
+							continue;
+						}
+					} else {
+						j++;
+						continue;
+					}
+				}
+			}
+		}
+		return count;
+	}
+
+	private boolean isSpecialEquivalent(String a, String b) {
+		// TODO Auto-generated method stub
+		if (a.length() == 1) {
+			return a.equals(b);
+		}
+		// 偶数位数组
+		char[] atemp = new char[(a.length() + 1) / 2];
+		char[] btemp = new char[(a.length() + 1) / 2];
+		// 奇数位数组
+		char[] atemp2 = new char[a.length() / 2];
+		char[] btemp2 = new char[a.length() / 2];
+
+		int index1 = 0;
+		int index2 = 0;
+
+		for (int i = 0; i < a.length(); i++) {
+			if (i % 2 == 0) {
+				atemp[index1] = a.charAt(i);
+				btemp[index1++] = b.charAt(i);
+
+			} else {
+				atemp2[index2] = a.charAt(i);
+				btemp2[index2++] = b.charAt(i);
+			}
+		}
+		// 排序
+		Arrays.sort(atemp);
+		Arrays.sort(btemp);
+		for (int i = 0; i < atemp.length; i++) {
+			if (atemp[i] != btemp[i]) {
+				return false;
+			}
+		}
+		Arrays.sort(atemp2);
+		Arrays.sort(btemp2);
+		for (int i = 0; i < atemp2.length; i++) {
+			if (atemp2[i] != btemp2[i]) {
+				return false;
+			}
+		}
+		return true;
 
 	}
-	//893. 特殊等价字符串组
-    public int numSpecialEquivGroups(String[] A) {
-        
-    }
 
 }
