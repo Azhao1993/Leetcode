@@ -1,6 +1,8 @@
 # Leetcode
 The code of Leetcode
+
 其中LG文件夹是按照LeetCode探索中的每个章节进行划分文件夹，包括C++实现和JAVA实现
+
 ProblemSet文件夹则是按照LeetCode题目标签进行划分文件夹，JAVA实现
 
 ### 章节直通车
@@ -19,4 +21,4 @@ ProblemSet文件夹则是按照LeetCode题目标签进行划分文件夹，JAVA�
 
 - [查找表类算法 Search table](https://github.com/ontheway12138/Leetcode/tree/master/LG/Search%20table)
 
-- [前缀树 Trie](https://github.com/ontheway12138/Leetcode/tree/master/LG/Trie)
+- [前缀树 Trie](https://github.com/ontheway12138/Leetcode/tree/master/LG/Trie) 

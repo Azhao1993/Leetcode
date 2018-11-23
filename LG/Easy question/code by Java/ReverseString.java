@@ -12,6 +12,10 @@ package Leetcode_344_ReverseString;
 */
 public class ReverseString {
 	// 344.·­×ª×Ö·û´®
+	public String reverseString2(String s) {
+		StringBuilder sb = new StringBuilder(s);
+		return sb.reverse().toString();
+	}
 	public String reverseString(String s) {
 		char[] ch = s.toCharArray();
 		for (int i = 0; i < ch.length / 2; i++) {

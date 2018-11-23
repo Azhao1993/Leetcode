@@ -1,6 +1,6 @@
 package Leetcode_303_RangeSumQueryImmutable;
 
-import UsualMethod.matrixOutput;
+
 
 /*
 	给定一个整数数组  nums，求出数组从索引 i 到 j  (i ≤ j) 范围内元素的总和，包含 i,  j 两点。
@@ -49,8 +49,7 @@ public class NumArray {
 		for(int i=1;i<nums.length;i++ ) {
 			arr[i]=arr[i-1]+nums[i];
 		}
-		//输出一维数组
-		new matrixOutput().ArrayOutput(arr);
+		
 	}
 
 	public int sumRange(int i, int j) {
