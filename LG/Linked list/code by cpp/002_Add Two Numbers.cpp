@@ -32,7 +32,7 @@ public:
         int acc = 0;
         ListNode* head = new ListNode(0);
         ListNode* temp = head;
-        // 速率快
+        // 速率快, 后面只遍历一个
         while(l1 && l2){
             int num = l1->val+l2->val+acc;
             l1 = l1->next;
