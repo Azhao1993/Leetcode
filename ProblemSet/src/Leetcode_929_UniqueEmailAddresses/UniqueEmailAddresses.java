@@ -30,7 +30,7 @@ public class UniqueEmailAddresses {
 		UniqueEmailAddresses uea = new UniqueEmailAddresses();
 		String[] emails = { "test.email+alex@leetcode.com", "test.e.mail+bob.cathy@leetcode.com",
 				"testemail+david@lee.tcode.com" };
-		uea.numUniqueEmails(emails);
+		uea.numUniqueEmails2(emails);
 	}
 
 	// 929. 独特的电子邮件地址
@@ -60,14 +60,20 @@ public class UniqueEmailAddresses {
 		return emailset.size();
 	}
 
-	// 9ms
+	// 9ms（为什么不需要添加本地名称）
 	public int numUniqueEmails2(String[] emails) {
-		Set<String> seen = new HashSet();
+		Set<String> set = new HashSet<>();
 		for (String email : emails) {
-			int i = email.indexOf('@');
-			String rest = email.substring(i);// 切割掉i之前的字符串，将剩下的字符串传递给rest
-			seen.add(rest);
+			// 本地名称
+			// String name=email.substring(0,email.indexOf("@"));
+			// 域名
+			String domain = email.substring(email.indexOf("@"));
+			// 根据指定规则解析后的本地名称，先按加号切割字符串，然后替换'.'
+			// String newName=name.substring(0,name.indexOf("+")).replace(".","");
+			// 使用HashSet去重
+			set.add(domain);
+			// set.add(newName+domain);
 		}
-		return seen.size();
+		return set.size();
 	}
 }
