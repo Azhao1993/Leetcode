@@ -57,7 +57,7 @@ public class FlippinganImage {
 
 	}
 
-	// 832. ·­×ªÍ¼Ïñ
+	// 832.·­×ªÍ¼Ïñ
 	public int[][] flipAndInvertImage(int[][] A) {
 		int[][] result = new int[A.length][A[0].length];
 		for (int i = 0; i < A.length; i++) {
