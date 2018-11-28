@@ -60,7 +60,7 @@ vector<string> findRestaurant(vector<string>& list1, vector<string>& list2) {
 }
 
 int main(){
-    string a[] = {"Shogun", "KFCd", "Burger King", "KFC"};
+    string a[] = {"Shogun", "KFC", "Burger King", "KFC"};
     vector<string> arr(a,a+4);
 
     string b[] = {"KFC", "Shogun", "Burger King", "Hungry Hunter Steakhouse"};
