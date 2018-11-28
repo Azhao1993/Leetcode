@@ -1,6 +1,6 @@
 #include<iostream>
 #include<vector>
-#include<unordered_set>
+#include<unordered_map>
 using namespace std;
 /*
 599. 两个列表的最小索引总和
@@ -32,35 +32,32 @@ using namespace std;
 */
 
 vector<string> findRestaurant(vector<string>& list1, vector<string>& list2) {
-    int i=0,j=0;
-    unordered_set<string> hash;
+    int i=0;
+    unordered_map<string,int> hash;
     vector<string> arr;
-    bool flag = false;
-    while(i<list1.size()||j<list2.size()){
-        if(i<list1.size()){
-            if(hash.find(list1[i]) != hash.end()){
-                flag = true;
-                arr.push_back(list1[i]);
-            }
-            else hash.insert(list1[i]);
-        }
-
-        if(j<list2.size()){
-            if(hash.find(list2[j]) != hash.end()){
-                flag = true;
-                arr.push_back(list2[j]);
-            }
-            else hash.insert(list2[j]);
-        }
-        if(flag)return arr;
+    int minNum = list1.size()+list2.size();
+    while(i<list1.size()){
+        hash[list1[i]]=i;
         i++;
-        j++;
+    }
+    i=0;
+    while(i<list2.size()){
+        if(hash.find(list2[i]) != hash.end()){
+            if(minNum>i+hash[list2[i]]){
+                arr.clear();
+                arr.push_back(list2[i]);
+                minNum = i+hash[list2[i]];
+            }else if(minNum == i+hash[list2[i]]){
+                arr.push_back(list2[i]);
+            }
+        }
+        i++;
     }
     return arr;
 }
 
 int main(){
-    string a[] = {"Shogun", "KFC", "Burger King", "KFC"};
+    string a[] = {"Shogun", "KFCd", "Burger King", "KFC"};
     vector<string> arr(a,a+4);
 
     string b[] = {"KFC", "Shogun", "Burger King", "Hungry Hunter Steakhouse"};
