@@ -25,25 +25,27 @@ using namespace std;
 */
 
 int lengthOfLongestSubstring(string s) {
-    if(!s.length())return 0;
-    int num = 1,temp = 1;
-    unordered_set<char> hash;
+    if(s.length()<2)return s.length();
+    int left = 0,num = 0,temp = 0;
+    unordered_map<char,int> hash;
     for(int i=0;i<s.length();i++){
         if(hash.find(s[i])!=hash.end()){
-            hash.clear();
-            hash.insert(s[i]);
-            if(temp>num)num=temp;
-            temp = 1;
-        }else{
-            hash.insert(s[i]);
-            temp++;
+            num=max(num,temp);
+            int new_left = hash[s[i]] + 1;
+            for(;left<new_left;left++){
+                hash.erase(s[left]);
+                temp--;
+            }
         }
+        // 插入到哈希表
+        hash[s[i]] = i;
+        temp++;
     }
-    return num;
+    return max(num,temp);
 }
 
 int main(){
-    string S = "asjrgapa";
+    string S = "asjrgapabcdeg";
     int n = lengthOfLongestSubstring(S);
     cout<<n<<endl;
 	return 0;
