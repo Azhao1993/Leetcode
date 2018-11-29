@@ -25,6 +25,18 @@ using namespace std;
 */
 
 int lengthOfLongestSubstring(string s) {
+    // 字符串的哈希表
+    vector<int> m(256,-1);
+    int left=-1;
+    int ans=0;
+    for(int i=0;i<s.size();i++)
+    {
+        left=max(left,m[s[i]]);
+        m[s[i]]=i;
+        ans=max(ans,i-left);
+    }
+    return ans;
+    /*
     if(s.length()<2)return s.length();
     int left = 0,num = 0,temp = 0;
     unordered_map<char,int> hash;
@@ -32,6 +44,7 @@ int lengthOfLongestSubstring(string s) {
         if(hash.find(s[i])!=hash.end()){
             num=max(num,temp);
             int new_left = hash[s[i]] + 1;
+            // 把重复之前的从哈希表里面清除
             for(;left<new_left;left++){
                 hash.erase(s[left]);
                 temp--;
@@ -42,6 +55,7 @@ int lengthOfLongestSubstring(string s) {
         temp++;
     }
     return max(num,temp);
+    */
 }
 
 int main(){
