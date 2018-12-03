@@ -1,7 +1,5 @@
 #include<iostream>
 #include<vector>
-#include<unordered_map>
-#include<numeric>
 using namespace std;
 /*
 144. 二叉树的前序遍历
@@ -59,27 +57,6 @@ public:
             if(root->right)preorderTraversal(root->right);
         }
         return res;
-        */
-
-        /*
-        vector<int> arr;
-        if(root==NULL)return arr;
-        stack<TreeNode*> sta;
-        sta.push(root);
-        unordered_set<TreeNode*> set;
-        while(!sta.empty()){
-            TreeNode* temp = sta.top();
-            while(set.find(temp->left)==set.end() && temp->left!=NULL){
-                sta.push(temp->left);
-                temp=temp->left;
-            }
-            arr.push_back(temp->val);
-            set.insert(temp);
-            sta.pop();
-            if(set.find(temp->right)==set.end() && temp->right!=NULL)
-                sta.push(temp->right);
-        }
-        return arr;
         */
     }
 };
