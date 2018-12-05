@@ -12,8 +12,12 @@ package Leetcode_059_SpiralMatrix2;
 		]
  */
 public class SpiralMatrix2 {
-	
-	//59.螺旋矩阵 II
+	public static void main(String[] args) {
+		SpiralMatrix2 sm2 = new SpiralMatrix2();
+		sm2.generateMatrix(3);
+	}
+
+	// 59.螺旋矩阵 II
 	public int[][] generateMatrix(int n) {
 		// 创建二维输出
 		int[][] result = new int[n][n];
@@ -30,28 +34,28 @@ public class SpiralMatrix2 {
 				result[rowbegin][j] = num;
 				num++;
 			}
-			//开始行增加
+			// 开始行增加
 			rowbegin++;
 			// 列不变行增加(下)
 			for (int i = rowbegin; i <= rowend; i++) {
 				result[i][colend] = num;
 				num++;
 			}
-			//结束列减少
+			// 结束列减少
 			colend--;
 			// 行不变列减少(左)
 			for (int j = colend; j >= colbegin; j--) {
 				result[rowend][j] = num;
 				num++;
 			}
-			//结束行减少
+			// 结束行减少
 			rowend--;
 			// 列不变行减少
 			for (int i = rowend; i >= rowbegin; i--) {
 				result[i][colbegin] = num;
 				num++;
 			}
-			//开始行增加
+			// 开始行增加
 			colbegin++;
 		}
 
