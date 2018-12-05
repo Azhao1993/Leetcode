@@ -23,6 +23,7 @@ package Leetcode_706_DesignHashMap;
 		操作的总数目在[1, 10000]范围内。
 		不要使用内建的哈希库。
  */
+//706
 public class DesignHashMap {
 
 
