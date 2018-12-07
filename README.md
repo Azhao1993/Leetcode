@@ -13,6 +13,8 @@ ProblemSet文件夹则是一个Eclipse工程项目，按照LeetCode题目编号�
 
 - [二分查找 Binary Search](https://github.com/ontheway12138/Leetcode/tree/master/LG/Binary%20Search)
 
+- [探索二叉搜索树 Binary search tree](https://github.com/ontheway12138/Leetcode/tree/master/LG/Binary%20search%20tree)
+
 - [探索二叉树 Binary tree](https://github.com/ontheway12138/Leetcode/tree/master/LG/Binary%20tree)
 
 - [初级算法 Easy question](https://github.com/ontheway12138/Leetcode/tree/master/LG/Easy%20question)
