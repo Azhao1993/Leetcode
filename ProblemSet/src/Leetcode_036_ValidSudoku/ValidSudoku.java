@@ -119,7 +119,7 @@ public class ValidSudoku {
 					if (board[i][j] == board[k][j])
 						return false;
 				for (int k = i + 1; k % 3 != 0; k++) {
-					for (int h = j / 3 * 3; h < j / 3 * 3 + 3; h++)
+					for (int h = j / 3 * 3; h <  j / 3 * 3 + 3; h++)
 						if (board[i][j] == board[k][h])
 							return false;
 				}
