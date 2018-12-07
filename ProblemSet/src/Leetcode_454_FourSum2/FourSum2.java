@@ -33,9 +33,46 @@ public class FourSum2 {
 	}
 
 	// 454. 四数相加 II
-	
-	//超时
 	public int fourSumCount(int[] A, int[] B, int[] C, int[] D) {
+		HashMap<Integer, Integer> map = new HashMap<>();
+		int count = 0;
+		for (int i = 0; i < A.length; i++) {
+			for (int j = 0; j < B.length; j++) {
+				map.put(A[i] + B[j], map.getOrDefault(A[i] + B[j], 0) + 1);
+			}
+		}
+
+		for (int i = 0; i < C.length; i++) {
+			for (int j = 0; j < D.length; j++) {
+				count += map.getOrDefault(-C[i] - D[j], 0);
+			}
+		}
+		return count;
+	}
+
+	// 96ms
+	public int fourSumCount0(int[] A, int[] B, int[] C, int[] D) {
+		Map<Integer, Integer> map = new HashMap<>();
+		int length = A.length;
+		int sum;
+		for (int i = 0; i < length; ++i) {
+			for (int j = 0; j < length; ++j) {
+				sum = A[i] + B[j];
+				map.put(sum, map.getOrDefault(sum, 0) + 1);
+			}
+		}
+		int result = 0;
+		for (int i = 0; i < length; ++i) {
+			for (int j = 0; j < length; ++j) {
+				sum = C[i] + D[j];
+				result += map.getOrDefault(-sum, 0);
+			}
+		}
+		return result;
+	}
+
+	// 超时
+	public int fourSumCount2(int[] A, int[] B, int[] C, int[] D) {
 		Map<Integer, Integer> mapa = arrToMap(A);
 		Map<Integer, Integer> mapb = arrToMap(B);
 		Map<Integer, Integer> mapc = arrToMap(C);
