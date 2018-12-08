@@ -2,78 +2,73 @@
 #include<vector>
 using namespace std;
 /*
-703. 数据流中的第K大元素
+110. 平衡二叉树
 
-设计一个找到数据流中第K大元素的类（class）。注意是排序后的第K大元素，不是第K个不同的元素。
+给定一个二叉树，判断它是否是高度平衡的二叉树。
 
-你的 KthLargest 类需要一个同时接收整数 k 和整数数组nums 的构造器，它包含数据流中的初始元素。每次调用 KthLargest.add，返回当前数据流中第K大的元素。
+本题中，一棵高度平衡二叉树定义为：
 
-示例:
+一个二叉树每个节点 的左右两个子树的高度差的绝对值不超过1。
 
-int k = 3;
-int[] arr = [4,5,8,2];
-KthLargest kthLargest = new KthLargest(3, arr);
-kthLargest.add(3);   // returns 4
-kthLargest.add(5);   // returns 5
-kthLargest.add(10);  // returns 5
-kthLargest.add(9);   // returns 8
-kthLargest.add(4);   // returns 8
-说明: 
-你可以假设 nums 的长度≥ k-1 且k ≥ 1。
+示例 1:
+
+给定二叉树 [3,9,20,null,null,15,7]
+
+    3
+   / \
+  9  20
+    /  \
+   15   7
+返回 true 。
+
+示例 2:
+
+给定二叉树 [1,2,2,3,3,null,null,4,4]
+
+       1
+      / \
+     2   2
+    / \
+   3   3
+  / \
+ 4   4
+返回 false 。
  */
-
-class KthLargest {
-private:
-    int kth;
-    priority_queue<int,vector<int>,great<int> > que;
-public:
-    KthLargest(int k, vector<int> nums) {
-        kth = k;
-        for(auto i:nums){
-            que.push(i);
-            if(que.size()>k)que.pop();
-        }
-    }
-    
-    int add(int val) {
-        que.push(val);
-        if(que.size()>kth)que.pop();
-        return que.top();
-    }
-    /*
-private:
-    vector<int> arr;
-    int Kth;
-public:
-    KthLargest(int k, vector<int> nums) {
-        // 降序排列
-        sort(nums.rbegin(), nums.rend());
-        arr = nums;
-        Kth = k;
-        // 防止nums个数过少
-        if(arr.size()>k)arr.resize(k);
-    }
-    
-    int add(int val) {
-        // 防止arr为空
-        if(!arr.size()) arr.push_back(val);
-        else if(arr[0]<val)arr.insert(arr.begin(),val);
-        else if(arr.back()>val)arr.push_back(val);
-        else{
-            for(vector<int>::iterator it = arr.begin();it!=arr.end();it++)
-                if(*it >= val && it+1 != arr.end() && *(it+1)<val ){
-                    arr.insert(it+1,val);
-                    break;
-                }
-            }
-        if(arr.size()>Kth)arr.resize(Kth);
-        return arr.back();
-    }
-    */
-};
 
 /**
- * Your KthLargest object will be instantiated and called as such:
- * KthLargest obj = new KthLargest(k, nums);
- * int param_1 = obj.add(val);
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
  */
+class Solution {
+public:
+    bool isBalanced(TreeNode* root) {
+        if(!root)return true;
+        int big = 0,low = INT_MAX;
+        queue<TreeNode*> que;
+        que.push(root);
+        int level = 1;
+        while(!que.empty()){
+            int size = que.size();
+            for(int i=0;i<size;i++){
+                TreeNode* tem = que.top();
+                que.pop();
+                if(!tem->left && !tem->right){
+                    if(level>big)big = level;
+                    if(level<low)low = level;
+                    if(big > low+1)return false;
+                }else{
+                    if(tem->left)que.push(tem->left);
+                    if(tem->right)que.push(tem->right);
+                }
+            }
+            level++;
+        }
+        if(big > low+1)return false;
+        else return true;
+    }
+};
