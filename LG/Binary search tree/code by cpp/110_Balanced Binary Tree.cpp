@@ -48,27 +48,14 @@ class Solution {
 public:
     bool isBalanced(TreeNode* root) {
         if(!root)return true;
-        int big = 0,low = INT_MAX;
-        queue<TreeNode*> que;
-        que.push(root);
-        int level = 1;
-        while(!que.empty()){
-            int size = que.size();
-            for(int i=0;i<size;i++){
-                TreeNode* tem = que.top();
-                que.pop();
-                if(!tem->left && !tem->right){
-                    if(level>big)big = level;
-                    if(level<low)low = level;
-                    if(big > low+1)return false;
-                }else{
-                    if(tem->left)que.push(tem->left);
-                    if(tem->right)que.push(tem->right);
-                }
-            }
-            level++;
+        if(abs(countFloor(root->left)-countFloor(root->right))>1)return false;
+        else{
+            if(isBalanced(root->left) && isBalanced(root->right))return true;
+            else return false;
         }
-        if(big > low+1)return false;
-        else return true;
+    }
+    int countFloor(TreeNode* root){
+        if(!root)return 0;
+        else return 1+max(countFloor(root->left),countFloor(root->right));
     }
 };
