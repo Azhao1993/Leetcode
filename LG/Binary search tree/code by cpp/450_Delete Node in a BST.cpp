@@ -62,38 +62,20 @@ public:
             // 没有右孩子 或者 没有左孩子，直接返回另一个孩子
             if(!root->left)return root->right;
             if(!root->right)return root->left;
-            // 左孩子没有右孩子 或者 右孩子没有左孩子 可以直接进行替换复制并删除
-            if(!root->left->right){
-                root->val = root->left->val;
-                root->left = root->left->left;
-                return root;
-            }
-            if(!root->right->left){
-                root->val = root->right->val;
-                root->right = root->right->right;
-                return root;
-            }
-            // 左孩子有右孩子 并且 右孩子有左孩子 找到左孩子的最大的节点并交换删除
-            TreeNode* maxNode = root->left;
-            while(maxNode->right){
-                // 找到最大节点的父节点时
-                if(!maxNode->right->right){
-                    // 交换节点值，并保留其左孩子
-                    root->val = maxNode->right->val;
-                    maxNode->right = maxNode->right->left;
-                    return root;
-                }
-                maxNode = maxNode->right;
-            }
+            flag = true;
+            tar = root;
         }
         TreeNode* faN = root;
-        while(faN){
+        while(faN->val!= key && faN){
             if(faN->val > key){
+                // 没有查找到
+                if(!faN->left)return root;
                 // 不等于时，继续查找
                 if(faN->left->val != key)faN = faN->left;
                 else {
                     // 找到时，faN为其父节点
-                    TreeNode* tar = faN->left;
+                    tar = faN->left;
+                    flag = true;
                     // 没有右孩子 或者 没有左孩子，直接指向另一个孩子
                     if(!tar->left){
                         faN->left = tar->right;
@@ -102,38 +84,19 @@ public:
                     if(!tar->right){
                         faN->left = tar->left;
                         return root;
-                    }  
-                    // 左孩子没有右孩子 或者 右孩子没有左孩子 可以直接进行替换复制并删除
-                    if(!tar->left->right){
-                        tar->val = tar->left->val;
-                        tar->left = tar->left->left;
-                        return root;
                     }
-                    if(!tar->right->left){
-                        tar->val = tar->right->val;
-                        tar->right = tar->right->right;
-                        return root;
-                    }
-                    // 左孩子有右孩子 并且 右孩子有左孩子 找到左孩子的最大的节点并交换删除
-                    TreeNode* maxNode = tar->left;
-                    while(maxNode->right){
-                        // 找到最大节点的父节点时
-                        if(!maxNode->right->right){
-                            // 交换节点值，并保留其左孩子
-                            tar->val = maxNode->right->val;
-                            maxNode->right = maxNode->right->left;
-                            return root;
-                        }
-                        maxNode = maxNode->right;
-                    }
+                    break;
                 }
             }
             else{
+                // 没有查找到
+                if(!faN->right)return root;
                 // 不等于时，继续查找
                 if(faN->right->val != key)faN = faN->right;
                 else {
                     // 找到时，faN为其父节点
-                    TreeNode* tar = faN->right;
+                    tar = faN->right;
+                    flag = true;
                     // 没有右孩子 或者 没有左孩子，直接指向另一个孩子
                     if(!tar->left){
                         faN->right = tar->right;
@@ -143,11 +106,35 @@ public:
                         faN->right = tar->left;
                         return root;
                     }  
-                    
+                    break;
                 }
             }
         }
-        
+        if(flag){
+            // 左孩子没有右孩子 或者 右孩子没有左孩子 可以直接进行替换复制并删除
+            if(!tar->left->right){
+                tar->val = tar->left->val;
+                tar->left = tar->left->left;
+                return root;
+            }
+            if(!tar->right->left){
+                tar->val = tar->right->val;
+                tar->right = tar->right->right;
+                return root;
+            }
+            // 左孩子有右孩子 并且 右孩子有左孩子 找到左孩子的最大的节点并交换删除
+            TreeNode* maxNode = tar->left;
+            while(maxNode->right){
+                // 找到最大节点的父节点时
+                if(!maxNode->right->right){
+                    // 交换节点值，并保留其左孩子
+                    tar->val = maxNode->right->val;
+                    maxNode->right = maxNode->right->left;
+                    return root;
+                }
+                maxNode = maxNode->right;
+            }
+        }
         return root;
     }
 };
