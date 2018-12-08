@@ -29,17 +29,44 @@ public class NumberofBoomerangs {
 	// 447. 回旋镖的数量
 	public int numberOfBoomerangs(int[][] points) {
 		Map<Integer, Integer> map = new HashMap<Integer, Integer>();
+		;
 		int count = 0;
-		for (int i = 0; i < points.length - 1; i++) {
-			for (int j = i+1; j < points.length; j++) {
-				int distance = squaredistance(points[i], points[j]);
+		for (int i = 0; i < points.length; i++) {
+
+			for (int j = 0; j < points.length; j++) {
+				if (j == i) {
+					continue;
+				}
+				int distance = getDistance(points[i], points[j]);
 				map.put(distance, map.getOrDefault(distance, 0) + 1);
 			}
-		}
-		for (Integer key : map.keySet()) {
-			count += map.get(key) / 2;
+			for (Integer key : map.keySet()) {
+				if (map.get(key) != 1) {
+					count += map.get(key) * (map.get(key) - 1);
+				}
+			}
+			map.clear();
 		}
 		return count;
+
+	}
+
+	// 76ms
+	public int numberOfBoomerangs0(int[][] points) {
+		int res = 0;
+		Map<Integer, Integer> map = new HashMap<Integer, Integer>();
+		for (int i = 0; i < points.length; i++) {
+			for (int j = 0; j < points.length; j++) {
+				if (j == i)
+					continue;
+				int d = getDistance(points[i], points[j]);
+				int tmp = map.containsKey(d) ? map.get(d) : 0;
+				res += 2 * tmp;
+				map.put(d, tmp + 1);
+			}
+			map.clear();
+		}
+		return res;
 	}
 
 	// 超时
@@ -55,7 +82,7 @@ public class NumberofBoomerangs {
 					if ((j == k) || (k == i)) {
 						continue;
 					}
-					if (squaredistance(points[i], points[j]) == squaredistance(points[i], points[k])) {
+					if (getDistance(points[i], points[j]) == getDistance(points[i], points[k])) {
 						count++;
 					}
 				}
@@ -65,7 +92,7 @@ public class NumberofBoomerangs {
 	}
 
 	// 距离
-	public int squaredistance(int[] a, int[] b) {
+	public int getDistance(int[] a, int[] b) {
 		return (a[0] - b[0]) * (a[0] - b[0]) + (a[1] - b[1]) * (a[1] - b[1]);
 	}
 }
