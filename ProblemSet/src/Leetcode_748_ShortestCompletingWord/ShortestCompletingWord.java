@@ -43,9 +43,10 @@ public class ShortestCompletingWord {
 
 	public static void main(String[] args) {
 		// TODO 自动生成的方法存根
-		ShortestCompletingWord scw= new ShortestCompletingWord();
+		ShortestCompletingWord scw = new ShortestCompletingWord();
 		String licensePlate = "1s3 PSt";
-		String[] words = {"step", "steps", "stripe", "stepple"};
+
+		String[] words = { "looks", "pest", "stew", "show" };
 		scw.shortestCompletingWord(licensePlate, words);
 	}
 
@@ -64,15 +65,14 @@ public class ShortestCompletingWord {
 					break;
 				}
 			}
-			if(index == licenseMap.size()-1) {
-				if(minIndex<words.length) {
-					if(words[minIndex].length()>words[i].length()) {
+			if (index == licenseMap.size()) {
+				if (minIndex < words.length) {
+					if (words[minIndex].length() > words[i].length()) {
 						minIndex = Math.min(minIndex, i);
 					}
-				}else {
+				} else {
 					minIndex = i;
 				}
-				
 			}
 
 		}
