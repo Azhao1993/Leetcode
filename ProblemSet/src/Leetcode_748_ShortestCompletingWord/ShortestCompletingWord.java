@@ -44,9 +44,15 @@ public class ShortestCompletingWord {
 	public static void main(String[] args) {
 		// TODO 自动生成的方法存根
 		ShortestCompletingWord scw = new ShortestCompletingWord();
-		String licensePlate = "1s3 PSt";
-
+		// String licensePlate = "1s3 PSt";
+		String licensePlate = "1s3 456";
+		// ["looks", "pest", "stew", "show"]
 		String[] words = { "looks", "pest", "stew", "show" };
+		// String[] words = { "step", "steps", "stripe", "stepple" };
+		// "GrC8950"
+		// String[] words = { "according", "level", "meeting", "none", "marriage",
+		// "rest" };
+		// ["measure","other","every","base","according","level","meeting","none","marriage","rest"]
 		scw.shortestCompletingWord(licensePlate, words);
 	}
 
@@ -58,21 +64,22 @@ public class ShortestCompletingWord {
 			Map<Character, Integer> wordMap = stringToMap(words[i]);
 			int index = 0;
 			for (Character ch : licenseMap.keySet()) {
-				if ((wordMap.containsKey(ch)) && (wordMap.get(ch) == licenseMap.get(ch))) {
+				if ((wordMap.containsKey(ch)) && (wordMap.get(ch) != 0) && (wordMap.get(ch) >= licenseMap.get(ch))) {
 					index++;
+					if (index == licenseMap.size()) {
+						if (minIndex < words.length) {
+							if (words[minIndex].length() > words[i].length()) {
+								minIndex = i;
+							}
+						} else {
+							minIndex = i;
+						}
+					}
 					continue;
 				} else {
 					break;
 				}
-			}
-			if (index == licenseMap.size()) {
-				if (minIndex < words.length) {
-					if (words[minIndex].length() > words[i].length()) {
-						minIndex = Math.min(minIndex, i);
-					}
-				} else {
-					minIndex = i;
-				}
+
 			}
 
 		}
@@ -89,6 +96,36 @@ public class ShortestCompletingWord {
 			}
 		}
 		return map;
+	}
+
+	// 7ms
+	private final static long[] primes = { 2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71,
+			73, 79, 83, 89, 97, 101, 103 };
+
+	public String shortestCompletingWord0(String licensePlate, String[] words) {
+		if (licensePlate == null || licensePlate.length() == 0 || words == null || words.length == 0) {
+			return "";
+		}
+		long pro = getProduct(licensePlate.toLowerCase());
+		String res = "aaaaaaaaaaaaaaaaaaaaaaaaa";
+		for (String word : words) {
+			if (word.length() < res.length() && getProduct(word) % pro == 0) {
+				res = word;
+			}
+		}
+		return res;
+	}
+
+	private long getProduct(String str) {
+		long res = 1L;
+		char[] array = str.toCharArray();
+		for (char ch : array) {
+			int index = ch - 'a';
+			if (index >= 0 && index <= 25) {
+				res *= primes[index];
+			}
+		}
+		return res;
 	}
 
 }
