@@ -1,4 +1,4 @@
-package Leecode_884_UncommonWordsfromTwoSentences;
+package Leetcode_884_UncommonWordsfromTwoSentences;
 
 import java.util.List;
 import java.util.Map;
