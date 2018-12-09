@@ -23,6 +23,8 @@ ProblemSet文件夹则是一个Eclipse工程项目，按照LeetCode题目编号�
 
 - [链表 Linked list](https://github.com/ontheway12138/Leetcode/tree/master/LG/Linked%20list)
 
+- [探索N叉树 N-ary tree](https://github.com/ontheway12138/Leetcode/tree/master/LG/N-ary%20tree)
+
 - [队列&栈 Queue and Stack](https://github.com/ontheway12138/Leetcode/tree/master/LG/Queue%20and%20Stack)
 
 - [查找表类算法 Search table](https://github.com/ontheway12138/Leetcode/tree/master/LG/Search%20table)
