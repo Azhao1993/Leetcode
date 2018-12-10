@@ -34,71 +34,51 @@ class Solution {
 public:
     // 前缀树的数据结构
     struct Trie{
-        vector<Trie*> child;
+        Trie *child[26];
+        bool isWord;
         // 初始化
-        Trie() : child(vector<Trie*>(2,NULL)) {};
+        Trie() : isWord(false){
+            for(auto &a : child)a = NULL;
+        };
     };
-    void add(int num){
+    void add(string word){
         Trie* tmp = root;
-        for(int i=31; i>=0; i--){
-            int val = ((1<<i) & num) ? 1:0;
-            if(!tmp->child[val])tmp->child[val] = new Trie();
-            tmp = tmp->child[val];
+        for(auto a: word){
+            if(!tmp->child[a-'a']) tmp->child[a-'a'] = new Trie();
+            tmp = tmp->child[a-'a'];
+        }
+        tmp->isWord = true;
+    }
+    void search(vector<vector<char> >&board, int x, int y, string word, Trie* tmp, set<string>& hash){
+        if(x<0||x>=board.size()||y<0||y>=board[0].size()||board[x][y]==' ')return ;
+        if(tmp->child[board[x][y]-'a']){
+            word = word + board[x][y];
+            tmp = tmp->child[board[x][y]-'a'];
+            if(tmp->isWord)hash.insert(word);
+            // 暂存遍历结果防止回溯
+            char c = board[x][y];
+            board[x][y] = ' ';
+            search(board,x-1,y,word,tmp,hash);
+            search(board,x+1,y,word,tmp,hash);
+            search(board,x,y-1,word,tmp,hash);
+            search(board,x,y+1,word,tmp,hash);
+            board[x][y] = c;
         }
     }
-    int search(int num){
-        int ans = 0;
-        Trie* tmp = root;
-        for(int i=31; i>=0; i--){
-            // 寻找的是异或，所以1 0对调
-            int val = ((1<<i) & num) ? 0:1;
-            if(tmp->child[val]){
-                // 更新ans的值
-                ans |= (1<<i);
-                tmp = tmp->child[val];
-            }else tmp = tmp->child[!val];
-        }
-        return ans;
-    }
-    int findMaximumXOR(vector<int>& nums) {
-        if(nums.size()<2)return 0;
+    vector<string> findWords(vector<vector<char> >& board, vector<string>& words) {
         root = new Trie();
-        for(int x:nums)add(x);
-        int maxNum = 0;
-        // 寻找最大值
-        for( int x:nums)maxNum = max(maxNum,search(x));
-        return maxNum;
-        /*
-        if(nums.size()<2)return 0;
-        int maxNum = 0;
-        int flag = 0;
-        for(int i=31; i>=0; i--){
-            set<int> hash;
-            flag |= (1<<i);
-            for(int x:nums)hash.insert(flag&x);
-            // tmp为有可能的最大值，在前缀数中找到时，即为最大值
-            int tmp = maxNum | (1<<i);
-            for(int prefix:hash)
-                // 此处用到了x1^tmp=x2,则x1^x2=tmp, 两个前缀若都存在，则更新最大值
-                if(hash.find(prefix ^ tmp) != hash.end()){
-                    maxNum = tmp;
-                    break;
-                }
-        }
-        return maxNum;
-        */
+        Trie* tmp = root;
+        for(auto a : words)
+            add(a);
+        //防止重复
+        set<string> hash;
+        for(int i = 0; i<board.size();i++)
+            for(int j = 0; j<board[i].size();j++)
+                search(board,i,j,"",tmp,hash);
+        vector<string> arr;
+        for(auto it:hash)arr.push_back(it);
+        return arr;
     }
 private:
     Trie* root;
 };
-
-
-
-int main(){
-    int x[6] = {3, 10, 5, 25, 2, 8};
-    vector<int>nums(x,x+6);
-    auto so = new Solution();
-    int n = so->findMaximumXOR(nums);
-    cout<<n<<endl;
-    return 0;
-}
