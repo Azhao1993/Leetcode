@@ -24,7 +24,7 @@ public class RemoveNthNodeFromEndofList {
 		rnnfel.removeNthFromEnd(head, n);
 	}
 
-	// 19. 删除链表的倒数第N个节点
+	//19. 删除链表的倒数第N个节点
 	public ListNode removeNthFromEnd(ListNode head, int n) {
 		ListNode slow = head;
 		ListNode fast = head;
