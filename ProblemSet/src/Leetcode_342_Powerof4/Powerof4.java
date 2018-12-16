@@ -22,6 +22,8 @@ public class Powerof4 {
 		// TODO Auto-generated method stub
 		Powerof4 p4 = new Powerof4();
 		p4.isPowerOfFour(16);
+		int temp = 0x55555555;
+		System.out.println(temp);
 	}
 
 	// 342.4µƒ√›£®Œª‘ÀÀ„£©
@@ -32,6 +34,7 @@ public class Powerof4 {
 		}
 		//
 		int temp = 0x55555555;
+		//1010101010101010101010101010101
 		return ((num & temp)==num);
 	}
 
