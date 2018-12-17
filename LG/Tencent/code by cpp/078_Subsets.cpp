@@ -39,6 +39,31 @@ public:
         return arr;
     }
 };
+/*
+// 位运算解法，000代表没有选中任何数据，001代表选择最后一个数据，以此类推
+class Solution {
+public:
+    vector<vector<int>> subsets(vector<int>& nums) {
+        vector<vector<int>> ret;
+        ret.push_back({});
+        int size=nums.size();
+        int subsize=pow(2,size);
+        int hash=1;
+        while(hash<subsize){
+            vector<int> temp;
+            for(int k=0;k<size;k++) {
+                int a=1<<k;
+                if(a&hash) {
+                    temp.push_back(nums[k]);
+                }
+            }
+            ret.push_back(temp);
+            hash++;
+        }
+        return ret;
+    }
+};
+*/
 
 int main(){
     int x[6] = {1,2,3,4,5,6};
