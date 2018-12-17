@@ -36,31 +36,36 @@ public class OddEvenLinkedList {
 		node4.next = node5;
 		node5.next = node6;
 		node6.next = node7;
-		// node7.next=node8;
+		// node7.next = node8;
 		OddEvenLinkedList oell = new OddEvenLinkedList();
 		oell.oddEvenList(head);
 	}
 
 	// 328. 奇偶链表
 	public ListNode oddEvenList(ListNode head) {
-		if ((head == null) || (head.next == null)) {
+		// 空、一个节点、两个节点
+		if ((head == null) || (head.next == null) || (head.next.next == null)) {
 			return head;
 		}
 		ListNode odd = head;
 		ListNode even = head.next;
 		ListNode evenHead = head.next;
-		while ((even != null) && (odd != null)) {
+		// 奇数个，odd.next==null
+		// 偶数个，even.next = null
+		while ((odd.next != null) && (even.next != null)) {
 			odd.next = even.next;
 			odd = odd.next;
 			if (odd == null) {
-				even.next = odd;
+				// even.next = odd;
+				break;
 			} else {
 				even.next = odd.next;
 				even = even.next;
 			}
-
 		}
-		odd = evenHead;
+
+		odd.next = evenHead;
+
 		return head;
 
 	}
