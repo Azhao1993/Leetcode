@@ -29,39 +29,39 @@ public class OddEvenLinkedList {
 		ListNode node5 = new ListNode(5);
 		ListNode node6 = new ListNode(6);
 		ListNode node7 = new ListNode(7);
-		//ListNode node8 = new ListNode(8);
+		// ListNode node8 = new ListNode(8);
 		head.next = node2;
 		node2.next = node3;
 		node3.next = node4;
 		node4.next = node5;
-		node5.next=node6;
-		node6.next=node7;
-		//node7.next=node8;
+		node5.next = node6;
+		node6.next = node7;
+		// node7.next=node8;
 		OddEvenLinkedList oell = new OddEvenLinkedList();
 		oell.oddEvenList(head);
 	}
-	//328. ∆Ê≈º¡¥±Ì
-    public ListNode oddEvenList(ListNode head) {
-    	if((head==null)||(head.next==null)) {
-    		return head;
-    	}
-        ListNode odd = head;
-        ListNode even = head.next;
-        ListNode evenHead = head.next;
-        while((even!=null)&&(odd!=null)) {
-        	odd.next=even.next;
-        	odd = odd.next;
-        	if(odd==null) {
-        		even.next=odd;
-        	}else {
-        		even.next=odd.next;
-            	even = even.next;
-        	}
-        	
-        }        
-        odd = evenHead;
-        return head;
-        
-        
-    }
+
+	// 328. ∆Ê≈º¡¥±Ì
+	public ListNode oddEvenList(ListNode head) {
+		if ((head == null) || (head.next == null)) {
+			return head;
+		}
+		ListNode odd = head;
+		ListNode even = head.next;
+		ListNode evenHead = head.next;
+		while ((even != null) && (odd != null)) {
+			odd.next = even.next;
+			odd = odd.next;
+			if (odd == null) {
+				even.next = odd;
+			} else {
+				even.next = odd.next;
+				even = even.next;
+			}
+
+		}
+		odd = evenHead;
+		return head;
+
+	}
 }
