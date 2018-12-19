@@ -39,7 +39,6 @@ import LinkedList.Node;
 				    917-- 721---NULL
 		输出：
 			3470-121-917-721-4724-1753-4285-NULL
-
  */
 public class FlattenaMultilevelDoublyLinkedList {
 	public static void main(String[] args) {
@@ -72,16 +71,13 @@ public class FlattenaMultilevelDoublyLinkedList {
 
 		FlattenaMultilevelDoublyLinkedList fmdll = new FlattenaMultilevelDoublyLinkedList();
 		fmdll.flatten(head);
-
+	
 	}
 
 	// 430. 扁平化多级双向链表
-	public Node flatten(Node head) {
-
-	}
 
 	// 递归
-	public Node flatten3(Node head) {
+	public Node flatten(Node head) {
 		if (head == null) {
 			return head;
 		}

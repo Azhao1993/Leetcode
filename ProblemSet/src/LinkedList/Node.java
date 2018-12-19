@@ -10,10 +10,10 @@ public class Node {
 	public Node() {
 	}
 
-	public Node(int val, Node prev, Node next, Node child) {
-		this.val = val;
-		this.prev = prev;
-		this.next = next;
-		this.child = child;
+	public Node(int _val, Node _prev, Node _next, Node _child) {
+		val = _val;
+		prev = _prev;
+		next = _next;
+		child = _child;
 	}
 }
