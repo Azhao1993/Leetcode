@@ -71,7 +71,7 @@ public class FlattenaMultilevelDoublyLinkedList {
 
 		FlattenaMultilevelDoublyLinkedList fmdll = new FlattenaMultilevelDoublyLinkedList();
 		fmdll.flatten(head);
-	
+
 	}
 
 	// 430. 扁平化多级双向链表
