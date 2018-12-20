@@ -81,7 +81,7 @@ class MyLinkedList {
     }
 }
 
-//72ms
+//72ms 双链表的实现
 class MyLinkedList0 {
 
     DoublyListNode head;
