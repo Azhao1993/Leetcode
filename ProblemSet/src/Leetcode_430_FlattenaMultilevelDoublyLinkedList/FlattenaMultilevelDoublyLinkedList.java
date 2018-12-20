@@ -75,9 +75,35 @@ public class FlattenaMultilevelDoublyLinkedList {
 	}
 
 	// 430. 扁平化多级双向链表
+	public Node flatten(Node head) {
+		if (head == null) {
+			return head;
+		}
+		Node points = head;
+		Node next = null;
+		while (points.next != null) {
+			points.next.prev = points;
+			// 将子节点设计为下一个节点
+			if (points.child != null) {
+				next = points.next;
+				points.child.prev = points;
+				points.next = flatten(points.child);
+				points.child = null;
+				points = points.next;
+			} else {
+				points = points.next;
+			}
+		}
+		if (next != null) {
+			points.next = flatten(next);
+		}
+
+		return head;
+
+	}
 
 	// 递归
-	public Node flatten(Node head) {
+	public Node flatten3(Node head) {
 		if (head == null) {
 			return head;
 		}
