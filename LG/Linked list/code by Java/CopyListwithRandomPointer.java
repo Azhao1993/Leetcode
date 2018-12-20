@@ -20,14 +20,20 @@ package Leetcode_138_CopyListwithRandomPointer;
       		3、 String字符串，其地址引用。但是在修改时，它会从字符串池中重新生成一个新的字符串，原有字符串对象保持不变。
 	 	
  */
-/**
- * Definition for singly-linked list with a random pointer.
- * 
- */
-
 public class CopyListwithRandomPointer {
 
 	// 138. 复制带随机指针的链表
+
+	// 静态内部类
+	public static class RandomListNode {
+		int label;
+		RandomListNode next, random;
+
+		RandomListNode(int x) {
+			this.label = x;
+		}
+	}
+
 	// 0ms
 	public RandomListNode copyRandomList(RandomListNode head) {
 		RandomListNode dummyHead = new RandomListNode(0);
@@ -43,8 +49,10 @@ public class CopyListwithRandomPointer {
 	}
 
 	private RandomListNode deepCopy(RandomListNode current) {
+		//
 		RandomListNode newnode = new RandomListNode(current.label);
 		if (current.random != null)
+			//
 			newnode.random = new RandomListNode(current.random.label);
 		return newnode;
 	}
