@@ -27,31 +27,31 @@ public class RemoveDuplicatesfromSortedList {
 				cur = cur.next;
 			} else {
 				cur.next = next.next;
-				 next = cur.next;
+				next = cur.next;
 			}
 		}
 		return head;
 	}
-	
-	//0ms
-    public ListNode deleteDuplicates0(ListNode head) {
-        check(head);
-        return head;
-    }
-    
-    public void check(ListNode current){
-        if(current == null || current.next == null){
-            return;
-        }
-        ListNode next = current.next;
-        //当前节点和下一个节点是否相等
-        if(current.val == next.val){
-        	//删除next节点
-            current.next = next.next;
-            //继续检查当前节点
-            check(current);
-        }else{
-            check(next);
-        }
-    }
+
+	// 0ms
+	public ListNode deleteDuplicates0(ListNode head) {
+		check(head);
+		return head;
+	}
+
+	public void check(ListNode current) {
+		if (current == null || current.next == null) {
+			return;
+		}
+		ListNode next = current.next;
+		// 当前节点和下一个节点是否相等
+		if (current.val == next.val) {
+			// 删除next节点
+			current.next = next.next;
+			// 继续检查当前节点
+			check(current);
+		} else {
+			check(next);
+		}
+	}
 }
