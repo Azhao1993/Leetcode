@@ -14,8 +14,21 @@ import LinkedList.ListNode;
  */
 public class SwapNodesinPairs {
 	public static void main(String[] args) {
-		
+		ListNode head = new ListNode(1);
+		ListNode node2 = new ListNode(2);
+		ListNode node3 = new ListNode(3);
+		ListNode node4 = new ListNode(4);
+		ListNode node5 = new ListNode(5);
+		head.next = node2;
+		node2.next = node3;
+		node3.next = node4;
+		node4.next = node5;
+
+		SwapNodesinPairs snp = new SwapNodesinPairs();
+		snp.swapPairs(head);
+
 	}
+
 	// 24. 两两交换链表中的节点
 	public ListNode swapPairs(ListNode head) {
 		// <=1个节点
@@ -23,19 +36,34 @@ public class SwapNodesinPairs {
 			return head;
 		}
 		// >=2节点
-		ListNode newHead = new ListNode(0);		
-		ListNode cur = head;
-		newHead.next = cur.next;
+		ListNode newHead = new ListNode(0);
+		newHead.next = head.next;
 		ListNode slow;
 		ListNode fast;
-		while ((cur != null) && (cur.next != null)) {
-			slow = cur;
-			fast = cur.next;
-			cur = fast.next;
-			fast.next = slow;
-			slow.next = cur;
-		}
+		slow = head;
+		fast = head.next;
+		head = fast.next;
+		fast.next = slow;
+		slow.next = swapPairs(head);
 		return newHead.next;
+	}
 
+	// 2ms
+	public ListNode swapPairs0(ListNode head) {
+		if (head == null) {
+			return null;
+		}
+		ListNode tmp;
+		ListNode h = new ListNode(0);
+		h.next = head;
+		ListNode pre = h;
+		while (pre.next != null && pre.next.next != null) {
+			tmp = pre.next;
+			pre.next = tmp.next;
+			tmp.next = tmp.next.next;
+			pre.next.next = tmp;
+			pre = tmp;
+		}
+		return h.next;
 	}
 }
