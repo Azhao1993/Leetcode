@@ -48,7 +48,7 @@ public:
         Node* temp = head;
         while(temp){
             if(temp->child){
-                Node* tail = temp->child;
+                Node* tail = temp->child;//
                 // 整体连接到第一级里
                 while(tail->next)tail = tail->next;
                 // 防止temp已经到末尾了

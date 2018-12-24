@@ -62,18 +62,11 @@ public class UniqueEmailAddresses {
 
 	// 9ms（为什么不需要添加本地名称）
 	public int numUniqueEmails2(String[] emails) {
-		Set<String> set = new HashSet<>();
+		Set<String> unique = new HashSet<>();
 		for (String email : emails) {
-			// 本地名称
-			// String name=email.substring(0,email.indexOf("@"));
-			// 域名
-			String domain = email.substring(email.indexOf("@"));
-			// 根据指定规则解析后的本地名称，先按加号切割字符串，然后替换'.'
-			// String newName=name.substring(0,name.indexOf("+")).replace(".","");
-			// 使用HashSet去重
-			set.add(domain);
-			// set.add(newName+domain);
+			String host = email.substring(email.indexOf("@"));
+			unique.add(host);
 		}
-		return set.size();
+		return unique.size();
 	}
 }
