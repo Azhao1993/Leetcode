@@ -23,19 +23,19 @@ using namespace std;
 class Solution {
 public:
     int findLengthOfLCIS(vector<int>& nums) {
-        int cur = 0, size = 0;
-        if(!nums.size())return size;
+        if(nums.size()<2)return nums.size();
+        int cur = 1, size = 1;
         for(int i=1;i<nums.size();i++){
             if(nums[i]>nums[i-1])cur++;
             else cur = 1;
             if(cur>size)size = cur;
         }
-        return size+1;
+        return size;
     }
 };
 
 int main(){
-    int cha[5]={1,3,5,4,7};
+    int cha[5]={1,2,4,7};
     vector<int> arr(cha,cha+5);
 
     Solution* so = new Solution();
