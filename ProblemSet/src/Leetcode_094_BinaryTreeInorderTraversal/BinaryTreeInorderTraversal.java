@@ -22,7 +22,7 @@ import TreeNode.TreeNode;
 	进阶: 递归算法很简单，你可以通过迭代算法完成吗？
  */
 public class BinaryTreeInorderTraversal {
-	
+
 	// 94. 二叉树的中序遍历
 	List<Integer> list = new ArrayList<Integer>();
 
@@ -39,5 +39,21 @@ public class BinaryTreeInorderTraversal {
 		loop(root.left);
 		list.add(root.val);
 		loop(root.right);
+	}
+
+	// 0ms
+	public List<Integer> inorderTraversal0(TreeNode root) {
+		List<Integer> result = new ArrayList<>();
+		help(result, root);
+		return result;
+	}
+
+	private static void help(List<Integer> result, TreeNode root) {
+		if (root == null) {
+			return;
+		}
+		help(result, root.left);
+		result.add(root.val);
+		help(result, root.right);
 	}
 }
