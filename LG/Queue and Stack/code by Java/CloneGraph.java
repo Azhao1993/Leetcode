@@ -1,6 +1,8 @@
 package Leetcode_133_CloneGraph;
 
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.Stack;
 
 import UndirectedGraphNode.UndirectedGraphNode;
@@ -31,33 +33,69 @@ import UndirectedGraphNode.UndirectedGraphNode;
 	         \_/
  */
 public class CloneGraph {
-	
-	//133. 克隆图
+
+	// 133. 克隆图
 	public UndirectedGraphNode cloneGraph(UndirectedGraphNode node) {
 		if (node == null) {
 			return null;
 		}
+		// 存放复制的对等节点
 		HashMap<UndirectedGraphNode, UndirectedGraphNode> map = new HashMap<UndirectedGraphNode, UndirectedGraphNode>();
-		// 栈，放入遍历的节点
+		// DFS复制节点
 		Stack<UndirectedGraphNode> nodeStack = new Stack<UndirectedGraphNode>();
-		nodeStack.push(node);
 
-		while (!nodeStack.empty()) {
-			UndirectedGraphNode tempNode = nodeStack.pop();
-			if (map.containsKey(tempNode))
-				continue;
-			UndirectedGraphNode copyNode = new UndirectedGraphNode(tempNode.label);
-
-			for (UndirectedGraphNode unode : tempNode.neighbors) {
-				copyNode.neighbors.add(unode);
-				if (map.containsKey(node))
-					continue;
-				nodeStack.push(unode);
+		Set<UndirectedGraphNode> set = new HashSet<UndirectedGraphNode>();
+		DFS(node, nodeStack, map, set);
+		// 复制邻居节点
+		for (UndirectedGraphNode copynbNode : map.keySet()) {
+			for (UndirectedGraphNode nbNode : copynbNode.neighbors) {
+				map.get(copynbNode).neighbors.add(map.get(nbNode));
 			}
-			map.put(tempNode, copyNode);
 		}
 
 		return map.get(node);
 	}
 
+	private void DFS(UndirectedGraphNode node, Stack<UndirectedGraphNode> nodeStack,
+			HashMap<UndirectedGraphNode, UndirectedGraphNode> map, Set<UndirectedGraphNode> set) {
+
+		nodeStack.push(node);
+		while (!nodeStack.isEmpty()) {
+			UndirectedGraphNode curNode = nodeStack.peek();
+			// 复制标签
+			UndirectedGraphNode newNode = new UndirectedGraphNode(curNode.label);
+			//
+			map.put(curNode, newNode);
+			set.add(curNode);
+			for (UndirectedGraphNode nbNode : curNode.neighbors) {
+				if (!set.contains(nbNode)) {
+					nodeStack.push(nbNode);
+					DFS(nbNode, nodeStack, map, set);
+				}
+			}
+			nodeStack.pop();
+			return;
+		}
+
+	}
+
+	// 2ms
+	HashMap<Integer, UndirectedGraphNode> cloned = new HashMap<>();
+
+	public UndirectedGraphNode cloneGraph0(UndirectedGraphNode node) {
+		// 空节点
+		if (node == null)
+			return null;
+		// 已复制
+		if (cloned.containsKey(node.label))
+			return cloned.get(node.label);
+		// 未复制
+		UndirectedGraphNode ans = new UndirectedGraphNode(node.label);
+		cloned.put(node.label, ans);
+		// 遍历邻居节点
+		for (UndirectedGraphNode ugn : node.neighbors) {
+			ans.neighbors.add(cloneGraph0(ugn));
+		}
+		return ans;
+	}
 }
