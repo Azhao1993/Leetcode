@@ -62,6 +62,9 @@ public class TargetSum {
 		int sum = 0;
 		for (int n : nums)
 			sum += n;
+		//将所有数字加在一起与s比较
+		//如果sum<s或者(s + sum) % 2 > 0，返回0；
+		//否则subsetSum(nums, (s + sum) >>> 1)
 		return sum < s || (s + sum) % 2 > 0 ? 0 : subsetSum(nums, (s + sum) >>> 1);
 	}
 
