@@ -33,7 +33,7 @@ public class TargetSum {
 		ts.findTargetSumWays(nums, S);
 	}
 
-	// 494. 目标和
+	// 494. 目标和（不明白）
 	public int findTargetSumWays(int[] nums, int S) {
 		if (nums == null || nums.length == 0) {
 			return 0;
@@ -45,7 +45,7 @@ public class TargetSum {
 
 	// 这里不传入全局变量count的原因是每次的count都已返回值形式返回
 	public int helper(int[] nums, int S, int sum, int index, int count) {
-		//System.out.println("sum:" + sum + ";index:" + index);
+		// System.out.println("sum:" + sum + ";index:" + index);
 		if (index == nums.length) {
 			if (sum == S) {
 				count++;
@@ -55,5 +55,22 @@ public class TargetSum {
 		return helper(nums, S, sum + nums[index], index + 1, count)
 
 				+ helper(nums, S, sum - nums[index], index + 1, count);
+	}
+
+	// 7ms
+	public int findTargetSumWays0(int[] nums, int s) {
+		int sum = 0;
+		for (int n : nums)
+			sum += n;
+		return sum < s || (s + sum) % 2 > 0 ? 0 : subsetSum(nums, (s + sum) >>> 1);
+	}
+
+	public int subsetSum(int[] nums, int s) {
+		int[] dp = new int[s + 1];
+		dp[0] = 1;
+		for (int n : nums)
+			for (int i = s; i >= n; i--)
+				dp[i] += dp[i - n];
+		return dp[s];
 	}
 }
