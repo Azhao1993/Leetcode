@@ -30,7 +30,7 @@ public class TargetSum {
 		int[] nums = { 1, 1, 1, 1, 1 };
 		int S = 3;
 		TargetSum ts = new TargetSum();
-		ts.findTargetSumWays(nums, S);
+		ts.findTargetSumWays0(nums, S);
 	}
 
 	// 494. 目标和（不明白）
