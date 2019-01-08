@@ -1,7 +1,5 @@
 package Leetcode_494_TargetSum;
 
-import java.util.Stack;
-
 /*
 	给定一个非负整数数组，a1, a2, ..., an, 和一个目标数，S。
 	现在你有两个符号 + 和 -。
@@ -30,50 +28,38 @@ public class TargetSum {
 		int[] nums = { 1, 1, 1, 1, 1 };
 		int S = 3;
 		TargetSum ts = new TargetSum();
-		ts.findTargetSumWays0(nums, S);
+		ts.findTargetSumWays(nums, S);
+		System.out.println((5 + 3) >>> 1);
 	}
 
-	// 494. 目标和（不明白）
-	public int findTargetSumWays(int[] nums, int S) {
-		if (nums == null || nums.length == 0) {
-			return 0;
-		}
-		//
+	// 494. 目标和
 
-		return helper(nums, S, 0, 0, 0);
-	}
-
-	// 这里不传入全局变量count的原因是每次的count都已返回值形式返回
-	public int helper(int[] nums, int S, int sum, int index, int count) {
-		// System.out.println("sum:" + sum + ";index:" + index);
-		if (index == nums.length) {
-			if (sum == S) {
-				count++;
-			}
-			return count;
-		}
-		return helper(nums, S, sum + nums[index], index + 1, count)
-
-				+ helper(nums, S, sum - nums[index], index + 1, count);
-	}
-
-	// 7ms
-	public int findTargetSumWays0(int[] nums, int s) {
+	public int findTargetSumWays(int[] nums, int s) {
 		int sum = 0;
-		for (int n : nums)
+		for (int n : nums) {
 			sum += n;
-		//将所有数字加在一起与s比较
-		//如果sum<s或者(s + sum) % 2 > 0，返回0；
-		//否则subsetSum(nums, (s + sum) >>> 1)
+		}
+		// 元素和sum达不到目标值s；
+		// 元素和sum和目标值s的奇偶性不同
 		return sum < s || (s + sum) % 2 > 0 ? 0 : subsetSum(nums, (s + sum) >>> 1);
 	}
 
+	/**
+	 * s:新目标值=（s+num）/ 2.
+	 */
+
 	public int subsetSum(int[] nums, int s) {
+		// dp[i]：nums的子集组成目标值i的方案数
 		int[] dp = new int[s + 1];
+		// 空集方案有且只有1种
 		dp[0] = 1;
-		for (int n : nums)
-			for (int i = s; i >= n; i--)
+		// 遍历所有元素
+		for (int n : nums) {
+			for (int i = s; i >= n; i--) {
+				// 目标值为i的方案数=当前方案数+目标值为i-n的方案数
 				dp[i] += dp[i - n];
+			}
+		}
 		return dp[s];
 	}
 }
