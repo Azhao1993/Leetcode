@@ -17,7 +17,7 @@ import java.util.Queue;
  */
 
 //225. 用队列实现栈
-class MyStack {
+class ImplementStackusingQueues {
 
 	Queue<Integer> queue;
 	Queue<Integer> queue2;
