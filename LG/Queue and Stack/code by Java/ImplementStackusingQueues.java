@@ -24,7 +24,7 @@ class ImplementStackusingQueues {
 	public int peek;
 
 	/** Initialize your data structure here. */
-	public MyStack() {
+	public ImplementStackusingQueues() {
 		queue = new LinkedList<Integer>();
 		queue2 = new LinkedList<Integer>();
 	}
@@ -67,10 +67,7 @@ class ImplementStackusingQueues {
 	}
 }
 /**
- * Your MyStack object will be instantiated and called as such:
- * MyStack obj = new MyStack();
- * obj.push(x);
- * int param_2 = obj.pop();
- * int param_3 = obj.top();
+ * Your MyStack object will be instantiated and called as such: MyStack obj =
+ * new MyStack(); obj.push(x); int param_2 = obj.pop(); int param_3 = obj.top();
  * boolean param_4 = obj.empty();
  */
