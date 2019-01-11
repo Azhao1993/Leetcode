@@ -58,7 +58,7 @@ public class SymmetricTree {
 		if ((left != null && right == null) || (left == null && right != null) || (left.val != right.val)) {
 			return false;
 		}
-		return isSymmetric(left.left, right.right) && isSymmetric(left.right, right.left);
+		return isSymmetric0(left.left, right.right) && isSymmetric0(left.right, right.left);
 	}
 
 	// µü´ú
