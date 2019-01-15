@@ -9,9 +9,9 @@ public class BinaryTreePreorderTraversalTest {
 		TreeNode root = new TreeNode(3);
 		TreeNode node2 = new TreeNode(1);
 		TreeNode node3 = new TreeNode(2);
-		root.left = node2;
-		root.right = node3;
-		for (int val : btpt.preorderTraversal(root)) {
+		root.right = node2;
+		node2.left = node3;
+		for (int val : btpt.preorderTraversal2(root)) {
 			System.out.println(val);
 		}
 
