@@ -46,26 +46,21 @@ public class BinaryTreePreorderTraversal {
 
 	// µü´ú
 	public List<Integer> preorderTraversal2(TreeNode root) {
-		// Õ»
-		Stack<TreeNode> s = new Stack<TreeNode>();
-		List<Integer> list = new ArrayList<Integer>();
-		if (root == null) {
-			return list;
-		}
-		s.push(root);
+		ArrayList<Integer> results = new ArrayList<>();
+		Stack<TreeNode> stack = new Stack<>();
 
-		list.add(root.val);
-		while (!s.isEmpty()) {
-			TreeNode cur = s.pop();
-			list.add(cur.val);
-			if (cur.right != null) {
-				s.push(cur.right);
+		TreeNode cur = root;
+		while (cur != null || !stack.empty()) {
+			while (cur != null) {
+				results.add(cur.val);
+				stack.push(cur);
+				cur = cur.left;
 			}
-			if (cur.left != null) {
-				s.push(cur.left);
-			}
+			cur = stack.pop();
+			// ×ªÏò
+			cur = cur.right;
 		}
-		return list;
+		return results;
 	}
 
 	// 0ms
