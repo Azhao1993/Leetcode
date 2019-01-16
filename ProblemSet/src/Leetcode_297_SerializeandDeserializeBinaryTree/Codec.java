@@ -1,6 +1,8 @@
 package Leetcode_297_SerializeandDeserializeBinaryTree;
 
+import java.util.Arrays;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Queue;
 
 import TreeNode.TreeNode;
@@ -37,43 +39,43 @@ public class Codec {
 
 	// Encodes a tree to a single string.
 	public String serialize(TreeNode root) {
-		//序列化
-		StringBuilder sb = new StringBuilder();
-		sb.append("[");
-		Queue<TreeNode> queue = new LinkedList<TreeNode>();
-		
-		if(root!=null) {
-			queue.offer(root);
-			
-		}else {
-			return sb.append("null").append("]").toString();
+		return rserialize(root, "");
+	}
+
+	public String rserialize(TreeNode root, String str) {
+		// Recursive serialization.
+		if (root == null) {
+			str += "null,";
+		} else {
+			str += str.valueOf(root.val) + ",";
+			str = rserialize(root.left, str);
+			str = rserialize(root.right, str);
 		}
-		
-		while(!queue.isEmpty()) {
-			TreeNode cur = queue.poll();
-			
-			if(cur.left!=null) {
-				queue.offer(cur.left);
-				sb.append("cur.left.val").append(",");
-			}else {
-				sb.append("null").append(",");
-			}
-			
-			if(cur.right!=null) {
-				queue.offer(cur.right);
-				sb.append("cur.right.val").append(",");
-			}else {
-				sb.append("null").append(",");			
-			}			
-		}
-		
-		
+		return str;
 	}
 
 	// Decodes your encoded data to tree.
 	public TreeNode deserialize(String data) {
-		//反序列化
+		String[] data_array = data.split(",");
+		List<String> data_list = new LinkedList<String>(Arrays.asList(data_array));
+		return rdeserialize(data_list);
 	}
+
+	public TreeNode rdeserialize(List<String> l) {
+		// Recursive deserialization.
+		if (l.get(0).equals("null")) {
+			l.remove(0);
+			return null;
+		}
+
+		TreeNode root = new TreeNode(Integer.valueOf(l.get(0)));
+		l.remove(0);
+		root.left = rdeserialize(l);
+		root.right = rdeserialize(l);
+
+		return root;
+	}
+
 }
 
 // Your Codec object will be instantiated and called as such:
