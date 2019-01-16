@@ -1,5 +1,8 @@
 package Leetcode_297_SerializeandDeserializeBinaryTree;
 
+import java.util.LinkedList;
+import java.util.Queue;
+
 import TreeNode.TreeNode;
 
 /*
@@ -34,12 +37,42 @@ public class Codec {
 
 	// Encodes a tree to a single string.
 	public String serialize(TreeNode root) {
-
+		//序列化
+		StringBuilder sb = new StringBuilder();
+		sb.append("[");
+		Queue<TreeNode> queue = new LinkedList<TreeNode>();
+		
+		if(root!=null) {
+			queue.offer(root);
+			
+		}else {
+			return sb.append("null").append("]").toString();
+		}
+		
+		while(!queue.isEmpty()) {
+			TreeNode cur = queue.poll();
+			
+			if(cur.left!=null) {
+				queue.offer(cur.left);
+				sb.append("cur.left.val").append(",");
+			}else {
+				sb.append("null").append(",");
+			}
+			
+			if(cur.right!=null) {
+				queue.offer(cur.right);
+				sb.append("cur.right.val").append(",");
+			}else {
+				sb.append("null").append(",");			
+			}			
+		}
+		
+		
 	}
 
 	// Decodes your encoded data to tree.
 	public TreeNode deserialize(String data) {
-
+		//反序列化
 	}
 }
 
