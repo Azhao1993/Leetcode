@@ -23,8 +23,9 @@ public class Main {
 		node4.right = node6;
 		node7.right = node8;
 		node8.left = node9;
-
-		System.out.println(new Codec().serialize(root));
+		String result = new Codec().serialize(root);
+		System.out.println(result);
+		new Codec().deserialize(result);
 
 	}
 
