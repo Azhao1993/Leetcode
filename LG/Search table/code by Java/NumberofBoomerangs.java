@@ -29,10 +29,8 @@ public class NumberofBoomerangs {
 	// 447. 回旋镖的数量
 	public int numberOfBoomerangs(int[][] points) {
 		Map<Integer, Integer> map = new HashMap<Integer, Integer>();
-		;
 		int count = 0;
 		for (int i = 0; i < points.length; i++) {
-
 			for (int j = 0; j < points.length; j++) {
 				if (j == i) {
 					continue;
@@ -55,40 +53,21 @@ public class NumberofBoomerangs {
 	public int numberOfBoomerangs0(int[][] points) {
 		int res = 0;
 		Map<Integer, Integer> map = new HashMap<Integer, Integer>();
+		// 每个第一个点对应一个map
 		for (int i = 0; i < points.length; i++) {
 			for (int j = 0; j < points.length; j++) {
 				if (j == i)
 					continue;
 				int d = getDistance(points[i], points[j]);
+				// 存在这个距离说明，能找到三个点points[i]为第一个点map中的点为第二个点，points[j]为第三个点
 				int tmp = map.containsKey(d) ? map.get(d) : 0;
+				// map中的点在前或在后
 				res += 2 * tmp;
 				map.put(d, tmp + 1);
 			}
 			map.clear();
 		}
 		return res;
-	}
-
-	// 超时
-	public int numberOfBoomerangs2(int[][] points) {
-		// 暴力搜索
-		int count = 0;
-		for (int i = 0; i < points.length; i++) {
-			for (int j = 0; j < points.length; j++) {
-				if (i == j) {
-					continue;
-				}
-				for (int k = 0; k < points.length; k++) {
-					if ((j == k) || (k == i)) {
-						continue;
-					}
-					if (getDistance(points[i], points[j]) == getDistance(points[i], points[k])) {
-						count++;
-					}
-				}
-			}
-		}
-		return count;
 	}
 
 	// 距离
