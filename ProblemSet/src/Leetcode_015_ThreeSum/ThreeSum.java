@@ -31,15 +31,19 @@ public class ThreeSum {
 
 	// 15. 三数之和
 	public List<List<Integer>> threeSum(int[] nums) {
-		//排序
+		// 排序
 		Arrays.sort(nums);
 		List<List<Integer>> res = new LinkedList<>();
 		for (int i = 0; i < nums.length - 2; i++) {
+			// 第一个数nums[i]
 			if (i == 0 || (i > 0 && nums[i] != nums[i - 1])) {
+				// 判断这个数与前一个数是否相等
 				int lo = i + 1, hi = nums.length - 1, sum = 0 - nums[i];
 				while (lo < hi) {
 					if (nums[lo] + nums[hi] == sum) {
+						// 符合要求，添加至结果
 						res.add(Arrays.asList(nums[i], nums[lo], nums[hi]));
+						// 去重
 						while (lo < hi && nums[lo] == nums[lo + 1])
 							lo++;
 						while (lo < hi && nums[hi] == nums[hi - 1])
@@ -47,8 +51,10 @@ public class ThreeSum {
 						lo++;
 						hi--;
 					} else if (nums[lo] + nums[hi] < sum)
+						// 小于目标值，往右挪
 						lo++;
 					else
+						// 大于目标值，往左挪
 						hi--;
 				}
 			}
