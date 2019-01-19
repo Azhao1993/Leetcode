@@ -35,6 +35,7 @@ public class ConvertSortedArraytoBinarySearchTree {
 		}
 		root.left = sortedArrayToBST(root, left, (left + right) / 2 + 1, nums);
 		root.right = sortedArrayToBST(root, (left + right) / 2, right, nums);
+		return null;
 	}
 
 }
