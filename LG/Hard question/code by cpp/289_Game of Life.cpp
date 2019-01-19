@@ -54,6 +54,11 @@ public:
     }
     int getSum(vector<vector<int> > board, int i, int j){
         int num = 0;
+        for(int x = max(i-1,0);x < min(i+2,board.size());x++)
+            for(int y = max(j-1,0);y < min(j+2,board[0].size());y++)
+                num += board[x][y]%2;
+        num -= board[i][j]%2;
+        /*
         int dx[]={-1,-1,-1,0,0,1,1,1};
         int dy[]={-1,0,1,-1,1,-1,0,1};
         for(int k=0;k<8;k++){
@@ -61,6 +66,7 @@ public:
             if(x>=0 && y>=0 && x<board.size() && y<board[0].size())
                 num += board[x][y]%2;
         }
+        */
         /*
         if(i>0 && j>0)num += board[i-1][j-1]%2;
         if(i>0)num += board[i-1][j]%2;

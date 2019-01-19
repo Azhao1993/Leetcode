@@ -1,7 +1,10 @@
 package Leetcode_144_BinaryTreePreorderTraversal;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
+import java.util.Stack;
 
 import TreeNode.TreeNode;
 
@@ -24,6 +27,8 @@ import TreeNode.TreeNode;
  */
 public class BinaryTreePreorderTraversal {
 	// 144. 二叉树的前序遍历
+
+	// 递归
 	public List<Integer> preorderTraversal(TreeNode root) {
 		List<Integer> list = new ArrayList<Integer>();
 		if (root == null) {
@@ -37,6 +42,25 @@ public class BinaryTreePreorderTraversal {
 			list.addAll(preorderTraversal(root.right));
 		}
 		return list;
+	}
+
+	// 迭代
+	public List<Integer> preorderTraversal2(TreeNode root) {
+		ArrayList<Integer> results = new ArrayList<>();
+		Stack<TreeNode> stack = new Stack<>();
+
+		TreeNode cur = root;
+		while (cur != null || !stack.empty()) {
+			while (cur != null) {
+				results.add(cur.val);
+				stack.push(cur);
+				cur = cur.left;
+			}
+			cur = stack.pop();
+			// 转向
+			cur = cur.right;
+		}
+		return results;
 	}
 
 	// 0ms
