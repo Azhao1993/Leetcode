@@ -18,7 +18,7 @@ import TreeNode.TreeNode;
 				 -10  5
  */
 public class ConvertSortedArraytoBinarySearchTree {
-	// 108. 将有序数组转换为二叉搜索树
+	//108. 将有序数组转换为二叉搜索树
 	public TreeNode sortedArrayToBST(int[] nums) {
 		if (nums == null || nums.length == 0) {
 			return null;
