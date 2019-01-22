@@ -18,14 +18,17 @@ using namespace std;
 class Solution {
 public:
     string minWindow(string s, string t) {
+        // 字符串hash表，初始为0
         vector<int> map(128,0);
         for(auto c: t) map[c]++;
         int counter=t.size(), begin=0, end=0, d=INT_MAX, head=0;
         while(end<s.size()){
-            if(map[s[end++]]-->0) counter--; //in t
-            while(counter==0){ //valid
+            // 通过counter来判断是否匹配完成，有多次匹配会为负
+            if(map[s[end++]]-->0) counter--;
+            while(counter==0){
                 if(end-begin<d)  d=end-(head=begin);
-                if(map[s[begin++]]++==0) counter++;  //make it invalid
+                // 排除多次匹配
+                if(map[s[begin++]]++==0) counter++;
             }  
         }
         return d==INT_MAX? "":s.substr(head, d);
