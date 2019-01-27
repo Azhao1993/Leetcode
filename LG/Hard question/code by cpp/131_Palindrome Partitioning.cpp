@@ -30,13 +30,12 @@ public:
             arr.push_back(tmp);
             return ;
         }
-        for(int i=idx;i<s.length();i++){
+        for(int i=idx;i<s.length();i++)
             if(isPali(s,idx,i)){
                 tmp.push_back(s.substr(idx,i-idx+1));
                 helper(arr,tmp,s,i+1);
                 tmp.pop_back();
             }
-        }
     }
     bool isPali(string s,int left,int right){
         while(left<right)
