@@ -20,11 +20,12 @@ public:
     string largestNumber(vector<int>& nums) {
         vector<string> arr;
         for(auto it:nums)arr.push_back(to_string(it));
+        // sort的高级用法
         sort(arr.begin(),arr.end(),[](string a,string b){return a+b>b+a;});
         string res = "";
         for(auto it:arr)res += it;
-        while(res[0]=='0' && res.length()>1)
-            res.erase(0,1);
+        // 防止有多个0
+        if(res[0]=='0')return "0";
         return res;
     }
 };
