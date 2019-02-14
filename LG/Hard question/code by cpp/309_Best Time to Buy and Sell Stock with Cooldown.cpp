@@ -13,7 +13,7 @@ using namespace std;
 示例:
 
 输入: [1,2,3,0,2]
-输出: 3 
+输出: 3
 解释: 对应的交易状态为: [买入, 卖出, 冷冻期, 买入, 卖出]
 */
 
@@ -21,13 +21,19 @@ class Solution {
 public:
     int maxProfit(vector<int>& prices) {
         if(!prices.size())return 0;
-        int pre=0,res=0,cur=prices[0];
-        for(int i=1;i<prices.size();i++){
-            cur = min(cur,prices[i]-pre);
-            pre = res;
-            res = max(res,prices[i]-cur);
+        int pre_sell=0,sell=0,buy=INT_MIN,pre_buy;
+        for(int price:prices){
+            // 保存上一步买入的值
+            pre_buy = buy;
+            // 采用pre_sell来代替上一步没有进行买入即冷冻值来减去当前价格，看看是否应该买进
+            buy = max(pre_sell-price,buy);
+            // pre_sell保存上一步卖出的值，代表当前轮次进行冷冻
+            pre_sell = sell;
+            // 上一步进行买入的话才能在这一步进行卖出
+            sell = max(sell,pre_buy+price);
         }
-        return res;
+        // 通常当前卖出的值为最大值
+        return sell;
     }
 };
 
