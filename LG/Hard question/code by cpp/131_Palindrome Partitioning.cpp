@@ -26,10 +26,12 @@ public:
         return arr;
     }
     void helper(vector<vector<string> >& arr,vector<string>& tmp,string s,int idx){
+        // 递归结束
         if(idx==s.length()){
             arr.push_back(tmp);
             return ;
         }
+        // 从当前位置向后判断，若为回文则继续
         for(int i=idx;i<s.length();i++)
             if(isPali(s,idx,i)){
                 tmp.push_back(s.substr(idx,i-idx+1));
@@ -37,6 +39,7 @@ public:
                 tmp.pop_back();
             }
     }
+    // 判断是否为回文
     bool isPali(string s,int left,int right){
         while(left<right)
             if(s[left++]!=s[right--])return false;
