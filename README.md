@@ -35,6 +35,8 @@ ProblemSet文件夹则是一个Eclipse工程项目，按照LeetCode题目编号�
 
 - [查找表类算法 Search table](https://github.com/ontheway12138/Leetcode/tree/master/LG/Search%20table)
 
+- [Teambition](https://github.com/ontheway12138/Leetcode/tree/master/LG/Teambition)
+
 - [腾讯 Tencent](https://github.com/ontheway12138/Leetcode/tree/master/LG/Tencent)
 
 - [前缀树 Trie](https://github.com/ontheway12138/Leetcode/tree/master/LG/Trie)
