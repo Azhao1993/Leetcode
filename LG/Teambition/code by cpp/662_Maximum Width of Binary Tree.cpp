@@ -65,7 +65,7 @@ public:
         if(root==NULL)return 0;
         queue<TreeNode*> que;
         que.push(root);
-        // 更改二叉树的值
+        // 更改二叉树的值,减少空间复杂度
         root->val = 1;
         int res = 1;
         while(!que.empty()){
