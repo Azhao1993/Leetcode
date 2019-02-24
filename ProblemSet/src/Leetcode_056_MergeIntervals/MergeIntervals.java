@@ -17,6 +17,7 @@ import Interval.Interval;
 		输出: [[1,5]]
 		解释: 区间 [1,4] 和 [4,5] 可被视为重叠区间。
  */
+//56.合并区间
 public class MergeIntervals {
 	public static void main(String[] args) {
 		Interval inter1 = new Interval();
@@ -88,20 +89,20 @@ public class MergeIntervals {
 		List<Interval> list = new ArrayList<Interval>();
 		Interval L = new Interval();// 一层循环保存对象
 		Interval R = new Interval();// 二层循环保存对象
-		//如果被合并则进行下一个
+		// 如果被合并则进行下一个
 		for (int i = 0; i < intervals.size(); i++) {
 			L = intervals.get(i);
 			int j = i + 1;
 			for (; j < intervals.size(); j++) {
 				R = intervals.get(j);
-				//两区间左端点相等
+				// 两区间左端点相等
 				if (R.start == L.start) {
-					//将j位置的区间设置为【start,maxEnd】
+					// 将j位置的区间设置为【start,maxEnd】
 					intervals.set(j, new Interval(L.start, Math.max(L.end, R.end)));
 					break;
-				//左端点左小右大
+					// 左端点左小右大
 				} else if (L.start < R.start) {
-					//比较右端点和左端点
+					// 比较右端点和左端点
 					if (L.end >= R.start) {
 						Interval inter = new Interval(L.start, Math.max(L.end, R.end));
 						intervals.set(j, inter);
