@@ -1,15 +1,15 @@
 package Interval;
 
 public class Interval {
-	int start;
-	int end;
+	public int start;
+	public int end;
 
-	Interval() {
+	public Interval() {
 		start = 0;
 		end = 0;
 	}
 
-	Interval(int s, int e) {
+	public Interval(int s, int e) {
 		start = s;
 		end = e;
 	}
