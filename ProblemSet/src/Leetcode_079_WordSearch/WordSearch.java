@@ -76,4 +76,63 @@ public class WordSearch {
 
 		return false;
 	}
+
+	// 8ms
+	int m;
+	int n;
+
+	public boolean exist0(char[][] board, String word) {
+		if (null == board || word == null || word.isEmpty()) {
+			return false;
+		}
+
+		boolean[][] used = new boolean[board.length][board[0].length];
+
+		m = board.length;
+		n = board[0].length;
+
+		char[] charArray = word.toCharArray();
+
+		for (int i = 0; i < m; i++) {
+			for (int j = 0; j < n; j++) {
+				if (exist0(board, used, charArray, i, j, 0)) {
+					return true;
+				}
+			}
+		}
+
+		return false;
+
+	}
+
+	private boolean exist0(char[][] board, boolean[][] used, char[] charArray, int i, int j, int index) {
+		if (index == charArray.length) {
+			return true;
+		}
+
+		if (i >= m || i < 0) {
+			return false;
+		}
+
+		if (j >= n || j < 0) {
+			return false;
+		}
+
+		if (used[i][j] || board[i][j] != charArray[index]) {
+			return false;
+		}
+
+		used[i][j] = true;
+		// up -> right -> down -> left
+		boolean found = exist0(board, used, charArray, i - 1, j, index + 1)
+				|| exist0(board, used, charArray, i, j + 1, index + 1)
+				|| exist0(board, used, charArray, i + 1, j, index + 1)
+				|| exist0(board, used, charArray, i, j - 1, index + 1);
+
+		// recover
+		if (!found)
+			used[i][j] = false;
+
+		return found;
+	}
 }
