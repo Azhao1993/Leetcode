@@ -1,4 +1,5 @@
 package Leetcode_062_UniquePaths;
+
 /*
 	一个机器人位于一个 m x n 网格的左上角 （起始点在下图中标记为“Start” ）。
 	机器人每次只能向下或者向右移动一步。机器人试图达到网格的右下角（在下图中标记为“Finish”）。
@@ -28,26 +29,38 @@ public class UniquePaths {
 		UniquePaths up = new UniquePaths();
 		System.out.println(up.uniquePaths(7, 3));
 	}
-	//62. 不同的路径
-    public int uniquePaths(int m, int n) {
-        //创建二维矩阵
-    	int[][] grid = new int[m][n];
-    	//更新第一行
-    	for(int j = 0;j<n;j++) {
-    		grid[0][j] = 1;    		
-    	}
-    	//更新第一列
-    	for(int i = 0;i<m;i++) {
-    		grid[i][0] = 1;    		
-    	}
-    	//更新其他位置
-    	for(int i=1;i<m;i++) {
-    		for(int j = 1;j<n;j++) {
-    			grid[i][j]=grid[i-1][j]+grid[i][j-1];
-    		}
-    	}
-    	return grid[m-1][n-1];
-    }
-	
+
+	// 62. 不同的路径
+	public int uniquePaths(int m, int n) {
+		// 创建二维矩阵
+		int[][] grid = new int[m][n];
+		// 第一行只有一条路
+		for (int j = 0; j < n; j++) {
+			grid[0][j] = 1;
+		}
+		// 第一列只有一条路
+		for (int i = 0; i < m; i++) {
+			grid[i][0] = 1;
+		}
+		// dp[i][j] = dp[i-1][j]+dp[i][j-1]
+		for (int i = 1; i < m; i++) {
+			for (int j = 1; j < n; j++) {
+				grid[i][j] = grid[i - 1][j] + grid[i][j - 1];
+			}
+		}
+		return grid[m - 1][n - 1];
+	}
+
+	// 0ms:一维dp矩阵
+	public int uniquePaths0(int m, int n) {
+		int[] res = new int[n];
+		res[0] = 1;
+		for (int i = 0; i < m; i++) {
+			for (int j = 1; j < n; j++) {
+				res[j] = res[j] + res[j - 1];
+			}
+		}
+		return res[n - 1];
+	}
 
 }
