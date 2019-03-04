@@ -7,6 +7,8 @@ ProblemSet文件夹则是一个Eclipse工程项目，按照LeetCode题目编号�
 
 ### 章节直通车
 
+- [算法面试题汇总 Algorithm Interview](https://github.com/ontheway12138/Leetcode/tree/master/LG/Algorithm%20Interview)
+
 - [数组类算法 Array algorithm](https://github.com/ontheway12138/Leetcode/tree/master/LG/Array%20algorithm)
 
 - [数组和字符串 Array and String](https://github.com/ontheway12138/Leetcode/tree/master/LG/Array%20and%20String)
