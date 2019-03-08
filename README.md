@@ -1,7 +1,7 @@
 # Leetcode
 The code of Leetcode
 
-其中LG文件夹是按照LeetCode探索中的每个章节进行划分文件夹，包括C++实现和JAVA实现
+LG文件夹是按照LeetCode探索中的每个章节进行划分文件夹，包括C++实现和JAVA实现
 
 AnswerByCpp文件夹是根据题目顺序的C++实现的代码
 
@@ -43,4 +43,4 @@ ProblemSet文件夹则是一个Eclipse工程项目，按照LeetCode题目编号�
 
 - [腾讯 Tencent](https://github.com/ontheway12138/Leetcode/tree/master/LG/Tencent)
 
-- [前缀树 Trie](https://github.com/ontheway12138/Leetcode/tree/master/LG/Trie)
+- [前缀树 Trie](https://github.com/ontheway12138/Leetcode/tree/master/LG/Trie) 
