@@ -32,7 +32,23 @@ static int x = [](){std::ios::sync_with_stdio(false); cin.tie(0); return 0;}();
 class Solution {
 public:
     string convert(string s, int numRows) {
-        if(numRows<=1)return s;
+        if(numRows<=1 || s.size()<numRows)return s;
+
+        // 通过直接构造字符串数组来判断
+        vector<string> arr(numRows);
+        string str = "";
+        bool direction = false;
+        int row = 0;
+        for(auto c : s){
+            arr[row] += c;
+            if(row==0 || row==numRows-1)direction = !direction;
+            row += direction ? 1 : -1;
+        }
+        for(auto it : arr)
+            str += it;
+        return str;
+
+        // 通过下标进行查找
         string res = "";
         for(int i=0;i<numRows;i++){
             int tem = i;
@@ -48,6 +64,7 @@ public:
             }
         }
         return res;
+
     }
 };
 
@@ -55,7 +72,7 @@ public:
 int main(){
 
     Solution* so = new Solution();
-    string num = so->convert("L",1);
+    string num = so->convert("iqurpoiuewroiuqerwiourioquweropiuwer",7);
     cout<<num<<endl;
     return 0;
 }
