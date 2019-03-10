@@ -31,7 +31,7 @@ static int x = []() {std::ios::sync_with_stdio(false); cin.tie(0); return 0;}();
 
 class Solution {
 private:
-    TreeNode* father_x,father_y;
+    TreeNode *father_x,*father_y;
     int depth_x,depth_y;
 public:
     bool isCousins(TreeNode* root, int x, int y) {
