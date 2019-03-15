@@ -62,4 +62,49 @@ public class SpiralMatrix2 {
 		return result;
 	}
 
+	//
+	public int[][] generateMatrix0(int n) {
+		// Declaration
+		int[][] matrix = new int[n][n];
+
+		// Edge Case
+		if (n == 0) {
+			return matrix;
+		}
+
+		// Normal Case
+		int rowStart = 0;// 行头
+		int rowEnd = n - 1;// 行尾
+		int colStart = 0;// 列头
+		int colEnd = n - 1;// 列尾
+		int num = 1; // change
+
+		while (rowStart <= rowEnd && colStart <= colEnd) {
+			// 向右
+			for (int i = colStart; i <= colEnd; i++) {
+				matrix[rowStart][i] = num++; // change
+			}
+			rowStart++;// 行头向下
+			// 向下
+			for (int i = rowStart; i <= rowEnd; i++) {
+				matrix[i][colEnd] = num++; // change
+			}
+			colEnd--;// 列尾向前
+			// 向左
+			for (int i = colEnd; i >= colStart; i--) {
+				if (rowStart <= rowEnd)
+					matrix[rowEnd][i] = num++; // change
+			}
+			rowEnd--;// 行尾向上
+			// 向上
+			for (int i = rowEnd; i >= rowStart; i--) {
+				if (colStart <= colEnd)
+					matrix[i][colStart] = num++; // change
+			}
+			colStart++;// 列头向后
+		}
+
+		return matrix;
+	}
+
 }
