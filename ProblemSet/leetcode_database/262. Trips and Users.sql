@@ -37,19 +37,22 @@ INSERT INTO Users (Users_Id, Banned, Role) VALUES ('12', 'No', 'driver');
 -- 取消率（Cancellation Rate）保留两位小数。
 
 -- 非禁止用户在2013年10月1日 至 2013年10月3日 期间的使用情况
-SELECT p.Day,COUNT(p.day) AS SUM
+SELECT sss1.day,FORMAT (IFNULL(sss2.sum2,0)/sss1.sum1,2 )  CancellationRate
+FROM(
+SELECT p.Day,COUNT(p.day) AS SUM1
 FROM (SELECT t.status st,t.request_at DAY 
 	FROM trips t , users u 
 	WHERE t.client_id = u.users_id 
 		AND  u.banned ='no') p
-GROUP BY p.day
-UNION
-SELECT p.Day,COUNT(p.st) AS SUM
+GROUP BY p.day) sss1 LEFT JOIN 
+(SELECT p.Day,COUNT(p.st) AS SUM2
 FROM (SELECT t.status st,t.request_at DAY 
 	FROM trips t , users u 
 	WHERE t.client_id = u.users_id 
 		AND  u.banned ='no') p
 WHERE p.st!='completed'
-GROUP BY p.day,p.st
+GROUP BY p.day,p.st) sss2
+ON sss1.day=sss2.day
+-- 题目好像有人问题
 
 	
