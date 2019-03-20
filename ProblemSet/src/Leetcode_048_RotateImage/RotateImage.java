@@ -69,4 +69,30 @@ public class RotateImage {
 		}
 	}
 
+	// 旋转边框
+	public static void rotateMatrix(int[][] matrix) {
+		if (matrix == null || matrix.length <= 1) {
+			return;
+		}
+		// n*n的方阵
+		int n = matrix.length;
+		// 奇数中间的一个点不用动
+		// (i,i)表示边框的起点
+		for (int i = 0; i < n / 2; i++) {
+			rotateEdge(matrix, i);
+		}
+	}
+
+	private static void rotateEdge(int[][] matrix, int i) {
+		int n = matrix.length;
+		// （i,i）——>(i,n-2-i)需要移动的边框的移动轨迹
+		for (int j = 0; j < n - 1 - 2 * i; j++) {
+			int tmp = matrix[i][i + j];
+			matrix[i][i + j] = matrix[n - 1 - i - j][i];
+			matrix[n - 1 - i - j][i] = matrix[n - 1 - i][n - 1 - i - j];
+			matrix[n - 1 - i][n - 1 - i - j] = matrix[i + j][n - 1 - i];
+			matrix[i + j][n - 1 - i] = tmp;
+		}
+	}
+
 }
