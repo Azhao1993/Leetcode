@@ -23,7 +23,7 @@ candidates 中的每个数字在每个组合中只能使用一次。
 
 class Solution {
 public:
-    vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
+    vector<vector<int>> combinationSum2(vector<int>& candidates, int target) {
         vector<vector<int>> arr;
         vector<int> tem;
         sort(candidates.begin(),candidates.end());
@@ -34,6 +34,7 @@ public:
         if(!tar)res.push_back(tem);
         for(int i=start;i<arr.size();++i){
             if(tar<arr[i]) break;
+            // 去重
             if(i>start && arr[i]==arr[i-1]) continue;
             tem.push_back(arr[i]);
             dfs(res,arr,tar-arr[i],tem,i+1);
@@ -46,7 +47,7 @@ int main(){
     vector<int> a({2,5,2,1,2});
 
     Solution* so = new Solution();
-    vector<vector<int>> num = so->combinationSum(a,5);
+    vector<vector<int>> num = so->combinationSum2(a,5);
     for(auto it:num){
         for(auto ch:it)
             cout<<ch<<' ';
