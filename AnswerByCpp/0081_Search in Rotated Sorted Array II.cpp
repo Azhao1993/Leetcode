@@ -47,7 +47,7 @@ int main(){
     vector<int> nums({2,1});
     Solution* so = new Solution();
 
-    for(int i=0;i<24;++i){
+    for(int i=0;i<4;++i){
         cout<<"daf"<<endl;
         bool bl = so->search(nums,i);
         cout<<i<<": "<<bl<<endl;
