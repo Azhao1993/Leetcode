@@ -31,7 +31,7 @@ import java.util.HashMap;
 
 //460. LFU缓存
 public class LFUCache {
-	// 双向链表实现
+	// 双向链表（横向+纵向）
 
 	// 定义节点类型
 	class Node {
