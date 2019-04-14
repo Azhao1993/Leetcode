@@ -36,9 +36,33 @@ public:
         vector<int> arr;
         if(root==NULL)return arr;
         stack<TreeNode*> sta;
-        TreeNode* cur = NULL;
-        TreeNode* pre = NULL;
+
         sta.push(root);
+        TreeNode* cur = root->left;
+        TreeNode* pre = NULL;
+        while(cur != NULL){
+            sta.push(cur);
+            cur = cur->left;
+        }
+        
+        while(!sta.empty()){
+            cur = sta.top();
+            // 没有根，或者访问过其根节点可以访问当前节点
+            if(cur->right==NULL || cur->right==pre ){
+                arr.push_back(cur->val);
+                sta.pop();
+                pre = cur;
+            }else{
+                cur = cur->right;
+                while(cur != NULL){
+                    sta.push(cur);
+                    cur = cur->left;
+                }
+            }
+        }
+        return res;
+        /*
+        // 骚操作
         while(!sta.empty()){
             cur = sta.top();
             // 没有根，或者访问过其根节点可以访问当前节点
@@ -53,6 +77,7 @@ public:
             }
         }
         return arr;
+        */
         /*
         // 递归
         if(root){
