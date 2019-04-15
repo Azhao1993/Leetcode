@@ -28,7 +28,7 @@ import TreeNode.TreeNode;
 		每个节点的值介于 1 和 10 ^ 9 之间。
  */
 
-//531.从先序遍历还原二叉树
+//5031.从先序遍历还原二叉树
 public class RecoveraTreeFromPreorderTraversal {
 
 	public static void main(String[] args) {
