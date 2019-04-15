@@ -1,4 +1,4 @@
-package Leetcode_5030_MaximumDifferenceBetweenNodeandAncestor;
+package Leetcode_1026_MaximumDifferenceBetweenNodeandAncestor;
 
 import java.util.Stack;
 
@@ -29,7 +29,7 @@ import java.util.Stack;
 		每个节点的值介于 0 到 100000 之间。
  */
 import TreeNode.TreeNode;
-//5030.节点与其父节点之间的最大差值
+//1026.节点与其父节点之间的最大差值
 public class MaximumDifferenceBetweenNodeandAncestor {
 	public int maxAncestorDiff(TreeNode root) {
 		int res = 0;
