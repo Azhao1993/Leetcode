@@ -1,4 +1,5 @@
 package Contest_College_2019_spring;
+
 /*
 	给定有向图的边 edges，以及该图的始点 source 和目标终点 destination，
 	确定从始点 source 出发的所有路径是否最终结束于目标终点 destination，即：
@@ -38,51 +39,13 @@ package Contest_College_2019_spring;
 	0 <= source <= n - 1
 	0 <= destination <= n - 1
  */
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Stack;
+
 
 public class AllPathsfromSourceLeadtoDestination {
 	public boolean leadsToDestination(int n, int[][] edges, int source, int destination) {
-		// 建图
-		HashMap<Integer, Node> keytonode = new HashMap<>();
-		for (int i = 0; i < edges.length; i++) {
-			int value = edges[i][0];
-			int nextval = edges[i][1];
-			if (!keytonode.containsKey(value)) {
-				Node node = new Node(value);
-				keytonode.put(value, node);
-			}
-			if (!keytonode.containsKey(nextval)) {
-				Node node = new Node(nextval);
-				keytonode.put(nextval, node);
-			}
-			keytonode.get(value).nexts.add(keytonode.get(nextval));
-		}
-		//dfs所有路径
-		ArrayList<ArrayList<String>>  allroads = new ArrayList<>();
-		Stack<Node> stack = new Stack<Node>();
-		stack.push((keytonode.get(source)));
-		//是否有环
-		boolean flag = false;
-	    DFS(allroads,stack,destination,flag);
-		
+
+		return false;
+
 	}
 
-	private void DFS(ArrayList<ArrayList<String>> allroads, Stack<Node> stack, int destination,boolean flag) {
-		Node head = stack.peek();
-		for(Node next:head.nexts) {
-			
-		}
-		
-	}
-}
-
-class Node {
-	int val;
-	ArrayList<Node> nexts;
-
-	Node(int val) {
-		this.val = val;
-	}
 }

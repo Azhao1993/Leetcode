@@ -38,7 +38,7 @@ package Contest_College_2019_spring;
 
 public class CampusBikes {
 	public int[] assignBikes(int[][] workers, int[][] bikes) {
-
+		return null;
 	}
 
 }
