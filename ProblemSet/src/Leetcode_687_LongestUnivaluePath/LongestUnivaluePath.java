@@ -7,11 +7,11 @@ import java.util.Queue;
 import TreeNode.TreeNode;
 
 /*
-	Given a binary tree, 
-	find the length of the longest path where each node in the path has the same value. 
-	This path may or may not pass through the root.
-	
-	The length of path between two nodes is represented by the number of edges between them.	 
+	给定一个二叉树，找到最长的路径，
+	这个路径中的每个节点具有相同值。 
+	这条路径可以经过也可以不经过根节点。
+
+	注意：两个节点之间的路径长度由它们之间的边数表示。
 	
 	Example 1:	
 		Input:
@@ -33,8 +33,7 @@ import TreeNode.TreeNode;
 		          4   4   5
 		Output: 2 
 	
-	Note: The given binary tree has not more than 10000 nodes. 
-		The height of the tree is not more than 1000.
+	注意: 给定的二叉树不超过10000个结点。 树的高度不超过1000.
  */
 // 687. 最长同值路径
 public class LongestUnivaluePath {
@@ -121,7 +120,7 @@ public class LongestUnivaluePath {
 
 	// clean
 	public int longestUnivaluePath0(TreeNode root) {
-		//全局变量res
+		// 全局变量res
 		int[] res = new int[1];
 		if (root != null)
 			dfs(root, res);
