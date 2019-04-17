@@ -121,6 +121,7 @@ public class LongestUnivaluePath {
 
 	// clean
 	public int longestUnivaluePath0(TreeNode root) {
+		//全局变量res
 		int[] res = new int[1];
 		if (root != null)
 			dfs(root, res);
@@ -128,13 +129,17 @@ public class LongestUnivaluePath {
 	}
 
 	private int dfs(TreeNode node, int[] res) {
-		int l = node.left != null ? dfs(node.left, res) : 0; // Longest-Univalue-Path-Start-At - left child
-		int r = node.right != null ? dfs(node.right, res) : 0; // Longest-Univalue-Path-Start-At - right child
-		int resl = node.left != null && node.left.val == node.val ? l + 1 : 0; // Longest-Univalue-Path-Start-At - node,
-																				// and go left
-		int resr = node.right != null && node.right.val == node.val ? r + 1 : 0; // Longest-Univalue-Path-Start-At -
-																					// node, and go right
-		res[0] = Math.max(res[0], resl + resr); // Longest-Univalue-Path-Across - node
+		// 可能在左子树
+		int l = node.left != null ? dfs(node.left, res) : 0;
+		// 可能在右子树
+		int r = node.right != null ? dfs(node.right, res) : 0;
+		// 左子树+当前节点
+		int resl = node.left != null && node.left.val == node.val ? l + 1 : 0;
+		// 右子树+当前节点
+		int resr = node.right != null && node.right.val == node.val ? r + 1 : 0;
+		// 更新全局结果
+		res[0] = Math.max(res[0], resl + resr);
+		// 将结果返回给上一层
 		return Math.max(resl, resr);
 	}
 }
