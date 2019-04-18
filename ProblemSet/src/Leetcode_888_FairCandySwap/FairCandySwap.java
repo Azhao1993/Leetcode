@@ -1,5 +1,8 @@
 package Leetcode_888_FairCandySwap;
 
+import java.util.HashSet;
+import java.util.stream.IntStream;
+
 /*
 	爱丽丝和鲍勃有不同大小的糖果棒：A[i] 是爱丽丝拥有的第 i 块糖的大小，B[j] 是鲍勃拥有的第 j 块糖的大小。	
 	因为他们是朋友，所以他们想交换一个糖果棒，这样交换后，他们都有相同的糖果总量。（一个人拥有的糖果总量是他们拥有的糖果棒大小的总和。）	
@@ -32,9 +35,10 @@ public class FairCandySwap {
 	public static void main(String[] args) {
 		// TODO 自动生成的方法存根
 		FairCandySwap fcs = new FairCandySwap();
-		int[] A = { 1, 1 };
+		int[] A = { 1, 3 };
 		int[] B = { 2, 2 };
-		// System.out.println(fcs.fairCandySwap(A, B));
+		int[] result = fcs.fairCandySwap0(A, B);
+		System.out.println(result[0]+","+result[1]);
 	}
 
 	// 888. 公平的糖果交换
@@ -62,5 +66,14 @@ public class FairCandySwap {
 		}
 		return result;
 	}
+	
+	//
+	 public int[] fairCandySwap0(int[] A, int[] B) {
+	        int dif = (IntStream.of(A).sum() - IntStream.of(B).sum()) / 2;
+	        HashSet<Integer> S = new HashSet<>();
+	        for (int a : A) S.add(a);
+	        for (int b : B) if (S.contains(b + dif)) return new int[] {b + dif, b};
+	        return new int[] {0,0};
+	    }
 
 }
