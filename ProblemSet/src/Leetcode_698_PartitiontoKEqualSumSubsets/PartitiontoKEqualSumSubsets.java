@@ -36,7 +36,7 @@ public class PartitiontoKEqualSumSubsets {
 
 	// nums,k,子集目标和，当前和，签到数组，innerStart防止重复
 	private boolean canKSubsetsSum(int[] nums, int k, int targetSum, int curSum, boolean[] visited, int innerStart) {
-		// k=0时说明所有的组分好
+		// k=0 时说明所有的组分好
 		if (k == 0) {
 			return true;
 		} else if (curSum > targetSum) {
@@ -44,7 +44,8 @@ public class PartitiontoKEqualSumSubsets {
 			return false;
 		} else if (curSum == targetSum) {
 			// 分组成立
-			return canKSubsetsSum(nums, k - 1, targetSum, 0, visited, 0); // Inner base case for current subset sum.
+			// 从第一个没有被使用过的数开始找
+			return canKSubsetsSum(nums, k - 1, targetSum, 0, visited, 0);
 		}
 		for (int i = innerStart; i < nums.length; i++) {
 			if (!visited[i]) {
@@ -52,7 +53,7 @@ public class PartitiontoKEqualSumSubsets {
 				if (canKSubsetsSum(nums, k, targetSum, curSum + nums[i], visited, i + 1)) {
 					return true;
 				}
-				// 回溯
+				// 回溯，并向后
 				visited[i] = false;
 			}
 		}
