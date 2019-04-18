@@ -139,6 +139,6 @@ public class LongestUnivaluePath {
 		// 更新全局结果
 		res[0] = Math.max(res[0], resl + resr);
 		// 将结果返回给上一层
-		return Math.max(resl, resr);
+		return Math.max(resl, resr); 
 	}
 }
