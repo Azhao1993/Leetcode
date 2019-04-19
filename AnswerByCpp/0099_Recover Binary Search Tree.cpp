@@ -76,6 +76,7 @@ public:
             pre = cur;
             cur = cur->right;
         }
+        // 找到后交换
         if(first && second)swap(first->val, second->val);
     }
 };
