@@ -40,7 +40,7 @@ package Leetcode_010_RegularExpressionMatching;
 		p = "mis*is*p*."
 		输出: false
  */
-//10. 正则表达式匹配
+// 10. 正则表达式匹配
 public class RegularExpressionMatching {
 	public boolean isMatch(String s, String p) {
 		return isMatch(s, p, 0, 0);
