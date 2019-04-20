@@ -29,9 +29,9 @@ import java.util.List;
 public class ReplaceWords {
 	public String replaceWords(List<String> dict, String sentence) {
 		// 将词根存入前缀树
-		Node root = new Node();
-		Node temp = root;
+		Node root = new Node();		
 		for (String str : dict) {
+			Node temp = root;
 			for (int i = 0; i < str.length(); i++) {
 				int index = str.charAt(i) - 'a';
 				if (temp.child[index] == null) {
@@ -46,7 +46,7 @@ public class ReplaceWords {
 		String[] sent = sentence.split(" ");
 		StringBuilder res = new StringBuilder();
 		for (int j = 0; j < sent.length; j++) {
-			temp = root;
+			Node temp = root;
 			String str = sent[j];
 			for (int i = 0; i < str.length(); i++) {
 				int index = str.charAt(i) - 'a';
