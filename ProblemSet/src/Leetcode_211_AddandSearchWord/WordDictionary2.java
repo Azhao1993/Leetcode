@@ -52,31 +52,28 @@ public class WordDictionary {
 	}
 
 	private boolean search(int i, String word, Node node) {
-		Node temp = node;
-		for (int j = i; j < word.length(); j++) {
-			char ch = word.charAt(j);
-			if (ch == '.') {
-				for (Character key : temp.child.keySet()) {
-					Node child = temp.child.get(key);
-					if (search(j + 1, word, child)) {
-						return true;
-					}
-				}
-				// return false;
-			} else {
-				if (!temp.child.containsKey(ch)) {
-					return false;
-				} else {
-					Node child = temp.child.get(ch);
-					temp = child;
+		if (i == word.length()) {
+			return node.isEnd;
+		}
+
+		char ch = word.charAt(i);
+		if (ch == '.') {
+			for (Character key : node.child.keySet()) {
+				Node child = node.child.get(key);
+				if (search(i + 1, word, child)) {
+					return true;
 				}
 			}
+			return false;
+		} else {
+			if (!node.child.containsKey(ch)) {
+				return false;
+			} else {
+				Node child = node.child.get(ch);
+				node = child;
+				return search(i + 1, word, child);
+			}
 		}
-		if (temp.isEnd) {
-			return true;
-		}
-		return false;
-
 	}
 }
 
