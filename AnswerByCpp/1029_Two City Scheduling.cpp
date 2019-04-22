@@ -30,11 +30,10 @@ public:
         int res = 0, len = costs.size(), mid = len/2;
         sort(costs.begin(), costs.end(), [](vector<int> a, vector<int> b){return a[0]-a[1] < b[0]-b[1];});
 
-        for(int i=0; i<len; ++i){
+        for(int i=0; i<len; ++i)
             // 前 N个去 A城市， 后 N个去 B城市
             res += i < mid ? costs[i][0] : costs[i][1];
-            cout<< costs[i][0] << "    " <<costs[i][1] <<"    " <<costs[i][0]-costs[i][1]<<endl;
-        }
+        
         return res;
         
         /*
