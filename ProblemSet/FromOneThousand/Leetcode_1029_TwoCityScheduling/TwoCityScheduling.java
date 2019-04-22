@@ -1,5 +1,6 @@
 package Leetcode_1029_TwoCityScheduling;
 
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.PriorityQueue;
 
@@ -25,26 +26,49 @@ import java.util.PriorityQueue;
 
 //1029. 两地调度
 public class TwoCityScheduling {
+
+	// O(1)空间复杂度
+	public int twoCitySchedCost0(int[][] costs) {
+		Arrays.sort(costs, new Comparator<int[]>() {
+
+			@Override
+			public int compare(int[] o1, int[] o2) {
+				//A-B
+				int dif1 = o1[0] - o1[1];
+				int dif2 = o2[0] - o2[1];
+				// 差值从小到大
+				return dif1 - dif2;
+			}
+
+		});
+		int sum = 0;
+		for (int i = 0; i < costs.length; i++) {
+			//A-B,差值从小到大,前面选A，后面选B
+			sum += i < costs.length / 2 ? costs[i][0] : costs[i][1];
+		}
+		return sum;
+	}
+
 	public int twoCitySchedCost(int[][] costs) {
 		PriorityQueue<Integer> queueA = new PriorityQueue<>(new MyComparator());
 		PriorityQueue<Integer> queueB = new PriorityQueue<>(new MyComparator());
-		
-		int sum = 0;		
+
+		int sum = 0;
 		for (int i = 0; i < costs.length; i++) {
 			if (costs[i][0] - costs[i][1] > 0) {
-				//去B
-				queueB.add(Math.abs(costs[i][0]-costs[i][1]));
+				// 去B
+				queueB.add(Math.abs(costs[i][0] - costs[i][1]));
 			} else {
-				//去A
-				queueA.add(Math.abs(costs[i][0]-costs[i][1]));
+				// 去A
+				queueA.add(Math.abs(costs[i][0] - costs[i][1]));
 			}
-			sum+=Math.min(costs[i][0],costs[i][1]);
+			sum += Math.min(costs[i][0], costs[i][1]);
 		}
-		while(queueA.size()>costs.length/2) {
-			sum+=queueA.poll();
+		while (queueA.size() > costs.length / 2) {
+			sum += queueA.poll();
 		}
-		while(queueB.size()>costs.length/2) {
-			sum+=queueB.poll();
+		while (queueB.size() > costs.length / 2) {
+			sum += queueB.poll();
 		}
 		return sum;
 	}
