@@ -32,97 +32,46 @@ package Leetcode_1032_StreamofCharacters;
 		待查项最多 40000 个。
  */
 
-//1032. 字符流(超时)
+//1032. 字符流
 public class StreamChecker {
-	TrieTree tt;
-	String s;
 
-	// 构造字典
+	class TrieNode {
+		boolean isWord;
+		TrieNode[] next = new TrieNode[26];
+	}
+
+	TrieNode root = new TrieNode();
+	StringBuilder sb = new StringBuilder();
+
 	public StreamChecker(String[] words) {
-		tt = new TrieTree();
-		for (int i = 0; i < words.length; i++) {
-			tt.reverseBuild(words[i],words[i].length()-1,tt.root);
-		}
-		s="";
+		createTrie(words);
 	}
 
 	public boolean query(char letter) {
-		s += letter;
-		return tt.reverseSearch(s,s.length()-1,tt.root);
-	}
-}
-
-//前缀树节点
-class TrieNode {
-	boolean isEnd = false;
-	TrieNode[] childs;
-
-	TrieNode() {
-		childs = new TrieNode[26];
-	}
-}
-
-//前缀树
-class TrieTree {
-	TrieNode root;
-
-	TrieTree() {
-		root = new TrieNode();
-	}
-	//递归
-	//翻转
-	public void reverseBuild(String s,int i,TrieNode root) {
-		if(i==-1) {
-			root.isEnd = true;
-			return;
-		}
-		int index = s.charAt(i)-'a';
-		if(root.childs[index]==null) {
-			root.childs[index]= new TrieNode();			
-		}		
-		reverseBuild(s,i-1,root.childs[index]);
-	}
-	//查询
-	public boolean reverseSearch(String s,int i,TrieNode root) {
-		if(i==-1||root.isEnd) {
-			return root.isEnd;
-		}
-		int index =s.charAt(i)-'a';
-		if(root.childs[index]==null) {
-			return false;
-		}
-		return reverseSearch(s,i-1,root.childs[index]);
-	}
-	
-	//迭代
-	// 翻转构造
-	public void reverseBuild(String s) {
+		sb.append(letter);
 		TrieNode node = root;
-		for (int i = s.length() - 1; i >= 0; i--) {
-			int index = s.charAt(i) - 'a';
-			if (node.childs[index] == null) {
-				TrieNode child = new TrieNode();
-				node.childs[index] = child;
-			}
-			node = node.childs[index];
-		}
-		node.isEnd = true;
-	}
-
-	// 翻转查找
-	public boolean reverseSearch(String s) {
-		TrieNode node = root;
-
-		for (int i = s.length() - 1; i >= 0; i--) {
-			if (node.isEnd) {
+		for (int i = sb.length() - 1; i >= 0 && node != null; i--) {
+			char c = sb.charAt(i);
+			node = node.next[c - 'a'];
+			if (node != null && node.isWord) {
 				return true;
 			}
-			int index = s.charAt(i) - 'a';
-			if (node.childs[index] == null) {
-				return false;
-			}
-			node = node.childs[index];
 		}
-		return node.isEnd;
+		return false;
+	}
+
+	private void createTrie(String[] words) {
+		for (String s : words) {
+			TrieNode node = root;
+			int len = s.length();
+			for (int i = len - 1; i >= 0; i--) {
+				char c = s.charAt(i);
+				if (node.next[c - 'a'] == null) {
+					node.next[c - 'a'] = new TrieNode();
+				}
+				node = node.next[c - 'a'];
+			}
+			node.isWord = true;
+		}
 	}
 }
