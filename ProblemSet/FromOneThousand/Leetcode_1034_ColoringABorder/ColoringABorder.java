@@ -58,8 +58,7 @@ public class ColoringABorder {
 		return grid;
 	}
 
-	private void dfs(int i, int j, int[][] grid, int oldcolor, boolean[][] change, boolean[][] used) {
-		
+	private void dfs(int i, int j, int[][] grid, int oldcolor, boolean[][] change, boolean[][] used) {		
 		if (!used[i][j] && grid[i][j] == oldcolor) {
 			change[i][j] = true;
 			used[i][j] = true;
@@ -67,7 +66,6 @@ public class ColoringABorder {
 			used[i][j] = true;
 			return;
 		}
-
 		// ÏòÉÏ
 		if (i - 1 >= 0) {
 			dfs(i - 1, j, grid, oldcolor, change, used);
@@ -84,6 +82,5 @@ public class ColoringABorder {
 		if (j + 1 <= grid[0].length - 1) {
 			dfs(i, j + 1, grid, oldcolor, change, used);
 		}
-
 	}
 }
