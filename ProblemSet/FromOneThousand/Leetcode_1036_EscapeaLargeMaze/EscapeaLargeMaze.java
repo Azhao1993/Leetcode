@@ -40,17 +40,19 @@ public class EscapeaLargeMaze {
 			return true;
 		}
 		HashSet<String> visited = new HashSet();
-		HashSet<String> blockc = new HashSet();
 
+		HashSet<String> blockc = new HashSet();
+		// i+j
 		for (int[] block : blocked) {
 			blockc.add(block[0] + "+" + block[1]);
 		}
-
+		// 源的路径
 		Queue<int[]> travel = new LinkedList();
 		travel.add(source);
+		// 步数
 		int level = 0;
 		while (!travel.isEmpty()) {
-
+			//
 			if (blockc.isEmpty() || blockc.size() < level + 1) {
 				return true;
 			}
