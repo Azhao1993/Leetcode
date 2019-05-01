@@ -26,11 +26,12 @@ using namespace std;
 class Solution {
 public:
     int maxUncrossedLines(vector<int>& A, vector<int>& B) {
-        int len1 = A.size();
-        int len2 = B.size();
+        int len1 = A.size(), len2 = B.size();
         vector<vector<int>> dp(len1+1,vector<int>(len2+1,0));
+        // dp[i][j] 代表A 矩阵的前i 个，与B 矩阵的前j 个进行相连能得到的最大直线数
         for(int i=1; i<=len1; ++i)
             for(int j=1; j<=len2; ++j){
+                // 当i-1 和j-1 能够相交时，给当前的数＋1 并和两侧的进行对比
                 int tem = max(dp[i-1][j], dp[i][j-1]);
                 if(A[i-1]==B[j-1])
                     dp[i][j] = max(dp[i-1][j-1]+1, tem);
@@ -41,8 +42,10 @@ public:
 };
 
 int main(){
+    vector<int> arr = {1,4,2};
+    vector<int> brr = {1,2,4};
     Solution* so = new Solution();
-    bool bl = so->divisorGame(6);
-    cout<<bl<<endl;
+    int n = so->maxUncrossedLines(arr, brr);
+    cout<<n<<endl;
     return 0;
 }
