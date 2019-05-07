@@ -4,7 +4,7 @@
 #include<numeric>
 using namespace std;
 /*
-5042. 逃离大迷宫
+1036. 逃离大迷宫
 
 在一个 10^6 x 10^6 的网格中，每个网格块的坐标为 (x, y)，其中 0 <= x, y < 10^6。
 我们从源方格 source 开始出发，意图赶往目标方格 target。每次移动，
