@@ -24,6 +24,7 @@ babgbag     babgbag     babgbag     babgbag     babgbag
 
 class Solution {
 public:
+    /*
     // 列主序，通过构造 t 的字典，进一步降低时间复杂度的动态规划
     // 当S = "babgbag", T = "baga" 时
     // next数组为 -1  -1  -1  1    hash[a] = 3   hash[b] = 0   hash[g] = 2 
@@ -55,7 +56,7 @@ public:
 
         return dp[t.size()];
     }
-    /*
+    
     // 当S = "babgbag", T = "bag"  dp矩阵的变化情况为
     // b: 1 1 0 0  -->  a: 1 1 1 0  -->  b: 1 2 1 0 --> g: 1 2 1 1
     // b: 1 3 1 1  -->  a: 1 3 4 1  -->  g: 1 3 4 5
@@ -72,7 +73,6 @@ public:
 
         return dp[t.size()];
     }
-    
     // 降低空间复杂度的动态规划
     int numDistinct(string s, string t){
         // 初始化第一行
@@ -94,22 +94,24 @@ public:
 
         return dp[s.size()];
     }
+    */
     
     // 根据上一个递归写的动态规划
     int numDistinct(string s, string t){
         vector<vector<long>> dp(t.size()+1, vector<long>(s.size()+1, 0));
-        // 初始化第一行
-        for(int j=1; j<=s.size(); ++j) dp[0][j] = 1;
-        for(int i=1; i<=t.size(); ++i)
-            for(int j=1; j<=s.size(); ++j){
+        // 初始化最后一行，相当于 匹配空字符串
+        for(int j=0; j<=s.size(); ++j) dp[t.size()][j] = 1;
+        for(int i=t.size()-1; i>=0; i--)
+            for(int j=s.size()-1; j>=0; j--){
                 // 是否相等都要加上前面的值
-                dp[i][j] = dp[i][j-1];
+                dp[i][j] = dp[i][j+1];
                 // 相等时加上，上一个字符匹配得出的结果
-                if(s[j-1] == t[i-1]) dp[i][j] += dp[i-1][j-1];
+                if(s[j] == t[i]) dp[i][j] += dp[i+1][j+1];
             }
-        return dp[t.size()][s.size()];
+        return dp[0][0];
     }
 
+    /*
     // 暴力递归 直接GG
     int numDistinct(string s, string t) {
         int res = 0;
