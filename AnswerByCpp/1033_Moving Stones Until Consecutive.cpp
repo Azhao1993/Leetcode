@@ -4,7 +4,7 @@
 #include<algorithm>
 using namespace std;
 /*
-5039. 移动石子直到连续
+1033. 移动石子直到连续
 
 三枚石子放置在数轴上，位置分别为 a，b，c。
 每一回合，我们假设这三枚石子当前分别位于位置 x, y, z 且 x < y < z。
