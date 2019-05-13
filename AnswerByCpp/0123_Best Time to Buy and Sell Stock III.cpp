@@ -1,7 +1,7 @@
 #include<iostream>
 #include<vector>
 #include<algorithm>
-#include<numeric>
+#include<limits.h>
 using namespace std;
 /*
 123. 买卖股票的最佳时机 III
@@ -23,6 +23,25 @@ using namespace std;
 
 class Solution {
 public:
+
+    int maxProfit(vector<int>& prices) {
+        if(prices.size()==0)return 0;
+        // 持有的股票为负无穷， 初始拥有金钱为 0
+        int hold1 = INT_MIN, hold2 = INT_MIN, res1 = 0, res2 = 0;
+        for(auto it : prices){
+            // 把第二次交易后持有的股票卖了
+            res2 = max(res2, hold2 + it);
+            // 交易完第一次，再一次进行买入
+            hold2 = max(hold2, res1 - it);
+            // 把第一次交易后持有的股票卖了
+            res1 = max(res1, hold1 + it);
+            // 进行第一次买入
+            hold1 = max(hold1, -it);
+        }
+        return res2;
+    }
+    /*
+    // 左右进行交易，找最大值
     int maxProfit(vector<int>& prices) {
         int len = prices.size();
         if(len==0)return 0;
@@ -44,6 +63,26 @@ public:
         
         return res;
     }
+    
+    // 优化的动态规划
+    int maxProfit(vector<int>& prices){
+        int len = prices.size();
+        if(len==0) return 0;
+        vector<int> global(3, 0), local(3, 0);
+        // local[i] 代表上一次进行交易后获得的最大收益
+
+        // global[i] 代表当前交易 i 次能获得的最大收益 
+        for(int i=1; i<len; i++){
+            // 每次只判断利润， 根据利润来判断是否进行交易
+            int diff = prices[i] - prices[i-1];
+            for(int j=2; j>=1; j--){
+                local[j] = max(global[j-1] + max(diff, 0), local[j]+diff);
+                global[j] = max(global[j], local[j]);
+            }
+        }
+        return global[2];
+    }
+
     /* 
     // 改为动态规划
     int maxProfit(vector<int>& prices) {
