@@ -30,7 +30,8 @@ class Solution {
 public:
     bool isRobotBounded(string instructions) {
         int x=0, y=0, i=0;
-        vector<vector<int>> arr({{0,1},{1,0},{0,-1},{-1,0}});
+        int arr[4][2] = {{0,1},{1,0},{0,-1},{-1,0}};
+        // vector<vector<int>> arr({{0,1},{1,0},{0,-1},{-1,0}});
         for(int j=0; j<instructions.size(); ++j){
             if(instructions[j] == 'R')
                 i = (i+1)%4;
@@ -38,6 +39,7 @@ public:
                 i = (i+3)%4;
             else x += arr[i][0], y += arr[i][1];
         }
+        // 终点为原点, 或者方向不为北方, 都为 true 
         return x==0 && y==0 || i > 0;
     }
 };
