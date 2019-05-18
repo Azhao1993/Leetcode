@@ -37,17 +37,44 @@ class Solution {
 public:
     ListNode* insertionSortList(ListNode* head) {
         if( head == NULL || head->next == NULL) return head;
-
+        // 加入头结点，简化操作
+        ListNode* newHead = new ListNode(INT_MIN);
+        newHead->next = head;
+        ListNode* pre = newHead;
+        ListNode* tem = head->next;
+        while(head->next != NULL){
+            // 最后位置的数最大，直接不需要插入
+            if(head->next->val > head->val){
+                head = head->next;
+                continue ;
+            }
+            pre = newHead;
+            while( head->next->val > pre->next->val)
+                pre = pre->next;
+            
+            // 找到位置插入
+            tem = head->next;
+            head->next = head->next->next;
+            tem->next = pre->next;
+            pre->next = tem;
+        }
+        return newHead->next;
+    }
+        /*
+        // 通过迭代的方式
         return helper(NULL, head);
     }
     ListNode* helper(ListNode* after, ListNode* before){
+        // 分三种情况， 一、之前链表为空
         if(before==NULL) return after;
+        // 二、 之后链表为空
         if(after==NULL){
             after = before;
             before = before->next;
             after->next = NULL;
             return helper(after, before);
         }
+        // 通过链表找目标位置
         ListNode* tem = before;
         before = before->next;
         ListNode* cur = after;
@@ -67,6 +94,6 @@ public:
             tem->next = cur;
         }
         return helper(after, before);
-
     }
+    */
 };
