@@ -44,6 +44,25 @@ public:
         
         return res;
         /*
+        // 动态规划
+        int n = words.size();
+        vector<vector<int>> g(n, vector<int>(n, 0));
+        sort(words.begin(), words.end(), [](string& w1, string& w2){ return w1.length()<w2.length(); } );
+        for(auto it:words)cout<<it<<" ";
+
+        vector<int> dp(words.size(), 0);
+        int iMax = 0;
+
+        for(int i=1; i<words.size(); i++)
+            for(int j=0; j<i; j++)
+                if(words[j].size()+1 == words[i].size() && isPre(words[i], words[j])){
+                    dp[i] = dp[j]+1;
+                    iMax = max(iMax, dp[i]);
+                }
+
+        return iMax+1;
+        */
+        /*
         // 构造图，超时
         int n = words.size();
         vector<vector<int>> g(n, vector<int>(n, 0));
@@ -75,18 +94,15 @@ public:
             }
         }
     }
-    bool isPre(string b, string a){
-        // 通过双指针判断
-        // 默认 a 比 b 多一个字母
+    bool isPre(string a, string b){
+        // 通过双指针判断, 默认 a 比 b 多一个字母
         int len1 = a.length(), len2 = b.length();
-        if(len1+1 != len2) return false;
         int i = 0, j = 0;
-        while(j < len2){
+        while(i < len1){
             if(a[i] == b[j]) ++i,++j;
-            else if( ++j - i > 1) return false;
+            else if( ++i - j > 1) return false;
         }
         return true;
-        
     }
 };
 
