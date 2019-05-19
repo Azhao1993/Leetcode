@@ -24,7 +24,7 @@ babgbag     babgbag     babgbag     babgbag     babgbag
 
 class Solution {
 public:
-    /*
+    
     // 列主序，通过构造 t 的字典，进一步降低时间复杂度的动态规划
     // 当S = "babgbag", T = "baga" 时
     // next数组为 -1  -1  -1  1    hash[a] = 3   hash[b] = 0   hash[g] = 2 
@@ -57,6 +57,7 @@ public:
         return dp[t.size()];
     }
     
+    /*
     // 当S = "babgbag", T = "bag"  dp矩阵的变化情况为
     // b: 1 1 0 0  -->  a: 1 1 1 0  -->  b: 1 2 1 0 --> g: 1 2 1 1
     // b: 1 3 1 1  -->  a: 1 3 4 1  -->  g: 1 3 4 5
@@ -73,6 +74,7 @@ public:
 
         return dp[t.size()];
     }
+    
     // 降低空间复杂度的动态规划
     int numDistinct(string s, string t){
         // 初始化第一行
@@ -94,7 +96,6 @@ public:
 
         return dp[s.size()];
     }
-    */
     
     // 根据上一个递归写的动态规划
     int numDistinct(string s, string t){
@@ -111,7 +112,7 @@ public:
         return dp[0][0];
     }
 
-    /*
+    
     // 暴力递归 直接GG
     int numDistinct(string s, string t) {
         int res = 0;
