@@ -24,18 +24,15 @@ using namespace std;
 class Solution {
 public:
     int maxSatisfied(vector<int>& customers, vector<int>& grumpy, int X) {
-        // 滑动窗口起点 当前差值 最大差值 结果
-        int l = 0, tem = 0, iMax = 0, res = 0;
-        for(int i=0; i < X; i++) 
-            tem += grumpy[i] == 1 ? customers[i] : 0, res += grumpy[i] == 0 ? customers[i] : 0;
-        
-        iMax = tem;
-        while(++l <= customers.size() - X){
-            tem -= grumpy[l-1] == 1 ? customers[l-1] : 0;
-            tem += grumpy[l+X-1] == 1 ? customers[l+X-1] : 0;
-            // 本来就满意的顾客
-            res += grumpy[l+X-1] == 0 ? customers[l+X-1] : 0;
+        // 当前差值   最大差值   结果
+        int tem = 0, iMax = 0, res = 0;
+        for(int i=0; i < customers.size(); i++) {
+            if(i >= X) tem -= grumpy[i-X] == 1 ? customers[i-X] : 0;
+            tem += grumpy[i] == 1 ? customers[i] : 0;
             iMax = max(iMax, tem);
+
+            // 本来就满意的顾客
+            res += grumpy[i] == 0 ? customers[i] : 0;
         }
         return res + iMax;
     }
