@@ -23,7 +23,7 @@ class Solution {
 public:
     vector<int> findAnagrams(string s, string p) {
         vector<int> res;
-        if(s=="" || p=="") return res;
+        if(s=="" || p=="" || p.size() > s.size()) return res;
         int hash[26] = {0};
         int l = 0, r = -1; // 滑动窗口 [l r]代表滑动窗口
 
@@ -32,12 +32,8 @@ public:
         while(l <= s.size()-p.size()){
             if(r+1 < s.size() && hash[s[r+1] - 'a'] > 0){
                 hash[s[++r] - 'a']--;
-                cout<<r<<endl;
                 if(r-l+1 == p.size()) res.push_back(l);
-            }else {
-                hash[s[l++] - 'a']++;
-                cout<<l<<endl;
-            }
+            }else hash[s[l++] - 'a']++;
         }
         return res;
     }
