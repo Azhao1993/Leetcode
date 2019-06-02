@@ -37,6 +37,8 @@ ProblemSet文件夹则是一个Eclipse工程项目，按照LeetCode题目编号�
 
 - [队列&栈 Queue and Stack](https://github.com/ontheway12138/Leetcode/tree/master/LG/Queue%20and%20Stack)
 
+- [递归 Recursion](https://github.com/ontheway12138/Leetcode/tree/master/LG/Recursion)
+
 - [查找表类算法 Search table](https://github.com/ontheway12138/Leetcode/tree/master/LG/Search%20table)
 
 - [Teambition](https://github.com/ontheway12138/Leetcode/tree/master/LG/Teambition)
