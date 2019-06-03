@@ -15,7 +15,6 @@ using namespace std;
 2     3
  \
   5
-
 输出: ["1->2->5", "1->3"]
 解释: 所有根节点到叶子节点的路径为: 1->2->5, 1->3
 */
@@ -32,8 +31,10 @@ using namespace std;
 class Solution {
 private:
 	void helper(TreeNode* root, vector<string>& res, string tem){
-		if(root == NULL) return ;
-		tem = tem + "->" + to_string(root->val);
+		// if(root == NULL) return ;
+		// tem 为空的时候不加箭头
+		tem += ( tem.size() == 0 ? "" : "->" );
+		tem += to_string(root->val);
 		bool isLeaf = true;
 		if(root->left != NULL) isLeaf = false, helper(root->left, res, tem);
 		if(root->right != NULL) isLeaf = false, helper(root->right, res, tem);
@@ -43,9 +44,8 @@ public:
     vector<string> binaryTreePaths(TreeNode* root) {
         vector<string> res;
         if(root == NULL) return res;
-        string tem = to_string(root->val);
-		if(root->left != NULL) helper(root->left, res, tem);
-		if(root->right != NULL) helper(root->right, res, tem);
+        string tem = "";
+        helper(root, res, tem);
         return res;
     }
 };
