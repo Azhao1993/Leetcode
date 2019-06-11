@@ -23,54 +23,41 @@ using namespace std;
 */
 
 class Solution {
+private:
+    vector<pair<int, int>> dxy{{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
+    void dfs(vector<vector<int>>& matrix, vector<vector<bool>>& flag, int x, int y){
+        flag[x][y] = true;
+        for(int i=0; i<4; i++){
+            int dx = x + dxy[i].first, dy = y + dxy[i].second;
+            // 是否满足边缘条件
+            if(dx < 0 || dx >= matrix.size() || dy < 0 || dy >= matrix[0].size()) continue;
+            // 是否大于当前点
+            if(!flag[dx][dy] && matrix[dx][dy] >= matrix[x][y]) dfs(matrix, flag, dx, dy);
+        }
+    }
 public:
     vector<vector<int>> pacificAtlantic(vector<vector<int>>& matrix) {
         vector<vector<int>> res;
         int m = matrix.size();
         int n = m==0 ? 0 : matrix[0].size();
         if(m==0 || n==0) return res;
-        vector<vector<bool>> had(m, vector<bool>(n, false));
-        queue<pair<int,int>> que;
+        // 太平洋  大西洋
+        vector<vector<bool>> pacific(m, vector<bool>(n, false));
+        vector<vector<bool>> atlantic(m, vector<bool>(n, false));
 
-        // 右上角 左下角  以及每一行的最大值，先入队
-        que.push({0, n-1});
-        que.push({m-1, 0});
-        had[0][n-1] = true;
-        had[m-1][0] = true;
-        for(int i = 0; i<m; i++){
-            int maxIndex = 0;
-            // 每一行肯定有一个可以到达两条大洋的点
-            for(int j = 1; j<n; j++)
-                if(matrix[i][j] > matrix[i][maxIndex]) maxIndex = j;
-            if(had[i][maxIndex]) continue;
-            que.push({i, maxIndex});
-            had[i][maxIndex] = true;
-        }
+        for(int i = 0; i<m; i++)
+            // 第一列  从太平洋边缘递归   最后一列  从大西洋边缘递归
+            dfs(matrix, pacific, i, 0), dfs(matrix, atlantic, i, n-1);
 
-        for(int j = 0; j<n; j++){
-            int maxIndex = 0;
-            // 每一行肯定有一个可以到达两条大洋的点
-            for(int i = 1; i<m; i++)
-                if(matrix[i][j] > matrix[maxIndex][j]) maxIndex = i;
-            if(had[maxIndex][j]) continue;
-            que.push({maxIndex, j});
-            had[maxIndex][j] = true;
-        }
-
-        // 遍历已经确认的点，添加新点
-        vector<pair<int, int>> dxy{{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
-        while(!que.empty()){
-            pair<int, int> cur = que.front();
-            res.push_back(vector<int>{cur.first,cur.second});
-            que.pop();
-            for(int i=0; i<4; i++){
-                int dx = cur.first + dxy[i].first;
-                int dy = cur.second + dxy[i].second;
-                if(dx >= 0 && dx < m && dy >= 0 && dy < n)
-                    if(!had[dx][dy] && matrix[dx][dy] >= matrix[cur.first][cur.second])
-                        had[dx][dy] = true, que.push({dx, dy});
-            }
-        }
+        for(int j = 0; j<n; j++)
+            // 第一行  从太平洋边缘递归    最后一行  从大西洋边缘递归
+            dfs(matrix, pacific, 0, j), dfs(matrix, atlantic, m-1, j);
+        
+        // 查找可以同时到达大西洋和太平洋的点
+        for(int i = 0; i<m; i++)
+            for(int j = 0; j<n; j++)
+                if(pacific[i][j] && atlantic[i][j]) res.push_back(vector<int>{i, j});
+        
         return res;
     }
 };
