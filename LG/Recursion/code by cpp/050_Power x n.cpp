@@ -4,7 +4,6 @@
 using namespace std;
 /*
 50. Pow(x, n)
-实现 pow(x, n) ，即计算 x 的 n 次幂函数。
 
 实现 pow(x, n) ，即计算 x 的 n 次幂函数。
 
@@ -35,7 +34,7 @@ public:
         double ans = 1;
         // 直接进行计算
         // for (int i = 0; i < n; i++) ans = ans * x;
-        
+
         // 通过递归，每次求一半
         // return fastPow(x, n);
         // 快速幂算法
