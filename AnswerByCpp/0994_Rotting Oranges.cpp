@@ -29,41 +29,30 @@ public:
     int orangesRotting(vector<vector<int>>& grid) {
         int res = 0,total = 0;
         queue<pair<int,int>> que;
-        for(int i=0;i<grid.size();++i)
-            for(int j=0;j<grid[i].size();++j){
+        int m = grid.size(), n = grid[0].size();
+        for(int i=0; i<m; ++i)
+            for(int j=0; j<n; ++j)
                 // 计算好橘子的数量，把烂橘子的坐标入队列
-                if(grid[i][j]==1)total++;
-                if(grid[i][j]==2){
-                    que.push({i,j});
-                    grid[i][j] = 0;
-                }
-            }
-        if(!total)return res;
+                if(grid[i][j]==1) total++;
+                else if(grid[i][j]==2) que.push({i,j});
+            
+        // 开始就没有好橘子了
+        if(total == 0)return res;
+
+        vector<vector<int>> dxy{{-1,0},{1,0},{0,-1},{0,1}};
         while(!que.empty() && total){
             res++;
-            int size = que.size();
+            int num = que.size();
             // 执行感染
-            for(int k=0;k<size;++k){
-                int i = que.front().first, j = que.front().second;
+            for(int k=0; k<num; k++){
+                pair<int,int> cur = que.front();
                 que.pop();
-                if(i-1>=0 && grid[i-1][j] == 1){
-                    que.push({i-1,j});
-                    grid[i-1][j] = 0;
-                    total--;
-                }
-                if(j-1>=0 && grid[i][j-1] == 1){
-                    que.push({i,j-1});
-                    grid[i][j-1] = 0;
-                    total--;
-                }
-                if(i+1<grid.size() && grid[i+1][j] == 1){
-                    que.push({i+1,j});
-                    grid[i+1][j] = 0;
-                    total--;
-                }
-                if(j+1<grid[0].size() && grid[i][j+1] == 1){
-                    que.push({i,j+1});
-                    grid[i][j+1] = 0;
+                for(int i=0; i<dxy.size(); i++){
+                    int dx = cur.first + dxy[i][0];
+                    int dy = cur.second + dxy[i][1];
+                    if(dx < 0 || dx >= m || dy < 0 || dy >= n || grid[dx][dy] != 1) continue;
+                    que.push({dx, dy});
+                    grid[dx][dy] = 0;
                     total--;
                 }
             }
@@ -73,10 +62,9 @@ public:
 };
 
 int main(){
-    vector<vector<int>> arr({{2,2,2},{0,2,2},{2,0,2}});
-
-    Solution* so = new Solution();
-    int num = so->orangesRotting(arr);
+    // vector<vector<int>> arr({{2,2,2},{0,2,2},{2,0,2}});
+    vector<vector<int>> arr{{2,1,1},{1,1,0},{0,1,1}};
+    int num = Solution().orangesRotting(arr);
     cout<<num<<endl;
     return 0;
 }
