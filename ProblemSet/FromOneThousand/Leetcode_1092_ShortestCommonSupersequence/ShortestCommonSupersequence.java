@@ -92,7 +92,48 @@ public class ShortestCommonSupersequence {
                 sb.append(str1.charAt(--i));
             }
         }
+        
+       
         return sb.reverse().toString();
+    }
+    
+    
+    public String shortestCommonSupersequence0(String str1, String str2) {
+        int m = str1.length();
+        int n = str2.length();
+        int[][] dp = new int[m+1][n+1];
+        //dp[i][j]:str1的1-i位与str2的1-j位 最长的重复的子序列
+        for(int i = 1;i<=m;i++) {
+        	for(int j = 1;j<=n;j++) {
+        		if(str1.charAt(i-1)==str2.charAt(j-1)){
+                    dp[i][j] = dp[i-1][j-1]+1;
+                }else{
+                    dp[i][j] = Math.max(dp[i-1][j],dp[i][j-1]);
+                }
+        	}
+        }
+        
+        StringBuilder res = new StringBuilder();
+        for(int i = m,j=n;j>0||i>0;){
+            if(i<=0){
+            	//只剩下str2
+                res.append(str2.charAt(--j));
+            }else if(j<=0){
+            	//只剩下str1
+                res.append(str1.charAt(--i));
+            }else if(dp[i][j]>dp[i-1][j]&&dp[i][j]>dp[i][j-1]){
+            	//str1.i和str2.j相同
+            	res.append(str1.charAt(--i));
+                --j;
+            }else if(dp[i][j]==dp[i-1][j]){
+            	//str1.i-1和str2.j相同
+                res.append(str1.charAt(--i));
+            }else if(dp[i][j]==dp[i][j-1]){
+            	//str1.i和str2.j-1相同
+                res.append(str2.charAt(--j));
+            }
+        }
+        return res.reverse().toString();       
     }
     
 }
