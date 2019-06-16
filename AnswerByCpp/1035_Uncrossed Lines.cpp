@@ -29,14 +29,10 @@ public:
         int len1 = A.size(), len2 = B.size();
         vector<vector<int>> dp(len1+1,vector<int>(len2+1,0));
         // dp[i][j] 代表A 矩阵的前i 个，与B 矩阵的前j 个进行相连能得到的最大直线数
-        for(int i=1; i<=len1; ++i)
-            for(int j=1; j<=len2; ++j){
+        for(int i=0; i<len1; ++i)
+            for(int j=0; j<len2; ++j)
                 // 当i-1 和j-1 能够相交时，给当前的数＋1 并和两侧的进行对比
-                int tem = max(dp[i-1][j], dp[i][j-1]);
-                if(A[i-1]==B[j-1])
-                    dp[i][j] = max(dp[i-1][j-1]+1, tem);
-                else dp[i][j] = max(dp[i-1][j-1], tem);
-            }
+                dp[i+1][j+1] = A[i]==B[j] ? dp[i][j]+1 : max(dp[i][j+1], dp[i+1][j]);
         return dp[len1][len2];
     }
 };
