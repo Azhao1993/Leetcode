@@ -2,6 +2,7 @@
 #include<vector>
 #include<algorithm>
 #include<math.h>
+#include<unordered_map>
 using namespace std;
 /*
 996. 正方形数组的数目
@@ -20,48 +21,58 @@ static int x = [](){std::ios::sync_with_stdio(false); cin.tie(0); return 0;}();
 
 class Solution {
 public:
+    bool squareful(int x,int y){
+        int s = sqrt(x+y);
+        return s*s == x+y;
+    }
     int numSquarefulPerms(vector<int>& A){
         int n = A.size();
+        // 方便去重
         sort(A.begin(),A.end());
-        // 当 A[i] 和 A[j] 满足平方数，则 g[i][j] = 1 相连
-        vector<vector<int>> g(n,vector<int>(n));
-        // dp[s][i] 代表多少种可能 以节点 i 结束当前状态为 s
-        vector<vector<int>> dp(1 << n, vector<int>(n));
+        // 当 A[i] 和 A[j] 满足平方数，则 graph[i][j] = 1 相连
+        vector<vector<int>> graph(n,vector<int>(n));
+
+        // memo[i][j] 代表有多少种可能以节点 i 结束   状态为 j
+        // 通过掩码来标记所有已经点的方式来进行动态规划 
+        // (j >> i) & 1 为真时， 代表 i 这个节点已经被访问过了
+        vector<vector<int>> memo(n, vector<int>(1 << n));
+
+        // 构造图
+        for(int i=0; i<n; ++i)
+            for(int j = i+1; j < n; ++j)
+                if(squareful(A[i], A[j]))
+                    graph[i][j] = graph[j][i] = 1;
 
         for(int i=0; i<n; ++i)
-            for(int j = i+1; j < n; ++j){
-                int r = sqrt(A[i] + A[j]);
-                if(r * r == A[i] + A[j])
-                    g[i][j] = g[j][i] = 1;
-            }
-
-        for(int i=0; i<n; ++i)
-            // 去重，先选起始节点  1 << i 为当前状态
             if(i==0 || A[i] != A[i-1])
-                dp[(1<<i)][i] = 1;
+                // 先选起始节点，重复的点不会被选中， 1 << i 即为选中 i
+                memo[i][(1 << i)] = 1;
 
         int ans = 0;
         // 状态放在最外一层，方便去重
         for(int s = 0; s < (1<<n); ++s)
-            // 枚举last node
+            // 枚举当前节点
             for(int i=0;i < n; ++i){
                 // 无法到达当前状态
-                if(!dp[s][i])continue ;
+                if (memo[i][s] == 0) continue ;
                 // 新的目的地址为 j
-                for(int j=0;j<n;++j){
+                for(int j=0; j<n; ++j){
                     // 没有路 或者当前访问过 直接返回
-                    if(!g[i][j] || s & (1 << j )) continue ;
-                    // 当前和上一个值相等时，去重   当前的值没有被使用过
-                    if(j>0 && !(s & (1 << (j-1))) && A[j-1] == A[j]) continue;
-                    // 当前
-                    dp[s | (1 << j)][j] += dp[s][i];
+                    if(!graph[i][j] || s & (1 << j )) continue ;
+                    // 当前和上一个值相等时，去重   相同的值先访问之前的
+                    if(j>0 && A[j-1] == A[j] && !(s & (1 << j-1))) continue;
+                    // 当前状态
+                    memo[j][s | (1<<j)] += memo[i][s];
                 }
             }
+
         for(int i=0;i<n;++i)
-            ans += dp[(1<<n) - 1][i];
+            ans += memo[i][(1<<n) - 1];
         return ans;
     }
+    
     /*
+    // 比较暴力的搜索 + 剪枝
     int numSquarefulPerms(vector<int>& A) {
         sort(A.begin(),A.end());
         vector<int> cur;
@@ -81,8 +92,8 @@ public:
             return;
         }
         for(int i=0;i<A.size();++i){
-            if(used[i])continue;
-            // 去重
+            if(used[i]) continue;
+            // 去重   相同元素按照顺序进行排列
             if(i > 0 && !used[i-1] && A[i] == A[i-1]) continue;
             if(!cur.empty() && !squareful(cur.back(),A[i])) continue;
 
@@ -92,6 +103,46 @@ public:
             used[i] = false;
             cur.pop_back();
         }
+    }*/
+    /*
+    // 预先处理数据，放到图里
+    bool squareful(int x,int y){
+        int s = sqrt(x+y);
+        return s*s == x+y;
+    }
+    int numSquarefulPerms(vector<int>& A) {
+        unordered_map<int, int> count;
+        unordered_map<int, vector<int>> graph;
+        // 统计每个节点的数量
+        for(auto it:A)
+            count[it]++;
+
+        // 把每个节点加入到 graph 中，若两个节点相加为平方数，则为它们加两条边，默认有重复计算
+        for(auto it:count)
+            graph.insert({it.first, vector<int>{}});
+        for(auto x:count)
+            for(auto y:count)
+                if(squareful(x.first, y.first)) graph[x.first].push_back(y.first);
+
+        // 增加从 x 开始的可行路径数量
+        int res = 0;
+        for(auto x:count)
+            res += dfs(count, graph, x.first, A.size()-1);
+
+        return res;
+    }
+    int dfs(unordered_map<int, int>& count, unordered_map<int, vector<int>>& graph, int x, int num){
+        count[x]--;
+        int ans = 1;
+        if(num != 0) {
+            ans = 0;
+            // 只访问可能的节点，减少计算量
+            for(auto y : graph[x])
+                if (count[y] != 0)
+                    ans += dfs(count, graph, y, num-1);
+        }
+        count[x]++;
+        return ans;
     }
     */
 };
@@ -105,3 +156,4 @@ int main(){
     cout<<num<<endl;
     return 0;
 }
+
