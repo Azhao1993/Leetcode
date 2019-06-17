@@ -25,19 +25,18 @@ private:
     /*
     // 判断单个数字是否为混淆数字
     bool confusingNumber(int N) {
-        if(N == 0) return false;
-        long tem = 0;
-        int save = N;
-        while(N){
-            int cur = N%10;
-            if(cur==2||cur==3||cur==4||cur==5||cur==7) return false;
-            if(cur==6) tem = tem*10+9;
-            else if(cur==9) tem = tem*10+6;
-            else tem = tem*10 + cur;
-            N /= 10;
+        if(!N)return false;
+        long long tem = 0, num = N;
+        int arr[10] = {0,1,-1,-1,-1,-1,9,-1,8,6};
+        while(num){
+            int cur = num%10;
+            if(arr[cur] == -1)return false;
+            tem = tem*10 + arr[cur];
+            num /= 10;
         }
-        return tem != save;
-    }*/
+        return tem != N;
+    }
+    */
     void dfs(int& res, long long base, long long cur, long long rev, int& N, vector<vector<int>>& trans){
         if(cur > N || base > 1e10 || rev > 1e10) return ;
         if(cur != rev) res++;
