@@ -1,5 +1,7 @@
 package Leetcode_070_ClimbingStairs;
 
+import java.util.HashMap;
+
 /*
 	假设你正在爬楼梯。需要 n 阶你才能到达楼顶。	
 	每次你可以爬 1 或 2 个台阶。你有多少种不同的方法可以爬到楼顶呢？
@@ -37,4 +39,26 @@ public class ClimbingStairs {
 		}
 		return Stairs[n - 1];
 	}
+	
+	//递归(超时)
+    public int climbStairs0(int n) {
+        if(n<=2) {
+        	return 2;
+        }
+        return climbStairs0(n-1)+climbStairs0(n-2);
+    }
+    
+    //hash记忆
+    private HashMap<Integer,Integer> map = new HashMap<Integer,Integer>();
+    public int climbStairs2(int n) {
+        if(map.containsKey(n)){
+            return map.get(n);
+        }
+        if(n<=2) {
+        	return n;
+        }
+        int res =  climbStairs(n-1)+climbStairs(n-2);
+        map.put(n,res);
+        return res;
+    }
 }
