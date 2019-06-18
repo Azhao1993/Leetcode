@@ -1,43 +1,39 @@
 package Leetcode_344_ReverseString;
 
 /*
-	±àĞ´Ò»¸öº¯Êı£¬Æä×÷ÓÃÊÇ½«ÊäÈëµÄ×Ö·û´®·´×ª¹ıÀ´¡£
+	ç¼–å†™ä¸€ä¸ªå‡½æ•°ï¼Œå…¶ä½œç”¨æ˜¯å°†è¾“å…¥çš„å­—ç¬¦ä¸²åè½¬è¿‡æ¥ã€‚è¾“å…¥å­—ç¬¦ä¸²ä»¥å­—ç¬¦æ•°ç»„ char[] çš„å½¢å¼ç»™å‡ºã€‚	
+	ä¸è¦ç»™å¦å¤–çš„æ•°ç»„åˆ†é…é¢å¤–çš„ç©ºé—´ï¼Œä½ å¿…é¡»åŸåœ°ä¿®æ”¹è¾“å…¥æ•°ç»„ã€ä½¿ç”¨ O(1) çš„é¢å¤–ç©ºé—´è§£å†³è¿™ä¸€é—®é¢˜ã€‚	
+	ä½ å¯ä»¥å‡è®¾æ•°ç»„ä¸­çš„æ‰€æœ‰å­—ç¬¦éƒ½æ˜¯ ASCII ç è¡¨ä¸­çš„å¯æ‰“å°å­—ç¬¦ã€‚	Â 
 	
-	Ê¾Àı 1:
-		ÊäÈë: "hello"
-		Êä³ö: "olleh"
-	Ê¾Àı 2:
-		ÊäÈë: "A man, a plan, a canal: Panama"
-		Êä³ö: "amanaP :lanac a ,nalp a ,nam A"
+	ç¤ºä¾‹ 1ï¼š
+		è¾“å…¥ï¼š["h","e","l","l","o"]
+		è¾“å‡ºï¼š["o","l","l","e","h"]
+	
+	ç¤ºä¾‹ 2ï¼š
+		è¾“å…¥ï¼š["H","a","n","n","a","h"]
+		è¾“å‡ºï¼š["h","a","n","n","a","H"]
+	
+	æ¥æºï¼šåŠ›æ‰£ï¼ˆLeetCodeï¼‰
+	é“¾æ¥ï¼šhttps://leetcode-cn.com/problems/reverse-string
+	è‘—ä½œæƒå½’é¢†æ‰£ç½‘ç»œæ‰€æœ‰ã€‚å•†ä¸šè½¬è½½è¯·è”ç³»å®˜æ–¹æˆæƒï¼Œéå•†ä¸šè½¬è½½è¯·æ³¨æ˜å‡ºå¤„ã€‚
 */
 public class ReverseString {
-	// 344.·­×ª×Ö·û´®
-	public String reverseString2(String s) {
-		StringBuilder sb = new StringBuilder(s);
-		return sb.reverse().toString();
-	}
-	public String reverseString(String s) {
-		char[] ch = s.toCharArray();
-		for (int i = 0; i < ch.length / 2; i++) {
-			char temp = ch[i];
-			ch[i] = ch[ch.length - 1 - i];
-			ch[ch.length - 1 - i] = temp;
-		}
-		return String.valueOf(ch);
-	}
-
-	// ´«ÖÇ²©¿Í
-	public static String myReverse(String s) {
-		// ¶¨ÒåÒ»¸öĞÂ×Ö·û´®
-		String result = "";
-		// °Ñ×Ö·û´®×ª³É×Ö·ûÊı×é
-		char[] chs = s.toCharArray();
-		// µ¹×Å±éÀú×Ö·û´®£¬µÃµ½Ã¿Ò»¸ö×Ö·û
-		for (int x = chs.length - 1; x >= 0; x--) {
-			// ÓÃĞÂ×Ö·û´®°ÑÃ¿Ò»¸ö×Ö·ûÆ´½ÓÆğÀ´
-			result += chs[x];
-		}
-		return result;
-	}
+	// 344.ç¿»è½¬å­—ç¬¦ä¸²(åŸåœ°åè½¬+é€’å½’)
+    public void reverseString(char[] s) {
+        if(s==null||s.length<=1){
+            return;
+        }
+        reverseString(0,s);
+        
+    }
+     public void reverseString(int index,char[] s) {
+        if(index>=s.length/2){
+            return;
+        }
+        char ch = s[index];
+        s[index] = s[s.length-1-index];
+        s[s.length-1-index] = ch;
+        reverseString(index+1,s);
+    }
 
 }
