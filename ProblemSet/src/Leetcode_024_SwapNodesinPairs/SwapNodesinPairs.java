@@ -30,40 +30,14 @@ public class SwapNodesinPairs {
 	}
 
 	// 24. 两两交换链表中的节点
-	public ListNode swapPairs(ListNode head) {
-		// <=1个节点
-		if ((head == null) || (head.next == null)) {
-			return head;
-		}
-		// >=2节点
-		ListNode newHead = new ListNode(0);
-		newHead.next = head.next;
-		ListNode slow;
-		ListNode fast;
-		slow = head;
-		fast = head.next;
-		head = fast.next;
-		fast.next = slow;
-		slow.next = swapPairs(head);
-		return newHead.next;
-	}
-
-	// 2ms
-	public ListNode swapPairs0(ListNode head) {
-		if (head == null) {
-			return null;
-		}
-		ListNode tmp;
-		ListNode h = new ListNode(0);
-		h.next = head;
-		ListNode pre = h;
-		while (pre.next != null && pre.next.next != null) {
-			tmp = pre.next;
-			pre.next = tmp.next;
-			tmp.next = tmp.next.next;
-			pre.next.next = tmp;
-			pre = tmp;
-		}
-		return h.next;
-	}
+    public ListNode swapPairs(ListNode head) {
+        if(head==null||head.next==null) {
+        	return head;
+        }
+        ListNode newHead = head.next;
+        ListNode next = head.next.next;
+        newHead.next= head;        
+        head.next = swapPairs(next);
+        return newHead;
+    }
 }
