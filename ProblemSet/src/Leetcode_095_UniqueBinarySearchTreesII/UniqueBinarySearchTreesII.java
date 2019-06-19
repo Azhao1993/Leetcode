@@ -4,6 +4,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import TreeNode.TreeNode;
+
 //95. 不同的二叉搜索树 II
 public class UniqueBinarySearchTreesII {
 	public List<TreeNode> generateTrees(int n) {
