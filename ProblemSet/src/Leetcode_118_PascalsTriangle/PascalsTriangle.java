@@ -75,5 +75,42 @@ public class PascalsTriangle {
 		}
 		return result;
 	}
+	
+	//µ›πÈ µœ÷
+    public List<List<Integer>> generate0(int numRows) {
+    	List<List<Integer>> result = new ArrayList<List<Integer>>();
+		if (numRows <= 0) {
+			return result;
+		}		
+		generate0(result,numRows);
+		return result;
+    }
+
+	private void generate0(List<List<Integer>> result, int numRows) {
+		int i = result.size();
+		
+		if(i==numRows) {
+			return;
+		}
+		List<Integer> list = new ArrayList<Integer>();
+		
+		if(i==0) {			
+			list.add(1);					
+		}else if(i==1) {			
+			list.add(1);
+			list.add(1);					
+		}else {
+			list.add(1);
+			List<Integer> pre = result.get(result.size()-1);
+			for(int x = 0;x<pre.size()-1;x++) {
+				list.add(pre.get(x)+pre.get(x+1));
+			}
+			list.add(1);			
+		}		
+		
+		result.add(list);		
+		generate0(result,numRows);
+		
+	}
 
 }

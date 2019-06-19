@@ -57,5 +57,29 @@ public class PascalsTriangle2 {
 		}
 		return res;
 	}
+	
+	//µ›πÈ µœ÷
+    public List<Integer> getRow0(int rowIndex) {
+		List<Integer> res = new ArrayList<Integer>();
+		getRow0(res,rowIndex);
+		return res;
+	}
+
+	private void getRow0(List<Integer> res, int rowIndex) {
+		int i = res.size();
+		if( i == rowIndex+1) {
+			return;
+		}
+		res.add(1);
+		if(i>=2) {
+			for(int x = i-1;x>0;x--) {
+				int temp= res.get(0)+res.get(1);
+				res.remove(0);
+				res.add(temp);
+			}
+			res.add(res.remove(0));
+		}		
+		getRow0(res,rowIndex);		
+	}
 
 }
