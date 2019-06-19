@@ -18,6 +18,8 @@ package Leetcode_096_UniqueBinarySearchTrees;
 	链接：https://leetcode-cn.com/problems/unique-binary-search-trees
 	著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
  */
+
+//96
 public class UniqueBinarySearchTrees {
 	public static void main(String[] args) {
 		
