@@ -1,7 +1,8 @@
 package Leetcode_104_MaximumDepthofBinaryTree;
 
-import org.w3c.dom.Node;
-
+import java.util.LinkedList;
+import java.util.Queue;
+import javafx.util.Pair;
 import TreeNode.TreeNode;
 
 /*
@@ -63,6 +64,36 @@ public class MaximumDepthofBinaryTree {
 	// 0ms
 	public int maxDepth0(TreeNode root) {
 		return root == null ? 0 : Math.max(maxDepth(root.left), maxDepth(root.right)) + 1;
+	}
+
+	// µü´úDFS 
+	public int maxDepth2(TreeNode root) {
+		Queue<Pair<TreeNode,Integer>> queue = new LinkedList<>();
+		if(root!=null) {			
+			queue.add(new Pair(root,1));
+		}
+		int depth = 0;
+		while(!queue.isEmpty()) {
+			Pair<TreeNode,Integer> cur = queue.poll();
+			root = cur.getKey();
+			int curDepth = cur.getValue();
+			if(root!=null) {
+				depth = Math.max(depth, curDepth);
+				queue.add(new Pair(root.left,curDepth+1));
+				queue.add(new Pair(root.right,curDepth+1));
+			}
+		}
+		return depth;		
+	}
+
+	// µÝ¹é
+	public int maxDepth3(TreeNode root) {
+		if(root==null) {
+			return 0;
+		}
+		int left = maxDepth3(root.left);
+		int right = maxDepth3(root.right);
+		return Math.max(left, right)+1;
 	}
 
 }
