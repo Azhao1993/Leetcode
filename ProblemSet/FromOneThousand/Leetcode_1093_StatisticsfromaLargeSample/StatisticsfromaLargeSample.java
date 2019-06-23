@@ -38,7 +38,6 @@ public class StatisticsfromaLargeSample {
 		res[0] = 256;
 		double sum = 0;
 		int countSample = 0;// 计数器
-		int maxCount = 0;
 		for (int i = 0; i < 256; i++) {
 			// 最小值
 			res[0] = (count[i] != 0 && res[0] == 256) ? i : res[0];
@@ -48,10 +47,7 @@ public class StatisticsfromaLargeSample {
 			sum += i * count[i];
 			countSample += count[i];
 			// 众数
-			if (count[i] > maxCount) {
-				maxCount = count[i];
-				res[4] = i;
-			}
+			res[4] = count[i] > count[(int) res[4]] ? i : res[4];
 		}
 		// 计算平均值
 		res[2] = sum / countSample;
