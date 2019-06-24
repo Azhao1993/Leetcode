@@ -68,7 +68,7 @@ public class FindinMountainArray {
 		int peek = l;
 		// System.out.println("最大值：" + m.get(peek));
 		int count = -1;
-		// 找左边的
+		// 先找左边的
 		l = 0;
 		r = peek;
 		while (l <= r) {
@@ -82,7 +82,7 @@ public class FindinMountainArray {
 				return mid;
 			}
 		}
-		// 找右边的
+		// 后找右边的
 		l = peek;
 		r = length - 1;
 		while (l <= r) {
