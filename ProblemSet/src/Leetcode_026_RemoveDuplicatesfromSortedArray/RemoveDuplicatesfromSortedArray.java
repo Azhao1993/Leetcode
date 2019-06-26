@@ -38,4 +38,15 @@ public class RemoveDuplicatesfromSortedArray {
 		count++;
 		return count;
 	}
+
+	// 循环不变量
+	public int removeDuplicates2(int[] nums) {
+		int k = 0;// [0,k)表示没有重复的数组
+		for (int i = 1; i < nums.length; i++) {
+			if (nums[i] != nums[k]) {
+				nums[++k] = nums[i];
+			}
+		}
+		return k;
+	}
 }
