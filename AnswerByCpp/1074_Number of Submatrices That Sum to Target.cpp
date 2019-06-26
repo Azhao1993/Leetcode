@@ -1,11 +1,8 @@
 #include<iostream>
 #include<vector>
-#include<unordered_map>
-#include<unordered_set>
 #include<numeric>
-#include<algorithm>
+#include<unordered_map>
 using namespace std;
-
 /*
 1074. 元素和为目标值的子矩阵数量
 
@@ -26,21 +23,37 @@ using namespace std;
 class Solution {
 public:
     int numSubmatrixSumTarget(vector<vector<int>>& matrix, int target) {
-        
+        int res = 0, m = matrix.size(), n = matrix[0].size();
+        // 对每一行采用部分和的思想，能够快速查找到从 matrix[i][j] 到 matrix[i][k] 的和
+        for(int i=0; i<m; i++) 
+            // partial_sum(matrix[i].begin(), matrix[i].end(), matrix[i].begin());
+            for(int j=1; j<n; j++) matrix[i][j] += matrix[i][j-1];
+
+        for(int j=0; j<n; j++)
+            for(int k=j; k<n; k++){
+                unordered_map<int, int> hash;
+                hash[0] = 1;
+                int tem = 0;
+                // 枚举任意两列 j k   行数从 0 到 m 进行扫描
+                for(int i=0; i<m; i++){
+                    // matrix[i][k] 为 matrix[i][0] matrix[i][k] 之和
+                    // matrix[i][j-1] 为 matrix[i][0] matrix[j-1] 之和
+                    // 相减为 matrix[i][j] 到 matrix[i][k] 之和
+                    // tem 每次的值为从 第 0 到 i 行，第 j 到 k 列 的值
+                    // 与之前的 tem 相减 会形成从 第 x 到 i 行，第 j 到 k 列 的值， 即枚举出所有情况
+                    tem += matrix[i][k] - (j==0 ? 0 : matrix[i][j-1]);
+                    // 不加判断 hash 的情况  会超时
+                    if(hash.count(tem-target)) res += hash[tem-target];
+                    hash[tem]++;
+                }
+            }
+        return res;
     }
 };
 
 int main(){
-    string a = "leetcode", b = "programs", s = "sourcecode";
-    Solution* so = new Solution();
-    string res = so->smallestEquivalentString(a,b,s);
+    vector<vector<int>> arr{{1,-1},{-1,1}};
+    int res = Solution().numSubmatrixSumTarget(arr, 0);
     cout<<res<<endl;
-
     return 0;
 }
-
-
-1078_Occurrences After Bigram
-1079_Letter Tile Possibilities
-1080_Insufficient Nodes in Root to Leaf Paths
-1081_Smallest Subsequence of Distinct Characters
