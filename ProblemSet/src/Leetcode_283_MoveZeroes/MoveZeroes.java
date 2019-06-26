@@ -30,4 +30,22 @@ public class MoveZeroes {
 			nums[i] = 0;
 		}
 	}
+
+	// 明确变量定义，循环不变量
+	public void moveZeroes2(int[] nums) {
+		// 明确变量定义
+		int i = 0;// 小索引
+		int j = 0;// 大索引
+		// 循环不变量
+		while (j < nums.length) {
+			if (nums[j] == 0) {
+				j++;
+			} else {
+				nums[i++] = nums[j++];
+			}
+		}
+		while (i < nums.length) {
+			nums[i++] = 0;
+		}
+	}
 }
