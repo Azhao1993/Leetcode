@@ -48,4 +48,21 @@ public class MoveZeroes {
 			nums[i++] = 0;
 		}
 	}
+
+	public void moveZeroes3(int[] nums) {
+		// 明确变量定义
+		int i = 0;// 小索引
+		int j = 0;// 大索引
+		// 循环不变量
+		int temp;
+		while (j < nums.length) {
+			if (nums[j] != 0) {
+				temp = nums[i];
+				nums[i++] = nums[j];
+				nums[j] = temp;
+			}
+			j++;
+		}
+
+	}
 }
