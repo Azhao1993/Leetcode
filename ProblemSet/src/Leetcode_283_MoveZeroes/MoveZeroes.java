@@ -12,22 +12,60 @@ package Leetcode_283_MoveZeroes;
 */
 public class MoveZeroes {
 	// 283. 移动零
-	public void moveZeroes(int[] nums) {
-		// 统计零的个数
-		int count = 0;
-		// 遍历数组，删除0
-		int length = nums.length;
-		for (int i = 0; i < length; i++) {
-			if (nums[i] == 0) {
-				count++;
-			} else {
-				nums[i - count] = nums[i];
+	// 改进
+	public void moveZeroes0(int[] nums) {
+		// 明确变量定义
+		int i = 0;// 小索引
+		int j = 0;// 大索引
+		// 循环不变量
+		int temp;
+		while (j < nums.length) {
+			if (nums[j] != 0) {
+				if (i != j) {
+					temp = nums[i];
+					nums[i++] = nums[j];
+					nums[j] = temp;
+				} else {
+					i++;
+				}
 			}
-		}
-
-		// 补充数组
-		for (int i = length - count; i < length; i++) {
-			nums[i] = 0;
+			j++;
 		}
 	}
+
+	// 明确变量定义，循环不变量
+	public void moveZeroes2(int[] nums) {
+		// 明确变量定义
+		int i = 0;// 小索引
+		int j = 0;// 大索引
+		// 循环不变量
+		while (j < nums.length) {
+			if (nums[j] == 0) {
+				j++;
+			} else {
+				nums[i++] = nums[j++];
+			}
+		}
+		while (i < nums.length) {
+			nums[i++] = 0;
+		}
+	}
+
+	// 改进
+	public void moveZeroes3(int[] nums) {
+		// 明确变量定义
+		int i = 0;// 小索引
+		int j = 0;// 大索引
+		// 循环不变量
+		int temp;
+		while (j < nums.length) {
+			if (nums[j] != 0) {
+				temp = nums[i];
+				nums[i++] = nums[j];
+				nums[j] = temp;
+			}
+			j++;
+		}
+	}
+
 }
