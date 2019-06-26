@@ -39,37 +39,33 @@ class Solution {
 public:
     int findInMountainArray(int target, MountainArray &mountainArr) {
         int n = mountainArr.length();
-        int left = -1, right = n;
-        // 二分查找 寻找最大值 (left, right)
-        while(right - left > 1){
-            int mid = (left+right) / 2;
-            int mid1 = (mid+right) / 2;
-            if(mountainArr.get(mid) < mountainArr.get(mid1)) left = mid;
-            else right = mid1;
-        }
-        int val1 = mountainArr.get(left), val2 = mountainArr.get(right);
-        int peekValue = max(val1, val2);
-        int peek = val1 > val2 ? left : right;
-        if(peekValue == target) return peek;
-        if(peekValue < target) return -1;
-        left = 0, right = peek;
-        // 在第一段单调递增的数组上进行二分查找  [left,right)
-        while(left < right){
-            int mid = (right+left)/2;
-            int value = mountainArr.get(mid);
-            if(value == target) return mid;
-            else if(value > target) right = mid;
-            else left = mid+1;
-        }
-        // 在第二段单调递减的数组上进行二分查找  (left, right]
-        left = peek, right = n-1;
-        while(left < right){
-            int mid = (left+right)/2;
-            int value = mountainArr.get(mid);
-            if(value == target) return mid;
-            else if(value > target) left = mid;
+        if(mountainArr.get(0) > target && mountainArr.get(n-1) > target) return -1;
+        int left = 0, right = n-1;
+        // 二分查找 寻找最大值 [left, right]
+        // 因为要找到 mid 和 mid+1  所以 right 初始值应为  n-1
+        while(left <= right){
+            int mid = (left+right) >> 1;
+            if(mountainArr.get(mid) < mountainArr.get(mid+1)) left = mid+1;
             else right = mid-1;
         }
+        int peek = left;
+        left = 0, right = peek+1;
+        // 在第一段单调递增的数组上进行二分查找  [left,right)
+        while(left < right){
+            int mid = (right+left) >> 1;
+            if(mountainArr.get(mid) < target) left = mid+1;
+            else right = mid;
+        }
+        if(mountainArr.get(left) == target) return left;
+        // 在第二段单调递减的数组上进行二分查找  [left, right)
+        // left 为闭区间， 所以等于的时候应该是  right 进行变化
+        left = peek+1, right = n;
+        while(left < right){
+            int mid = (left+right) >> 1;;
+            if(mountainArr.get(mid) <= target) right = mid;
+            else left = mid+1;
+        }
+        if(left < n && mountainArr.get(left) == target) return left;
         return -1;
     }
 };
