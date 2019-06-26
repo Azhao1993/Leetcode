@@ -1,13 +1,8 @@
 #include<iostream>
-#include<limits.h>
 #include<vector>
-#include<cstring>
-#include<unordered_map>
-#include<unordered_set>
 #include<numeric>
 #include<algorithm>
 using namespace std;
-
 /*
 1042. 不邻接植花
 
@@ -20,7 +15,6 @@ paths[i] = [x, y] 描述了花园 x 到花园 y 的双向路径。
 示例 1：   输入：N = 3, paths = [[1,2],[2,3],[3,1]]                       输出：[1,2,3]
 示例 2：   输入：N = 4, paths = [[1,2],[3,4]]                             输出：[1,2,1,2]
 示例 3：   输入：N = 4, paths = [[1,2],[2,3],[3,4],[4,1],[1,3],[2,4]]     输出：[1,2,3,4]
- 
 
 提示：     1 <= N <= 10000     0 <= paths.size <= 20000
 不存在花园有 4 条或者更多路径可以进入或离开。        保证存在答案。
@@ -29,62 +23,28 @@ paths[i] = [x, y] 描述了花园 x 到花园 y 的双向路径。
 class Solution {
 public:
     vector<int> gardenNoAdj(int N, vector<vector<int>>& paths) {
-        for(auto &arr:paths){
-            if(arr[0] > arr[1]) swap(arr[0], arr[1]);
-        }
-        sort(paths.begin(), paths.end(), [](vector<int> a, vector<int> b){return a[0]!=b[0] ? a[0]<b[0] : a[1]<b[1];});
         vector<int> res(N, 0);
-        vector<vector<bool>> map(N, vector<bool>(5,false));
-        for(int i=0; i<paths.size(); i++){
-            int x = paths[i][0]-1;
-            int y = paths[i][1]-1;
-            // 都已经有颜色了
-            if(res[x]!=0 && res[y]!=0) continue;
-            // 都没有颜色
-            if(res[x]==0 && res[y]==0){
-                res[x] = 1;
-                res[y] = 2;
-                map[x][1] = true;
-                map[x][2] = true;
-                map[y][1] = true;
-                map[y][2] = true;
-            }
-            // 只有一个有
-            if(res[x]==0){
-                int j = 1;
-                for(; j<4; j++)
-                    if(map[y][j] == false) break;
-                
-                res[x] = j;
-                
-                map[x][j] = true;
-                map[x][res[y]] = true;
-                map[y][j] = true;
-            }
-            if(res[y]==0){
-                int j = 1;
-                for(; j<4; j++)
-                    if(map[x][j] == false) break;
-                
-                res[y] = j;
-                
-                map[y][j] = true;
-                map[y][res[x]] = true;
-                map[x][j] = true;
-            }
+        // 建立邻接表形成的图
+        vector<vector<int>> graph(N);
+        for(auto it:paths)
+            graph[it[0]-1].push_back(it[1]-1), graph[it[1]-1].push_back(it[0]-1);
+        for(int i=0; i<N; i++){
+            // 把 0 位置空掉，直接赋值
+            vector<bool> used(5, true);
+            for(int j=0; j<graph[i].size(); j++)
+                used[res[graph[i][j]]] = false;
+            // 根据题意， k 不会超过 4
+            int k = 1;
+            while(!used[k]) k++;
+            res[i] = k;
         }
-        for(auto &it:res)
-            if(it==0) it = 1;
-        
         return res;
     }
 };
 
 int main(){
-    string a = "leetcode", b = "programs", s = "sourcecode";
-    Solution* so = new Solution();
-    string res = so->smallestEquivalentString(a,b,s);
-    cout<<res<<endl;
-
+    vector<vector<int>> arr{{1,2},{2,3},{3,1}};
+    vector<int> res = Solution().gardenNoAdj(4, arr);
+    for(auto it:res) cout<<it<<' '; cout<<endl;
     return 0;
 }
