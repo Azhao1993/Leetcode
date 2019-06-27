@@ -1,11 +1,7 @@
 #include<iostream>
 #include<vector>
-#include<unordered_map>
-#include<unordered_set>
-#include<numeric>
 #include<algorithm>
 using namespace std;
-
 /*
 1073. 负二进制数相加
 
@@ -25,21 +21,26 @@ arr1 和 arr2 都不含前导零		arr1[i] 为 0 或 1		arr2[i] 为 0 或 1
 class Solution {
 public:
     vector<int> addNegabinary(vector<int>& arr1, vector<int>& arr2) {
-        
+        vector<int> res;
+        int carry = 0;
+        for(int i=arr1.size()-1, j = arr2.size()-1; i>=0 || j>=0 || carry != 0; i--, j--){
+            int tem = (i>=0 ? arr1[i]:0) + (j>=0 ? arr2[j]:0) + carry;
+            // tem 的取值有 5 种情况
+            // tem = 3 or 2, carry = -1;  tem = 1 or 0, carry = 0;  tem = -1, carry = 1;
+            carry = (tem>1) ? -1 : (tem==-1 ? 1 : 0);
+            // tem 可能取到 -1 
+            res.push_back((tem+2)%2);
+        }
+        while(res.size() > 1 && res.back() == 0) res.pop_back();
+        reverse(res.begin(), res.end());
+        return res;
     }
 };
 
 int main(){
-    string a = "leetcode", b = "programs", s = "sourcecode";
-    Solution* so = new Solution();
-    string res = so->smallestEquivalentString(a,b,s);
-    cout<<res<<endl;
-
+    vector<int> arr{1,1,1,1,1};
+    vector<int> brr{1,0,1};
+    vector<int> res = Solution().addNegabinary(arr, brr);
+    for(auto it:res) cout<<it<<' '; cout<<endl;
     return 0;
 }
-
-1074_Number of Submatrices That Sum to Target
-1078_Occurrences After Bigram
-1079_Letter Tile Possibilities
-1080_Insufficient Nodes in Root to Leaf Paths
-1081_Smallest Subsequence of Distinct Characters

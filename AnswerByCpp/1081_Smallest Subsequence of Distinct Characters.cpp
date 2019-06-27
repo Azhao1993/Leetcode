@@ -1,9 +1,5 @@
 #include<iostream>
 #include<vector>
-#include<unordered_map>
-#include<unordered_set>
-#include<numeric>
-#include<algorithm>
 using namespace std;
 
 /*
@@ -22,33 +18,25 @@ using namespace std;
 class Solution {
 public:
     string smallestSubsequence(string text) {
-        
+        vector<int> map(26, 0);
+        vector<bool> hash(26, false);
+        for (auto c: text) map[c - 'a']++;
+        string res;
+        for (auto c: text) {
+            map[c-'a']--;
+            if (hash[c-'a']) continue;
+            while (res.size() > 0 && res.back() > c && map[res.back()-'a'])
+                hash[res.back()-'a'] = false, res.pop_back();
+            res.push_back(c);
+            hash[res.back()-'a'] = true;
+        }
+        return res;
     }
 };
 
 int main(){
-    string a = "leetcode", b = "programs", s = "sourcecode";
-    Solution* so = new Solution();
-    string res = so->smallestEquivalentString(a,b,s);
+    string res = Solution().smallestSubsequence("leetcode");
     cout<<res<<endl;
 
     return 0;
 }
-
-	1036	逃离大迷宫
-	1039	多边形三角剖分的最低得分
-	1040	移动石子直到连续 II
-	1042	不邻接植花
-	1044	最长重复子串    
-	1055	形成字符串的最短路径
-	1057	校园自行车分配
-	1058	最小化舍入误差以满足目标
-	1059	从始点到终点的所有路径
-	1062	最长重复子串
-	1063	有效子数组的数目    
-	1072	按列翻转得到最大值等行数
-	1073	负二进制数相加
-	1074	元素和为目标值的子矩阵数量
-	1079	活字印刷
-	1080	根到叶路径上的不足节点
-	1081	不同字符的最小子序列

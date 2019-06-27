@@ -23,24 +23,33 @@ answer = [minimum_moves, maximum_moves] 。
 注意，我们无法进行 10 -> 2 这样的移动来结束游戏，因为这是不合要求的移动。
 示例 3：   输入：[100,101,104,102,103]  输出：[0,0]
 
-提示：
-3 <= stones.length <= 10^4
-1 <= stones[i] <= 10^9
-stones[i] 的值各不相同。
+提示：	3 <= stones.length <= 10^4		1 <= stones[i] <= 10^9		stones[i] 的值各不相同。
 */
 
 class Solution {
 public:
     vector<int> numMovesStonesII(vector<int>& stones) {
-        
+    	sort(stones.begin(), stones.end());
+    	int n = stones.size();
+    	// 最左和最右的间隔会舍去一段
+        int iMax = max(stones[n-1]-stones[1], stones[n-2]-stones[0]) - n + 2;
+        int iMin = iMax;
+        for(int i=0, j=0; i<n; i++){
+        	// 滑动窗口
+        	while(j+1<n && stones[j+1]-stones[i] < n) j++;
+        	// 还没有放回原位置的数
+        	int cost = n-(j-i+1);
+        	// 只有一个数不在原位置的情况
+        	if(j-i+1 == n-1 && stones[j]-stones[i]+1 == n-1) cost = 2;
+        	iMin = min(iMin, cost);
+        }
+        return vector<int>{iMin, iMax};
     }
 };
 
 int main(){
-    vector<int> arr = {1,4,2};
-    vector<int> brr = {1,2,4};
-    Solution* so = new Solution();
-    int n = so->maxUncrossedLines(arr, brr);
-    cout<<n<<endl;
+    vector<int> arr = {100,101,103,102,105};
+    vector<int> num = Solution().numMovesStonesII(arr);
+    for(auto it:num) cout<<it<<endl;
     return 0;
 }

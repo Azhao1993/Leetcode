@@ -2,8 +2,6 @@ package Leetcode_289_GameofLife;
 
 import java.util.Arrays;
 
-
-
 /*
 	根据百度百科，生命游戏，简称为生命，是英国数学家约翰·何顿·康威在1970年发明的细胞自动机。
 	
@@ -39,62 +37,56 @@ import java.util.Arrays;
 		本题中，我们使用二维数组来表示面板。原则上，面板是无限的，但当活细胞侵占了面板边界时会造成问题。你将如何解决这些问题？
 */
 public class GameofLife {
+	public static void main(String[] args) {
+		int[][] board = { { 0, 1, 0 }, { 0, 0, 1 }, { 1, 1, 1 }, { 0, 0, 0 } };
+		new GameofLife().gameOfLife2(board);
+	}
+
 	// 289.生命游戏
-	public void gameOfLife(int[][] board) {
-//		如果活细胞周围八个位置的活细胞数少于两个，则该位置活细胞死亡；livecount<2,1 —— 2 
-//		如果活细胞周围八个位置有两个或三个活细胞，则该位置活细胞仍然存活；livecount==2==3 1 —— 1
-//		如果活细胞周围八个位置有超过三个活细胞，则该位置活细胞死亡；livecount >3 1 —— 2
-//		如果死细胞周围正好有三个活细胞，则该位置死细胞复活；livecount == 3; 0 —— -1
-		int row = board.length;
-		int col = board[0].length;
-		// int[][] state = new int[row][col];
-		for (int i = 0; i < row; i++) {
-			for (int j = 0; j < col; j++) {
-				// 活细胞
-				if (board[i][j] == 1) {
-					int livecount = around(board, i, j)-1;					
-					// 周围小于2,死
-					if (livecount < 2) {
-						// state[i][j] = -1;
-						board[i][j] = 2;
-					} else if (livecount > 3) {
-						// state[i][j] = -1;
-						board[i][j] = 2;
-					}
-				// 死细胞
-				} else {
-					int diecount = around(board, i, j);					
-					// 刚好三个活细胞
-					if (diecount == 3) {
-						// state[i][j] = 1;
+	public void gameOfLife2(int[][] board) {
+		int m = board.length;
+		int n = board[0].length;
+		for (int i = 0; i < m; i++) {
+			for (int j = 0; j < n; j++) {
+				if (board[i][j] == 0) {
+					// 死细胞
+					int around = countAccount(i, j, board);
+					if (around == 3) {
 						board[i][j] = -1;
 					}
+				} else if (board[i][j] == 1) {
+					// 活细胞
+					int around = countAccount(i, j, board);
+					if (around < 2 || around > 3) {
+						// 活变死
+						board[i][j] = 2;
+					}
 				}
-
 			}
 		}
-		//遍历
-		for(int i = 0;i<row;i++) {
-			for(int j = 0;j<col;j++) {
-				if(board[i][j]==2) {
-					board[i][j] =0;
-				}
-				if(board[i][j]==-1) {
-					board[i][j] =1;
+		for (int i = 0; i < m; i++) {
+			for (int j = 0; j < n; j++) {
+				if (board[i][j] == -1) {
+					board[i][j] = 1;
+				} else if (board[i][j] == 2) {
+					board[i][j] = 0;
 				}
 			}
 		}
 	}
 
-	// 判断周围情况
-	public int around(int[][] board, int i, int j) {
+	public int countAccount(int i, int j, int[][] board) {
+		int[][] dxy = { { -1, -1 }, { -1, 0 }, { -1, 1 }, { 0, -1 }, { 0, 1 }, { 1, -1 }, { 1, 0 }, { 1, 1 } };
 		int count = 0;
-		for(int m = Math.max(i-1, 0);m<=Math.min(i+1, board.length-1);m++) {
-			for(int n = Math.max(j-1, 0);n<=Math.min(j+1, board[0].length-1);n++) {
-				if(board[m][n] >=1) {
-					count++;					
-				}				
+		for (int m = 0; m < dxy.length; m++) {
+			int dx = i + dxy[m][0];
+			int dy = j + dxy[m][1];
+			if (dx >= 0 && dx < board.length && dy >= 0 && dy < board[0].length) {
+				if (board[dx][dy] == 1||board[dx][dy] == 2) {
+					count++;
+				}
 			}
+
 		}
 		return count;
 	}

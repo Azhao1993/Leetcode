@@ -1,11 +1,8 @@
 #include<iostream>
 #include<vector>
 #include<unordered_map>
-#include<unordered_set>
-#include<numeric>
 #include<algorithm>
 using namespace std;
-
 /*
 1072. 按列翻转得到最大值等行数
 
@@ -26,21 +23,22 @@ using namespace std;
 class Solution {
 public:
     int maxEqualRowsAfterFlips(vector<vector<int>>& matrix) {
-        
+        unordered_map<string, int> hash;
+        int res = 1;
+        for(int i=0; i<matrix.size(); i++){
+            string tem = "";
+            if(matrix[i][0] == 1) for(auto it:matrix[i]) tem += '1'-it;
+            else for(auto it:matrix[i]) tem += '0'+it;
+            hash[tem]++;
+            res = max(res, hash[tem]);
+        }
+        return res;
     }
 };
 
 int main(){
-    string a = "leetcode", b = "programs", s = "sourcecode";
-    Solution* so = new Solution();
-    string res = so->smallestEquivalentString(a,b,s);
+    vector<vector<int>> arr{{0,0,0},{0,0,1},{1,1,0}};
+    int res = Solution().maxEqualRowsAfterFlips(arr);
     cout<<res<<endl;
-
     return 0;
 }
-1073_Adding Two Negabinary Numbers
-1074_Number of Submatrices That Sum to Target
-1078_Occurrences After Bigram
-1079_Letter Tile Possibilities
-1080_Insufficient Nodes in Root to Leaf Paths
-1081_Smallest Subsequence of Distinct Characters
