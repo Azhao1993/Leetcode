@@ -27,7 +27,7 @@ public class HappyNumber {
 		hn.isHappy(19);
 	}
 
-	//202. 快乐数
+	// 202. 快乐数
 	public boolean isHappy(int n) {
 		while (n >= 10) {
 			n = toNum(n);
@@ -60,6 +60,25 @@ public class HappyNumber {
 			n = n / 10;
 		}
 		return isHappy(b);
+	}
+
+	public boolean isHappy3(int n) {
+		HashSet<Integer> set = new HashSet<>();
+		while (n != 1) {
+			int temp = n;
+			n = 0;
+			while (temp != 0) {
+				n += (temp % 10) * (temp % 10);
+				temp /= 10;
+			}
+			if (set.contains(n)) {
+				return false;
+			} else {
+				set.add(n);
+			}
+
+		}
+		return true;
 	}
 
 }
