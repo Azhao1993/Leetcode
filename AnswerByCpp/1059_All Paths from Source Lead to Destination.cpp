@@ -1,5 +1,5 @@
 #include<iostream>
-#include<limits.h>
+#include<vector>
 using namespace std;
 /*
 1059. 从始点到终点的所有路径
@@ -18,7 +18,8 @@ using namespace std;
 示例 3：   输入：n = 4, edges = [[0,1],[0,2],[1,3],[2,3]], source = 0, destination = 3
 输出：true
 示例 4：   输入：n = 3, edges = [[0,1],[1,1],[1,2]], source = 0, destination = 2
-输出：false    说明：从始点出发的所有路径都在目标终点结束，但存在无限多的路径，如 0-1-2，0-1-1-2，0-1-1-1-2，0-1-1-1-1-2 等。
+输出：false    说明：从始点出发的所有路径都在目标终点结束，但存在无限多的路径，
+如 0-1-2，0-1-1-2，0-1-1-1-2，0-1-1-1-1-2 等。
 示例 5：   输入：n = 2, edges = [[0,1],[1,1]], source = 0, destination = 1
 输出：false    说明：在目标节点上存在无限的自环。
 
@@ -32,18 +33,32 @@ using namespace std;
     0 <= destination <= n - 1
 */
 
-
 class Solution {
 public:
+    bool dfs(vector<vector<int>>& graph, vector<bool>& used, int i, int j){
+        // 没有下一跳的时候，判断是否为终点
+        if(graph[i].size() == 0) return i == j;
+        for(auto it:graph[i]){
+            if(used[it]) return false;
+            used[it] = true;
+            if(!dfs(graph, used, it, j)) return false;
+            used[it] = false;
+        }
+        return true;
+    }
     bool leadsToDestination(int n, vector<vector<int>>& edges, int source, int destination) {
-        
+        vector<vector<int>> graph(n, vector<int>());
+        vector<bool> used(n, false);
+        for(auto it:edges) graph[it[0]].push_back(it[1]);
+            return dfs(graph, used, source, destination);
     }
 };
 
 int main(){
-    int a,b;
-    while(cin>>a>>b){
-        cout<<change(a,b)<<endl;
-    }
+    vector<vector<int>> arr{{0,1},{0,2},{1,3},{2,3}};
+    bool bl = Solution().leadsToDestination(4, arr, 0, 2);
+    cout<<bl<<endl;
     return 0;
 }
+
+
