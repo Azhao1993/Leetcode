@@ -36,31 +36,6 @@ public class WordPattern {
 	}
 
 	// 290. µ¥´ÊÄ£Ê½
-	public boolean wordPattern(String pattern, String str) {
-		String[] strArr = str.split(" ");
-		if (pattern.length() != strArr.length) {
-			return false;
-		}
-		Map<Character, String> map = new HashMap<Character, String>();
-		Map<String, Character> map2 = new HashMap<String, Character>();
-		for (int i = 0; i < strArr.length; i++) {
-			if (map.containsKey(pattern.charAt(i))) {
-				if (!map2.containsKey(strArr[i])) {
-					return false;
-				}
-				if (!map.get(pattern.charAt(i)).equals(strArr[i]) && (map2.get(strArr[i]) != pattern.charAt(i))) {
-					return false;
-				}
-			} else {
-				if (map2.containsKey(strArr[i])) {
-					return false;
-				}
-				map.put(pattern.charAt(i), strArr[i]);
-				map2.put(strArr[i], pattern.charAt(i));
-			}
-		}
-		return true;
-	}
 
 	// 0ms
 	public boolean wordPattern0(String pattern, String str) {
@@ -92,5 +67,27 @@ public class WordPattern {
 		}
 
 		return true;
+	}
+
+	public boolean wordPattern2(String pattern, String str) {
+		String[] sArr = str.split(" ");
+		HashMap<Character, String> map = new HashMap<>();
+		HashMap<String, Character> map2 = new HashMap<>();
+		if (pattern.length() != sArr.length) {
+			return false;
+		}
+		for (int i = 0; i < sArr.length; i++) {
+			char temp = pattern.charAt(i);
+			if (map.containsKey(temp) && !map.get(temp).equals(sArr[i])) {
+				return false;
+			}
+			if (map2.containsKey(sArr[i]) && map2.get(sArr[i]) != temp) {
+				return false;
+			}
+			map.put(temp, sArr[i]);
+			map2.put(sArr[i], temp);
+		}
+		return true;
+
 	}
 }
