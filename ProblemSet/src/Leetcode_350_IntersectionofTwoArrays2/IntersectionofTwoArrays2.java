@@ -30,42 +30,6 @@ public class IntersectionofTwoArrays2 {
 	}
 
 	// 350. 两个数组的交集 II
-	public int[] intersect2(int[] nums1, int[] nums2) {
-		Map<Integer, Integer> map1 = new HashMap<Integer, Integer>();
-		for (int i = 0; i < nums1.length; i++) {
-			if (!map1.containsKey(nums1[i])) {
-				map1.put(nums1[i], 1);
-			} else {
-				int value = map1.get(nums1[i]) + 1;
-				map1.put(nums1[i], value);
-			}
-		}
-
-		Map<Integer, Integer> map2 = new HashMap<Integer, Integer>();
-		for (int i = 0; i < nums2.length; i++) {
-			if (!map2.containsKey(nums2[i])) {
-				map2.put(nums2[i], 1);
-			} else {
-				int value = map2.get(nums2[i]) + 1;
-				map2.put(nums2[i], value);
-			}
-		}
-
-		List<Integer> list = new ArrayList<Integer>();
-		for (Integer x : map1.keySet()) {
-			if (map2.containsKey(x)) {
-				int count = Math.min(map1.get(x), map2.get(x));
-				for (int i = 0; i < count; i++) {
-					list.add(x);
-				}
-			}
-		}
-		int[] result = new int[list.size()];
-		for (int i = 0; i < list.size(); i++) {
-			result[i] = list.get(i);
-		}
-		return result;
-	}
 
 	// 1ms
 	public int[] intersect0(int[] nums1, int[] nums2) {
@@ -142,7 +106,27 @@ public class IntersectionofTwoArrays2 {
 			result[x] = nums1[x];
 		}
 		return result;
+	}
 
+	//
+	public int[] intersect3(int[] nums1, int[] nums2) {
+
+		HashMap<Integer, Integer> map1 = new HashMap<>();
+		for (int i : nums1) {
+			map1.put(i, map1.getOrDefault(i, 0) + 1);
+		}
+		ArrayList<Integer> list = new ArrayList<Integer>();
+		for (int i : nums2) {
+			if (map1.containsKey(i) && map1.get(i) > 0) {
+				list.add(i);
+				map1.put(i, map1.get(i) - 1);
+			}
+		}
+		int[] res = new int[list.size()];
+		for (int i = 0; i < res.length; i++) {
+			res[i] = list.get(i);
+		}
+		return res;
 	}
 
 }
