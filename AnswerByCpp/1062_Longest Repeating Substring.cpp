@@ -29,6 +29,17 @@ private:
     }
 public:
     int longestRepeatingSubstring(string S) {
+        // 清华大佬的 最长重复子串
+        int n = S.size(), res = 0;
+        vector<vector<int>> lcp(n+1, vector<int>(n+1, 0));
+
+        for(int i = n-1; i>=0; i--)
+            for(int j = i+1; j<n; j++)
+                lcp[i][j] = (S[i] == S[j] ? lcp[i+1][j+1] + 1 : 0), res = max(res, lcp[i][j]);
+        
+        return res;
+
+        /*
         int len = S.length();
         if(largeNum(S)) return len-1;
         vector<int> prefix(len, 0);
@@ -47,11 +58,12 @@ public:
         // ind = tem > res ? prefix[i] : ind;
         // cout<<S.substr(ind, ind+res)<<endl;
         return res;
+        */
     }
 };
 
 int main(){
-    int n = Solution().longestRepeatingSubstring("aaaaba");
+    int n = Solution().longestRepeatingSubstring("aaaaa");
     cout<<n<<endl;
     return 0;
 }
