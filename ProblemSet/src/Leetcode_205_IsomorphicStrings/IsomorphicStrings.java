@@ -1,5 +1,6 @@
 package Leetcode_205_IsomorphicStrings;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -59,19 +60,38 @@ public class IsomorphicStrings {
 		return true;
 	}
 
-	// 1ms
-	public boolean isIsomorphic1(String s, String t) {
-		if (s == null || t == null || s.length() != t.length()) {
-			return false;
-		}
-		char[] chas1 = s.toCharArray();
-		char[] chas2 = t.toCharArray();
-		int[] map = new int[512];
-		for (int i = s.length() - 1; i >= 0; i--) { // 把一个映射的两个下标都填上同一个数，也防止了多射的问题
-			if (map[chas1[i]] != map[chas2[i] + 256]) {
+	public boolean isIsomorphic2(String s, String t) {
+		char[] sc = s.toCharArray();
+		char[] tc = t.toCharArray();
+		HashMap<Character, Character> map = new HashMap<>();// 映射关系
+		HashSet<Character> set = new HashSet<>();// 保证同一个字符不被映射两次
+		for (int i = 0; i < sc.length; i++) {
+			if (!map.containsKey(sc[i])) {
+				if (set.contains(tc[i])) {
+					return false;
+				}
+				map.put(sc[i], tc[i]);
+				set.add(tc[i]);
+			} else if (map.get(sc[i]) != tc[i]) {
 				return false;
 			}
-			map[chas1[i]] = map[chas2[i] + 256] = i;
+		}
+		return true;
+	}
+
+	// 字符串的构成包含数字和字母
+	// 两个字符不能映射到同一个字符但s->t t->x可以
+	// 字符可以映射到本身
+	public boolean isIsomorphic3(String s, String t) {
+		char[] sc = s.toCharArray();
+		char[] tc = t.toCharArray();
+		int[] ascii = new int[512];
+		for (int i = sc.length - 1; i >= 0; i--) {
+			// 把一个映射的两个下标都填上同一个数，防止多次映射
+			if (ascii[sc[i]] != ascii[tc[i] + 256]) {
+				return false;
+			}
+			ascii[sc[i]] = ascii[tc[i] + 256] = i;
 		}
 		return true;
 	}
