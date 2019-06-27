@@ -1,5 +1,7 @@
 package Leetcode_451_SortCharactersByFrequency;
 
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -117,6 +119,32 @@ public class SortCharactersByFrequency {
 
 		return result.toString();
 
+	}
+	
+	public String frequencySort3(String s) {
+		if(s==null||s.length()==0) {
+			return s;
+		}
+		int[][] map = new int[126][2];
+		for(char ch:s.toCharArray()) {
+			map[ch][0] = ch;
+			map[ch][1]++;			
+		}
+		Arrays.sort(map, new Comparator<int[]>() {
+			@Override
+			public int compare(int[] o1, int[] o2) {				
+				return o2[1]-o1[1];
+			}
+		});
+		StringBuilder sb = new StringBuilder();
+		for(int[] o:map) {
+			if(o[1]!=0) {
+				for(int i = 0;i<o[1];i++) {
+					sb.append((char)o[0]);
+				}
+			}
+		}
+		return sb.toString();
 	}
 
 }
