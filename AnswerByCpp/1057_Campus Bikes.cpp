@@ -32,9 +32,10 @@ public:
     	int m = workers.size(), n = bikes.size();
         vector<int> res(m, -1);
         vector<bool> used(n, false);
+        // vector< pair <int, pair<int, int> > > grid;
+            // 直接sort
         // 距离相等时，方便排序
         vector<vector<int>> grid(n*m, vector<int>(3, -1));
-
         // 计算曼哈顿距离
         for(int i=0; i<m; i++)
         	for(int j=0; j<n; j++)
