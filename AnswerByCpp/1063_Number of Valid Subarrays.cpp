@@ -1,7 +1,7 @@
 #include<iostream>
-#include<limits.h>
+#include<vector>
+#include<stack>
 using namespace std;
-
 /*
 1063. 有效子数组的数目
 
@@ -21,15 +21,22 @@ using namespace std;
 class Solution {
 public:
     int validSubarrays(vector<int>& nums) {
-        
+    	int res = 0, len = nums.size();
+        stack<int> sta;
+        for(int i=len-1; i>=0; i--){
+        	// 单调栈  存放的是之前数的下标   要是不能组成子数组， 就入栈，  第一个组成不了的数来计算
+        	// 能组成就弹出   弹到第一个不能组成的数    通过下标来计算
+        	while(!sta.empty() && nums[sta.top()] >= nums[i]) sta.pop();
+        	res += sta.empty() ? len-i : sta.top() - i;
+        	sta.push(i);
+        }
+        return res;
     }
 };
 
 int main(){
-    string a,b;
-    while(cin>>a>>b){
-        int res = change(a,b);
-        cout<<res<<endl;
-    }
+    vector<int> arr{1,4,2,5,3};
+    int res = Solution().validSubarrays(arr);
+    cout<<res<<endl;
     return 0;
 }
