@@ -25,15 +25,25 @@ using namespace std;
 class Solution {
 public:
     int minScoreTriangulation(vector<int>& A) {
-        
+        int n = A.size();
+        // dp[i][j] 代表从第 i 个到第 j 个点组成的最小三角形之和为多少
+        vector<vector<int>> dp(n, vector<int>(n, 0));
+        // 每次更新最远到达的点
+        for(int end=2; end<n; end++)
+        	// 起点倒着更新
+        	for(int begin=end-2; begin>=0; begin--){
+        		dp[begin][end] = 1e9;
+        		// 中间点
+        		for(int mid=end-1; mid>begin; mid--)
+        			dp[begin][end] = min(dp[begin][end], dp[begin][mid]+dp[mid][end]+A[begin]*A[mid]*A[end]);
+        }
+        return dp[0][n-1];
     }
 };
 
 int main(){
-    vector<int> arr = {1,4,2};
-    vector<int> brr = {1,2,4};
-    Solution* so = new Solution();
-    int n = so->maxUncrossedLines(arr, brr);
+    vector<int> arr = {1,3,1,4,1,5};
+    int n = Solution().minScoreTriangulation(arr);
     cout<<n<<endl;
     return 0;
 }
