@@ -15,23 +15,36 @@ using namespace std;
 提示：     2 <= S.length <= 10^5       S 由小写英文字母组成。
 */
 class Solution {
+private:
+    string compare(string& S, int a, int b, int len){
+        int i = a, j = b;
+        while(i<len && j<len && S[i]==S[j]) i++, j++;
+        return S.substr(a, i-a);
+    }
+    bool largeNum(string& S){
+        for(int i=0; i+1<S.size(); i++)
+            if(S[i] != S[i+1]) return false;
+        return true;
+    }
 public:
     string longestDupSubstring(string S) {
-        // 复杂度极其高
-        /*
-        int res = S.size();
-        unordered_set<string> hash;
-        while(res >= 0){
-            res--;
-            hash.clear();
-            for(int i=0; i+res <= S.size(); i++){
-                string str = S.substr(i, res);
-                if(hash.find(str) != hash.end()) return str;
-                else hash.insert(str);
-            }
+        if(largeNum(S)) return S.substr(1);
+        int len = S.length();
+        vector<int> prefix(len, 0);
+        for(int i=0; i<len; i++) prefix[i] = i;
+        // 对后缀数组进行排序
+        sort(prefix.begin(), prefix.end(), [&](int a, int b){
+            // 比对第一个不相等的字母，都相等，短的在前
+            while(a<len && b<len && S[a] == S[b]) a++, b++;
+            if(a<len && b<len) return S[a] < S[b];
+            return a>b;
+        });
+        string res = "";
+        for(int i=0; i+1<len; i++){
+            string tem = compare(S, prefix[i], prefix[i+1], len);
+            res = tem.size()>res.size() ? tem : res;
         }
-        return "";
-        */
+        return res;
     }
 };
 

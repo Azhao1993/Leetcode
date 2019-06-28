@@ -1,5 +1,4 @@
 #include<iostream>
-#include<limits.h>
 #include<vector>
 #include<algorithm>
 #include<queue>
@@ -31,27 +30,20 @@ public:
         for(int i=0; i<prices.size(); ++i){
             // 去掉小数点
             int len = prices[i].length();
-            // 计算出可能得到的最小数
+            // 整数部分
             sum += atoi(prices[i].substr(0,len-4).c_str());
             int tem = atoi(prices[i].substr(len-3).c_str());
-            // 当前数有小数
+            // 小数部分不为 0 
             if(tem) error.push(tem);
         }
-        // target 不在这些数的范围
+        // target 不在可形成的范围中
         if(sum > target || sum + error.size() < target) return "-1";
 
-        // 向上取整的个数
-        int count = target - sum;
-        int res = 0;
-        while(error.size()){
-            if(count-- > 0){
-                res += 1000 - error.top();
-                error.pop();
-            }else{
-                res += error.top();
-                error.pop();
-            }
-        }
+        // 向上取整的个数    其他是向下取整的数
+        int count = target - sum, res = 0;
+        while(!error.empty())   // 向上取整         向下取整
+            res += count-- > 0 ? 1000-error.top() : error.top(), error.pop();
+            
         char str[10];
         sprintf(str, "%.3f", (double)res/1000);
         return str;
@@ -60,9 +52,7 @@ public:
 
 int main(){
     vector<string> str({"0.700","2.800","4.900"});
-
-    Solution* so = new Solution();
-    string res = so->minimizeError(str, 9);
+    string res = Solution().minimizeError(str, 9);
     cout<<res<<endl;
     return 0;
 }
