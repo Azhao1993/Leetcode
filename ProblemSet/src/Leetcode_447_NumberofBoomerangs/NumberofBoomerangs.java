@@ -27,28 +27,6 @@ public class NumberofBoomerangs {
 	}
 
 	// 447. 回旋镖的数量
-	public int numberOfBoomerangs(int[][] points) {
-		Map<Integer, Integer> map = new HashMap<Integer, Integer>();
-		int count = 0;
-		for (int i = 0; i < points.length; i++) {
-			for (int j = 0; j < points.length; j++) {
-				if (j == i) {
-					continue;
-				}
-				int distance = getDistance(points[i], points[j]);
-				map.put(distance, map.getOrDefault(distance, 0) + 1);
-			}
-			for (Integer key : map.keySet()) {
-				if (map.get(key) != 1) {
-					count += map.get(key) * (map.get(key) - 1);
-				}
-			}
-			map.clear();
-		}
-		return count;
-
-	}
-
 	// 76ms
 	public int numberOfBoomerangs0(int[][] points) {
 		int res = 0;
@@ -58,7 +36,8 @@ public class NumberofBoomerangs {
 			for (int j = 0; j < points.length; j++) {
 				if (j == i)
 					continue;
-				int d = getDistance(points[i], points[j]);
+				int d = (points[i][0] - points[j][0]) * (points[i][0] - points[j][0])
+						+ (points[i][1] - points[j][1]) * (points[i][1] - points[j][1]);
 				// 存在这个距离说明，能找到三个点points[i]为第一个点map中的点为第二个点，points[j]为第三个点
 				int tmp = map.containsKey(d) ? map.get(d) : 0;
 				// map中的点在前或在后
@@ -70,8 +49,26 @@ public class NumberofBoomerangs {
 		return res;
 	}
 
-	// 距离
-	public int getDistance(int[] a, int[] b) {
-		return (a[0] - b[0]) * (a[0] - b[0]) + (a[1] - b[1]) * (a[1] - b[1]);
+	// O(N^2)
+	public int numberOfBoomerangs3(int[][] points) {
+		int res = 0;
+		Map<Integer, Integer> map = new HashMap<>();
+		for (int i = 0; i < points.length; i++) {
+			map.clear();
+			for (int j = 0; j < points.length; j++) {
+				if (i == j) {
+					continue;
+				} else {
+					int dis = (points[i][0] - points[j][0]) * (points[i][0] - points[j][0])
+							+ (points[i][1] - points[j][1]) * (points[i][1] - points[j][1]);
+					map.put(dis, map.getOrDefault(dis, 0) + 1);
+				}
+			}
+			for (int key : map.keySet()) {
+				int j = map.get(key);
+				res += j * (j - 1);
+			}
+		}
+		return res;
 	}
 }
