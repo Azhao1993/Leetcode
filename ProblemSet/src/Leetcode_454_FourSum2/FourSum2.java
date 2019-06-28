@@ -33,77 +33,20 @@ public class FourSum2 {
 	}
 
 	// 454. 四数相加 II
+	// 将a+b存入map O(N^2)
 	public int fourSumCount(int[] A, int[] B, int[] C, int[] D) {
 		HashMap<Integer, Integer> map = new HashMap<>();
-		int count = 0;
-		for (int i = 0; i < A.length; i++) {
-			for (int j = 0; j < B.length; j++) {
-				map.put(A[i] + B[j], map.getOrDefault(A[i] + B[j], 0) + 1);
+		for (int a : A) {
+			for (int b : B) {
+				map.put(a + b, map.getOrDefault(a + b, 0) + 1);
 			}
 		}
-
-		for (int i = 0; i < C.length; i++) {
-			for (int j = 0; j < D.length; j++) {
-				count += map.getOrDefault(-C[i] - D[j], 0);
+		int res = 0;
+		for (int c : C) {
+			for (int d : D) {
+				res += map.getOrDefault(-c - d, 0);
 			}
 		}
-		return count;
+		return res;
 	}
-
-	// 96ms
-	public int fourSumCount0(int[] A, int[] B, int[] C, int[] D) {
-		Map<Integer, Integer> map = new HashMap<>();
-		int length = A.length;
-		int sum;
-		for (int i = 0; i < length; ++i) {
-			for (int j = 0; j < length; ++j) {
-				sum = A[i] + B[j];
-				map.put(sum, map.getOrDefault(sum, 0) + 1);
-			}
-		}
-		int result = 0;
-		for (int i = 0; i < length; ++i) {
-			for (int j = 0; j < length; ++j) {
-				sum = C[i] + D[j];
-				result += map.getOrDefault(-sum, 0);
-			}
-		}
-		return result;
-	}
-
-	// 超时
-	public int fourSumCount2(int[] A, int[] B, int[] C, int[] D) {
-		Map<Integer, Integer> mapa = arrToMap(A);
-		Map<Integer, Integer> mapb = arrToMap(B);
-		Map<Integer, Integer> mapc = arrToMap(C);
-		Map<Integer, Integer> mapd = arrToMap(D);
-		int count = 0;
-		for (Integer a : mapa.keySet()) {
-			for (Integer b : mapb.keySet()) {
-				for (Integer c : mapc.keySet()) {
-					for (Integer d : mapd.keySet()) {
-						if (a + b + c + d == 0) {
-							count += mapa.get(a) * mapb.get(b) * mapc.get(c) * mapd.get(d);
-						}
-					}
-				}
-			}
-		}
-		return count;
-	}
-
-	// 将数组存入map
-	public Map<Integer, Integer> arrToMap(int[] arr) {
-		Map<Integer, Integer> map = new HashMap<Integer, Integer>();
-		for (int i = 0; i < arr.length; i++) {
-			if (map.containsKey(arr[i])) {
-				int value = map.get(arr[i]) + 1;
-				map.put(arr[i], value);
-			} else {
-				map.put(arr[i], 1);
-			}
-		}
-		return map;
-	}
-
 }
