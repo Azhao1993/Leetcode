@@ -19,7 +19,7 @@ public class ThreeSumClosest {
 
 	// 16.最接近的三数之和
 	// O(n^2)
-	public int threeSumClosest0(int[] num, int target) {
+	public int threeSumClosest(int[] num, int target) {
 		int result = num[0] + num[1] + num[num.length - 1];
 		Arrays.sort(num);
 		for (int i = 0; i < num.length - 2; i++) {
