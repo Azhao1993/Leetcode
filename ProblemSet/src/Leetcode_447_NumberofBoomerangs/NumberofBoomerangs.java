@@ -28,7 +28,7 @@ public class NumberofBoomerangs {
 
 	// 447. 回旋镖的数量
 	// 76ms
-	public int numberOfBoomerangs0(int[][] points) {
+	public int numberOfBoomerangs(int[][] points) {
 		int res = 0;
 		Map<Integer, Integer> map = new HashMap<Integer, Integer>();
 		// 每个第一个点对应一个map
