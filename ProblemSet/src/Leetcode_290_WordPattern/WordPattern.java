@@ -38,7 +38,7 @@ public class WordPattern {
 	// 290. 单词模式
 
 	// 0ms
-	public boolean wordPattern0(String pattern, String str) {
+	public boolean wordPattern(String pattern, String str) {
 		char[] pc = pattern.toCharArray();
 		String[] words = str.split(" ");
 		// 长度不等
