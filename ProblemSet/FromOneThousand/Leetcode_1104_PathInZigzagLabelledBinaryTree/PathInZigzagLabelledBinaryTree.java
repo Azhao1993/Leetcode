@@ -25,8 +25,23 @@ import java.util.List;
 
 //1104.¶þ²æÊ÷Ñ°Â·
 public class PathInZigzagLabelledBinaryTree {
+	public static void main(String[] args) {
+		new PathInZigzagLabelledBinaryTree().pathInZigZagTree(14);
+	}
+
 	public List<Integer> pathInZigZagTree(int label) {
 		List<Integer> res = new ArrayList<>();
+		int level = 0;
+		int temp = label;
+		while (temp != 1) {
+			level++;
+			temp /= 2;
+		}
+		while (label >= 1) {
+			level--;
+			res.add(0, label);
+			label = 3 * (int) Math.pow(2, level) - 1 - label / 2;
+		}
 
 		return res;
 	}
