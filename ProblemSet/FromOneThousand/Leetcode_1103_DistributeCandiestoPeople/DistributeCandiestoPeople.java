@@ -1,4 +1,4 @@
-package Leetcode_1104_DistributeCandiestoPeople;
+package Leetcode_1103_DistributeCandiestoPeople;
 
 /*
 	排排坐，分糖果。	
@@ -36,7 +36,7 @@ package Leetcode_1104_DistributeCandiestoPeople;
 		1 <= num_people <= 1000
  */
 public class DistributeCandiestoPeople {
-	// 1104.分糖果 II
+	// 1103.分糖果 II
 	public int[] distributeCandies(int candies, int num_people) {
 		int i = 1;
 		int[] ans = new int[num_people];
