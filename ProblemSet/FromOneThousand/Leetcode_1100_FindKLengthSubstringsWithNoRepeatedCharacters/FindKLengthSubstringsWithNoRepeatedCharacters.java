@@ -1,4 +1,4 @@
-package Leetcode_FindKLengthSubstringsWithNoRepeatedCharacters;
+package Leetcode_1100_FindKLengthSubstringsWithNoRepeatedCharacters;
 
 import java.util.HashMap;
 
