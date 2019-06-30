@@ -29,13 +29,13 @@ public:
         int res = 0;
         while(l < r){
             if(A[l] + A[r] >= K) r--;
-            else res = max(res, A[l++]+A[r]);
+            else res = max(res, A[l++] + A[r]);
         }
         return res;
         /*
         int res = 0;
-        for(int i=0; i<=r; i++)
-            for(int j=i+1; j<=r; j++){
+        for(int i=0; i<r; i++)
+            for(int j=i+1; j<r; j++){
                 if(A[i]+A[j] >= K) break;
                 else res = max(res, A[i]+A[j]);
             }
