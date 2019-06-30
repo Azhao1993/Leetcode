@@ -70,9 +70,11 @@ public class TheEarliestMomentWhenEveryoneBecomeFriends {
 		return -1;
 	}
 
+	// 合并，并返回当前集合的大小
 	private int jion(int a, int b, int[] map, int[] size) {
 		int fa = find(a, map);
 		int fb = find(b, map);
+		// 将较大的集合的头作为较大集合的头
 		if (fa == fb) {
 			return size[fa];
 		} else if (size[fa] >= size[fb]) {
@@ -86,6 +88,7 @@ public class TheEarliestMomentWhenEveryoneBecomeFriends {
 
 	}
 
+	// 查父亲，并更新父亲
 	private int find(int a, int[] map) {
 		int fa = map[a];
 		while (fa != map[fa]) {
