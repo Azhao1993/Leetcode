@@ -36,43 +36,43 @@ import java.util.Stack;
 
 //1106. 解析布尔表达式
 public class ParsingABooleanExpression {
-    public boolean parseBoolExpr(String expression) {
-    	Stack<Character> sta = new Stack<>();
-    	List<List<Boolean>> flags = new ArrayList<>();           
-       
-        for(char it:expression.toCharArray()) {
-        	if(it=='!'||it=='&'||it=='|') {
-        		sta.push(it);
-        	}else if(it=='(') {
-        		flags.add(new ArrayList<Boolean>());
-        	}else if(it=='t') {
-        		flags.get(flags.size()-1).add(true);
-        	}else if(it=='f') {
-        		flags.get(flags.size()-1).add(false);
-        	}else if(it==')') {
-        		List<Boolean> tem = flags.remove(flags.size()-1);
-        		if(flags.size()==0) {
-        			flags.add(new ArrayList<Boolean>());
-        		}
-        		char exp = sta.pop();
-        		boolean curFlag = tem.get(0);
-        		if(exp=='&') {
-        			for(int i = 1;i<tem.size();i++) {
-        				curFlag &= tem.get(i);
-        			}
-        		}else if(exp=='|') {
-        			for(int i = 1;i<tem.size();i++) {
-        				curFlag |= tem.get(i);
-        			}
-        		}else {
-        			curFlag =!curFlag;
-        		}
-        		
-        		flags.get(flags.size()-1).add(curFlag);
-        	}
-        }
-        return flags.get(0).get(0);
-    }
+	public boolean parseBoolExpr(String expression) {
+		Stack<Character> stack = new Stack<>();
+		List<List<Boolean>> list = new ArrayList<>();
 
-	
+		char[] exp = expression.toCharArray();
+		for (int i = 0; i < exp.length; i++) {
+			if (exp[i] == '!' || exp[i] == '|' || exp[i] == '&') {
+				stack.push(exp[i]);
+			} else if (exp[i] == '(') {
+				list.add(new ArrayList<Boolean>());
+			} else if (exp[i] == 't') {
+				list.get(list.size() - 1).add(true);
+			} else if (exp[i] == 'f') {
+				list.get(list.size() - 1).add(false);
+			} else if (exp[i] == ')') {
+				List<Boolean> temp = list.remove(list.size() - 1);
+				if (list.size() == 0) {
+					list.add(new ArrayList<Boolean>());
+				}
+				char flag = stack.pop();
+				boolean res = temp.get(0);
+				if (flag == '!') {
+					res = !res;
+				} else if (flag == '&') {
+					for (int j = 1; j < temp.size(); j++) {
+						res &= temp.get(j);
+					}
+				} else if (flag == '|') {
+					for (int j = 1; j < temp.size(); j++) {
+						res |= temp.get(j);
+					}
+				}
+
+				list.get(list.size() - 1).add(res);
+
+			}
+		}
+		return list.get(0).get(0);
+	}
 }
