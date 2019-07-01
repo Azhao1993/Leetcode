@@ -22,7 +22,7 @@ import java.util.TreeSet;
 
 public class ContainsDuplicate3 {
 	// 220. 存在重复元素 III
-
+	// 暴力解法
 	public boolean containsNearbyAlmostDuplicate(int[] nums, int k, int t) {
 		// k>=|i-j|
 		// t>=|nums[i]-nums[j]|
@@ -37,6 +37,25 @@ public class ContainsDuplicate3 {
 				if (Math.abs(n1 - n2) <= t) {
 					return true;
 				}
+			}
+		}
+		return false;
+	}
+
+	// 顺序查找表+滑动窗口
+	// 时间复杂度：O(NlogK)
+	// 空间复杂度：O(K)
+	public boolean containsNearbyAlmostDuplicate2(int[] nums, int k, int t) {
+		TreeSet<Long> set = new TreeSet<>();
+		for (int i = 0; i < nums.length; i++) {
+			if (set.ceiling((long) nums[i] - t) != null && set.ceiling((long) nums[i] - t) <= (long) nums[i] + t) {
+				return true;
+			} else {
+				set.add((long) nums[i]);
+			}
+
+			if (set.size() > k) {
+				set.remove((long) nums[i - k]);
 			}
 		}
 		return false;
