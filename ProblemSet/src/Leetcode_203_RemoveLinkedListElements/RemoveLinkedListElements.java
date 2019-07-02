@@ -30,27 +30,24 @@ public class RemoveLinkedListElements {
 	}
 
 	// 203. 移除链表元素
-	public ListNode removeElements(ListNode head, int val) {
-
 	// 假头
 	public ListNode removeElements2(ListNode head, int val) {
-		if (head == null || head.next == null && head.val == val) {
-			return null;
-		}
-		ListNode preHead = new ListNode(0);// 假头
-		ListNode pre = preHead;
-		preHead.next = head;
-		ListNode next = head.next;
-		while (head != null) {
-			next = head.next;
-			if (head.val == val) {
-				pre.next = next;
+		ListNode dummyHead = new ListNode(0);// 假头
+		dummyHead.next = head;
+		ListNode cur = dummyHead;
+
+		while (cur.next != null) {
+			if (cur.next.val == val) {
+				ListNode delNode = cur.next;
+				cur.next = delNode.next;
+				delNode.next = null;
 			} else {
-				pre = pre.next;
+				cur = cur.next;
 			}
-			head = next;
 		}
-		return preHead.next;
+		head = dummyHead.next;
+		dummyHead.next = null;// 还原原本的结构
+		return head;
 	}
 
 }
