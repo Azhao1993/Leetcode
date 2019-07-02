@@ -56,8 +56,11 @@ public class SwapNodesinPairs {
 			pre.next = node2;
 			node2.next = node1;
 			node1.next = next;
+
 			pre = node1;
 		}
-		return dummy.next;
+		head = dummy.next;
+		dummy.next = null;
+		return head;
 	}
 }
