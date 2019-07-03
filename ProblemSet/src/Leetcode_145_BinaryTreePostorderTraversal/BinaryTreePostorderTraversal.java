@@ -25,6 +25,8 @@ import TreeNode.TreeNode;
 public class BinaryTreePostorderTraversal {
 
 	// 145. 二叉树的后序遍历
+
+	// 递归
 	List<Integer> list = new ArrayList<Integer>();
 
 	public List<Integer> postorderTraversal(TreeNode root) {
@@ -72,19 +74,4 @@ public class BinaryTreePostorderTraversal {
 		return results;
 	}
 
-	// 0ms
-	public List<Integer> postorderTraversal0(TreeNode root) {
-		List<Integer> res = new ArrayList<>();
-		pos(root, res);
-		return res;
-	}
-
-	public void pos(TreeNode root, List<Integer> res) {
-		if (root == null) {
-			return;
-		}
-		pos(root.left, res);
-		pos(root.right, res);
-		res.add(root.val);
-	}
 }
