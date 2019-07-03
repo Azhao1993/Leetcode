@@ -1,6 +1,7 @@
 package Leetcode_025_ReverseNodesinkGroup;
 
 import LinkedList.ListNode;
+import LinkedList.ListNodeUtils;
 
 /*
 	给你一个链表，每 k 个节点一组进行翻转，请你返回翻转后的链表。	
@@ -27,59 +28,44 @@ public class ReverseNodesinkGroup {
 		int[] arr = { 1, 2, 3, 4, 5 };
 		int n = arr.length;
 		ReverseNodesinkGroup rnkg = new ReverseNodesinkGroup();
-		ListNode head = rnkg.creatNode(arr, n);
-		rnkg.printList(head);
-		head = rnkg.reverseKGroup(head, 3);
-		rnkg.printList(head);
+		ListNode head = ListNodeUtils.creatNode(arr, n);
+		ListNodeUtils.printList(head);
+		head = rnkg.reverseKGroup(head, 2);
+		ListNodeUtils.printList(head);
 	}
 
-	public ListNode creatNode(int[] arr, int n) {
-		if (n == 0) {
-			return null;
-		}
-		ListNode head = new ListNode(arr[0]);
-		ListNode cur = head;
-		for (int i = 1; i < n; i++) {
-			cur.next = new ListNode(arr[i]);
-			cur = cur.next;
-		}
-		return head;
-	}
-
-	public void printList(ListNode head) {
-		while (head != null) {
-			System.out.print(head.val + " -> ");
-			head = head.next;
-		}
-		System.out.println("null");
-	}
-
+	// 递归
 	public ListNode reverseKGroup(ListNode head, int k) {
-		ListNode dummy = new ListNode(0);
-		dummy.next = head;
+		// 找到第k个节点，尾结点
 		ListNode hail = head;
 		for (int i = 1; i < k && hail != null; i++) {
 			hail = hail.next;
 		}
 		if (hail == null) {
+			// 不够k个
 			return head;
 		}
+		// 假头
+		ListNode dummy = new ListNode(0);
+		dummy.next = head;
 
-		ListNode next = head.next;
-		ListNode nextHead = hail.next;
-		for (int i = 1; i < k; i++) {
+		// 翻转k个节点
+		ListNode cur = head;
+
+		while (cur != hail) {
+			ListNode next = cur.next;
+
 			dummy.next = next;
-			hail.next = head;
-			head.next = nextHead;
-			hail = hail.next;
-			head = next;
-			next = head.next;
+			cur.next = hail.next;
+			hail.next = cur;
+
+			cur = next;
+
 		}
+		// 调整后的尾结点为头节点
+		head.next = reverseKGroup(head.next, k);
 
-		hail.next = reverseKGroup(nextHead, k);
-		head = dummy.next;
-		dummy.next = null;
-		return head;
-
+		return dummy.next;
 	}
+
 }
