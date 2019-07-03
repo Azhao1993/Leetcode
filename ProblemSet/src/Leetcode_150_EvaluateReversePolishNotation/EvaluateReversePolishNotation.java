@@ -1,7 +1,5 @@
 package Leetcode_150_EvaluateReversePolishNotation;
 
-import java.sql.Array;
-import java.util.Arrays;
 import java.util.Stack;
 
 /*
@@ -42,7 +40,7 @@ public class EvaluateReversePolishNotation {
 	}
 
 	// 150. 逆波兰表达式求值
-	public int evalRPN2(String[] tokens) {
+	public int evalRPN(String[] tokens) {
 		Stack<Integer> stack = new Stack<Integer>();
 		for (String str : tokens) {
 			if (str.equals("+")) {
