@@ -25,7 +25,7 @@ public class PalindromeLinkedList {
 		ListNode head = ListNodeUtils.creatNode(arr, arr.length);
 		ListNodeUtils.printList(head);
 		PalindromeLinkedList pll = new PalindromeLinkedList();
-		System.out.println(pll.isPalindrome0(head));
+		System.out.println(pll.isPalindrome(head));
 
 	}
 
