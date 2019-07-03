@@ -1,7 +1,9 @@
 package Leetcode_147_InsertionSortList;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.PriorityQueue;
 
 import LinkedList.ListNode;
 import LinkedList.ListNodeUtils;
@@ -36,7 +38,7 @@ public class InsertionSortList {
 		int[] arr = { 6, 5, 3, 1, 8, 7, 2, 4 };
 		ListNode head = ListNodeUtils.creatNode(arr, arr.length);
 		ListNodeUtils.printList(head);
-		head = new InsertionSortList().insertionSortList(head);
+		head = new InsertionSortList().insertionSortList2(head);
 		ListNodeUtils.printList(head);
 	}
 
@@ -67,10 +69,37 @@ public class InsertionSortList {
 			if (end.next == cur) {
 				end = end.next;
 			}
+		}
+		return dummy.next;
+	}
 
+	// 额外空间
+	public ListNode insertionSortList2(ListNode head) {
+		if (head == null || head.next == null) {
+			return head;
+		}
+		PriorityQueue<ListNode> queue = new PriorityQueue<>(new Comparator<ListNode>() {
+			@Override
+			public int compare(ListNode o1, ListNode o2) {
+				return o1.val - o2.val;
+			}
+		});
+
+		while (head != null) {
+			queue.add(head);
+			head = head.next;
 		}
 
-		return dummy.next;
+		head = queue.poll();
+		ListNode cur = head;
+
+		while (!queue.isEmpty()) {
+			cur.next = queue.poll();
+			cur = cur.next;
+		}
+		cur.next = null;
+
+		return head;
 
 	}
 
