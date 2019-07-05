@@ -1,6 +1,7 @@
 package Leetcode_234_PalindromeLinkedList;
 
 import LinkedList.ListNode;
+import LinkedList.ListNodeUtils;
 
 /*
 	请判断一个链表是否为回文链表。
@@ -18,98 +19,55 @@ import LinkedList.ListNode;
  */
 public class PalindromeLinkedList {
 	public static void main(String[] args) {
-		ListNode head = new ListNode(1);
-		ListNode node2 = new ListNode(2);
-		ListNode node3 = new ListNode(3);
-		ListNode node4 = new ListNode(4);
-		ListNode node5 = new ListNode(4);
-		ListNode node6 = new ListNode(3);
-		ListNode node7 = new ListNode(2);
-		ListNode node8 = new ListNode(1);
-		head.next = node2;
-		node2.next = node3;
-		node3.next = node4;
-		node4.next = node5;
-		node5.next = node6;
-		node6.next = node7;
-		node7.next = node8;
+		int[] arr = { 1, 1, 1, 1, 1 };
+		System.out.println("length:" + arr.length);
 
+		ListNode head = ListNodeUtils.creatNode(arr, arr.length);
+		ListNodeUtils.printList(head);
 		PalindromeLinkedList pll = new PalindromeLinkedList();
-		pll.isPalindrome(head);
+		System.out.println(pll.isPalindrome(head));
+
 	}
 
 	// 234. 回文链表
 	public boolean isPalindrome(ListNode head) {
-		// 空节点或者只有一个节点
-		if ((head == null) || (head.next == null)) {
-			return true;
+		ListNode end = head;
+		ListNode mid = head;
+		// 找到中点
+		int halfLength = 0;
+		while (end != null && end.next != null) {
+			halfLength++;
+			mid = mid.next;
+			end = end.next.next;
 		}
-		// 找到中间节点
-		// 偶数个节点 slow.next 是后半段的head
-		// 奇数个节点 slow是中间节点
-		ListNode fast = head;
-		ListNode slow = head;
-		while ((fast.next != null) && (fast.next.next != null)) {
-			fast = fast.next.next;
-			slow = slow.next;
-		}
-
-		// 对链表后半段进行反转
-		ListNode midNode = slow;
-		ListNode firNode = slow.next;// 后半段链表的第一个节点
-		ListNode cur = firNode.next;// 插入节点从第一个节点后面一个开始
-		firNode.next = null;// 第一个节点最后会变最后一个节点
-		while (cur != null) {
-			ListNode nextNode = cur.next;// 保存下次遍历的节点
-			cur.next = midNode.next;
-			midNode.next = cur;
-			cur = nextNode;
-		}
-
-		// 反转之后对前后半段进行比较
-		slow = head;
-		fast = midNode.next;
-		while (fast != null) {
-			if (fast.val != slow.val) {
+		System.out.println("halfLength:" + halfLength);
+		// 翻转后半段（mid为头结点）
+		ListNode nextHead = reverseList(mid);
+		ListNodeUtils.printList(nextHead);
+		// 比较
+		for (int i = 0; i < halfLength; i++) {
+			if (head.val != nextHead.val) {
 				return false;
 			}
-			slow = slow.next;
-			fast = fast.next;
+			head = head.next;
+			nextHead = nextHead.next;
 		}
 		return true;
-
 	}
 
-	// 0ms
-	public boolean isPalindrome0(ListNode head) {
+	private ListNode reverseList(ListNode head) {
 		if (head == null || head.next == null) {
-			return true;
+			return head;
 		}
+		ListNode pre = null;
+		while (head != null) {
+			ListNode next = head.next;
+			head.next = pre;
 
-		if (head.next.next == null) {
-			return head.val == head.next.val;
+			pre = head;
+			head = next;
 		}
-
-		ListNode fast = head.next;
-		ListNode slow = head;
-
-		while (fast.next != null) {
-			// 不停的从slow的后一个开始遍历，知道找到值相同的节点
-			// 一次完成后，再移动到原节点的下一个节点开始，继续重复上面的步骤
-			if (fast.next.val == slow.val) {
-				if (fast.next.next != null) {
-					return false;
-				}
-				fast.next = null;
-				slow = slow.next;
-				fast = slow.next;
-				if (fast == null || fast.val == slow.val) {
-					return true;
-				}
-			} else {
-				fast = fast.next;
-			}
-		}
-		return false;
+		return pre;
 	}
+
 }

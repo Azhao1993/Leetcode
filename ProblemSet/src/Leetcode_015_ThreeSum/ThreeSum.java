@@ -5,7 +5,6 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 
 /*
 	给定一个包含 n 个整数的数组 nums，
@@ -24,38 +23,36 @@ import java.util.Map;
  */
 public class ThreeSum {
 
-	public static void main(String[] args) {
-		// TODO 自动生成的方法存根
-
-	}
-
 	// 15. 三数之和
 	public List<List<Integer>> threeSum(int[] nums) {
 		// 排序
 		Arrays.sort(nums);
 		List<List<Integer>> res = new LinkedList<>();
 		for (int i = 0; i < nums.length - 2; i++) {
-			// 第一个数nums[i]
+			// 第一个数num[i]
 			if (i == 0 || (i > 0 && nums[i] != nums[i - 1])) {
-				// 判断这个数与前一个数是否相等
-				int lo = i + 1, hi = nums.length - 1, sum = 0 - nums[i];
+				// 在[lo,hi]中二分查找sum
+				int lo = i + 1;
+				int hi = nums.length - 1;
+				int sum = 0 - nums[i];
 				while (lo < hi) {
 					if (nums[lo] + nums[hi] == sum) {
-						// 符合要求，添加至结果
 						res.add(Arrays.asList(nums[i], nums[lo], nums[hi]));
-						// 去重
-						while (lo < hi && nums[lo] == nums[lo + 1])
+						while (lo < hi && nums[lo] == nums[lo + 1]) {
+							// 去重
 							lo++;
-						while (lo < hi && nums[hi] == nums[hi - 1])
+						}
+						while (lo < hi && nums[hi] == nums[hi - 1]) {
+							// 去重
 							hi--;
+						}
 						lo++;
 						hi--;
-					} else if (nums[lo] + nums[hi] < sum)
-						// 小于目标值，往右挪
+					} else if (nums[lo] + nums[hi] < sum) {						
 						lo++;
-					else
-						// 大于目标值，往左挪
+					} else {
 						hi--;
+					}
 				}
 			}
 		}

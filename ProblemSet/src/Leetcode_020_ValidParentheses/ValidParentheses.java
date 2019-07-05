@@ -37,41 +37,27 @@ public class ValidParentheses {
 
 	// 20.有效的括号
 	public boolean isValid(String s) {
-		// 空字符串
-		if (s.equals("")) {
-			return true;
-		}
-		// 奇数长度
-		if (s.length() % 2 == 1) {
-			return false;
-		}
-		// 栈
+
 		Stack<Character> stack = new Stack<Character>();
-		for (int i = 0; i < s.length(); i++) {
-			char temp = s.charAt(i);
+		for (char temp : s.toCharArray()) {
 			if ((temp == '(') || (temp == '[') || (temp == '{')) {
 				stack.push(temp);
-			} else if ((temp == ')') || (temp == ']') || (temp == '}')) {
+			} else {
 				if (stack.isEmpty()) {
 					return false;
-				} else if ((temp == ')')) {
-					if (stack.peek() == '(') {
-						stack.pop();
-					} else {
-						return false;
-					}
+				}
+				char c = stack.pop();
+				char match;
+				if ((temp == ')')) {
+					match = '(';
 				} else if (temp == ']') {
-					if (stack.peek() == '[') {
-						stack.pop();
-					} else {
-						return false;
-					}
+					match = '[';
 				} else {
-					if (stack.peek() == '{') {
-						stack.pop();
-					} else {
-						return false;
-					}
+					match = '}';
+				}
+
+				if (c != match) {
+					return false;
 				}
 			}
 
@@ -111,46 +97,6 @@ public class ValidParentheses {
 			}
 		}
 		return k == 0;
-	}
-
-	public boolean isValid2(String s) {
-		// 空字符串
-		if (s.equals("")) {
-			return true;
-		}
-		// 奇数长度
-		if (s.length() % 2 == 1) {
-			return false;
-		}
-		// HashMap
-		HashMap<Character, Integer> map = new HashMap();
-		map.put('(', -1);
-		map.put(')', 1);
-		map.put('[', -2);
-		map.put(']', 2);
-		map.put('{', -3);
-		map.put('}', 3);
-		// 字符串缓冲区
-		StringBuilder builder = new StringBuilder(s);
-		if (map.get(builder.charAt(0)) > 0) {
-			return false;
-		}
-		// 删除相邻的括号
-		int[] flag = { 0, 1 };
-		while (flag[0] != flag[1]) {
-			flag[0] = builder.length();
-			for (int i = 1; i < builder.length(); i++) {
-				if (map.get(builder.charAt(i)) + map.get(builder.charAt(i - 1)) == 0) {
-					builder.delete(i - 1, i + 1);
-				}
-			}
-			flag[1] = builder.length();
-		}
-		if (builder.length() != 0) {
-			return false;
-		}
-		return true;
-
 	}
 
 }

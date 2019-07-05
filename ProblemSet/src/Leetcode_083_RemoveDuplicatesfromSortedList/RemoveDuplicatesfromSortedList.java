@@ -16,18 +16,21 @@ import LinkedList.ListNode;
 public class RemoveDuplicatesfromSortedList {
 	// 83. É¾³ýÅÅÐòÁ´±íÖÐµÄÖØ¸´ÔªËØ
 	public ListNode deleteDuplicates(ListNode head) {
-		if ((head == null) || (head.next == null)) {
+		if (head == null || head.next == null) {
 			return head;
 		}
-		ListNode cur = head;
-		ListNode next = cur.next;
-		while (next != null) {
-			if (next.val != cur.val) {
-				next = next.next;
-				cur = cur.next;
+
+		ListNode pre = head;
+		ListNode cur = head.next;
+		while (cur != null) {
+			ListNode next = cur.next;
+			if (cur.val == pre.val) {
+				pre.next = next;
+				cur.next = null;
+				cur = next;
 			} else {
-				cur.next = next.next;
-				next = cur.next;
+				pre = pre.next;
+				cur = cur.next;
 			}
 		}
 		return head;
@@ -39,6 +42,7 @@ public class RemoveDuplicatesfromSortedList {
 		return head;
 	}
 
+	// µÝ¹é
 	public void check(ListNode current) {
 		if (current == null || current.next == null) {
 			return;

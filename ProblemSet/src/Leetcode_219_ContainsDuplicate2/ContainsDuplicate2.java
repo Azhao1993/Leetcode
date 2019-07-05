@@ -1,6 +1,7 @@
 package Leetcode_219_ContainsDuplicate2;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 
 /*
@@ -28,6 +29,28 @@ public class ContainsDuplicate2 {
 	}
 
 	// 219. 存在重复元素 II
+
+	// 滑动窗口+查找表
+	public boolean containsNearbyDuplicate3(int[] nums, int k) {
+		HashSet<Integer> set = new HashSet<>();
+		// 窗口中最多有[0,0+k]k+1个数
+		for (int i = 0; i < nums.length; i++) {
+			if (set.contains(nums[i])) {
+				return true;
+			} else {
+				set.add(nums[i]);
+			}
+
+			if (set.size() > k) {
+				// 在[l,l+k)判断nums[l+k]是否存在与set中
+				// [i-k,i]此时有k+1个数
+				set.remove(nums[i - k]);
+			}
+
+		}
+		return false;
+	}
+
 	public boolean containsNearbyDuplicate2(int[] nums, int k) {
 		if (k == 0) {
 			return false;
@@ -71,9 +94,8 @@ public class ContainsDuplicate2 {
 		return flag;
 	}
 
-	// 1刷
+	// 暴力解法
 	public boolean containsNearbyDuplicate(int[] nums, int k) {
-		// 笨方法
 		for (int i = 1; i < nums.length; i++) {
 			for (int j = 0; j < i; j++) {
 				if (nums[i] == nums[j]) {

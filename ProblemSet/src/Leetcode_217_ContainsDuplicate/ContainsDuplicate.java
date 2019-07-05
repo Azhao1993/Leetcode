@@ -27,19 +27,12 @@ import java.util.Set;
 public class ContainsDuplicate {
 	// 217. 存在重复元素
 	public boolean containsDuplicate(int[] nums) {
-		// 元素个数大于1才进行下面的操作
 		if (nums != null && nums.length > 1) {
-			// 创建一个hashSet
-			// 需要导包set和HashSet
 			Set<Integer> set = new HashSet<Integer>(nums.length);
-			// 增强for
 			for (int i : nums) {
-				// 如果元素已经存在就返回true
 				if (set.contains(i)) {
 					return true;
-				}
-				// 没有就添加到元素集合中
-				else {
+				} else {
 					set.add(i);
 				}
 			}
@@ -47,7 +40,7 @@ public class ContainsDuplicate {
 		return false;
 	}
 
-	// 笨方法
+	// 暴力解法
 	public boolean containsDuplicate2(int[] nums) {
 		// 长度为0或1肯定问false
 		if (nums.length == 0 || nums.length == 1) {
@@ -63,47 +56,5 @@ public class ContainsDuplicate {
 		}
 		return false;
 	}
-
-//	
-//	//超时
-//	public boolean containsDuplicate3(int[] nums){		 	
-//		//排序比较前后两个值
-//		for(int i = 0;i<nums.length-1;i++) {
-//			for(int j = i+1;j<nums.length; j++) {
-//				if(nums[i]>nums[j]) {
-//					int temp= nums[i];
-//					nums[i] = nums[j];
-//					nums[j] = temp;
-//				}				
-//			}			
-//			//System.out.println(nums[i]);
-//		}
-//		for(int i = 0;i<nums.length-1;i++) {
-//			if(nums[i]==nums[i+11]) {
-//				return true;
-//			}
-//		}
-//		return false;
-//	}
-
-//	
-//	//超时
-//	
-//	public boolean containsDuplicate4(int[] nums) {
-//		// 遍历数组
-//		for (int i = 0; i < nums.length - 1; i++) {
-//			int count = 1;
-//			for (int j = i + 1; j < nums.length; j++) {
-//				if (nums[i] == nums[j]) {
-//					count++;
-//					if (count > 1) {
-//						return true;
-//					}
-//				}
-//			}
-//		}
-//		return false;
-//
-//	}
 
 }

@@ -45,5 +45,17 @@ public class RemoveElement {
 		}
 		return length - count;
 	}
+	//明确变量定义 循环不变量
+	public int removeElement2(int[] nums, int val) {
+		int count = 0;//=val的数的个数		
+		for(int i = 0;i<nums.length;i++) {
+			if(nums[i]==val) {
+				count++;				
+			}else {
+				nums[i-count] = nums[i];
+			}
+		}
+		return count;
+	}
 
 }

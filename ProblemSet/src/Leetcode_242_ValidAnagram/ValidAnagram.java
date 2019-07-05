@@ -1,5 +1,7 @@
 package Leetcode_242_ValidAnagram;
 
+import java.util.Arrays;
+
 /*
 	给定两个字符串 s 和 t ，编写一个函数来判断 t 是否是 s 的一个字母异位词。
 	
@@ -49,6 +51,28 @@ public class ValidAnagram {
 			}
 		}
 		return true;
+
+	}
+
+	public boolean isAnagram2(String s, String t) {
+		if ((s == null & t != null) || (t == null & s != null)) {
+			return false;
+		}
+		if ((s == null && t == null) || (s.equals(t))) {
+			return true;
+		}
+
+		if (s.length() != t.length()) {
+			return false;
+		}
+
+		char[] ss = s.toCharArray();
+		char[] tt = t.toCharArray();
+
+		Arrays.sort(ss);
+		Arrays.sort(tt);
+
+		return String.valueOf(ss).equals(String.valueOf(tt));
 
 	}
 

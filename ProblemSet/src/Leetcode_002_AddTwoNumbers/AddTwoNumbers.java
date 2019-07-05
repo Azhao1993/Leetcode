@@ -33,94 +33,24 @@ public class AddTwoNumbers {
 
 	// 2. 两数相加
 	public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
-		ListNode result = new ListNode(0);
-		ListNode temp = result;
-		int count = 0;
-		int num1 = 0;
-		int num2 = 0;
-		int sum = 0;
-		do {
+		int flag = 0;// 进位标志服
+		ListNode preHead = new ListNode(0);// 假头
+		ListNode curNode = preHead;
+		while (l1 != null || l2 != null || flag != 0) {
+			int a = l1 == null ? 0 : l1.val;
+			l1 = l1 == null ? null : l1.next;
 
-			if (l1 == null) {
-				num1 = 0;
-			} else {
-				num1 = l1.val;
-				l1 = l1.next;
-			}
+			int b = l2 == null ? 0 : l2.val;
+			l2 = l2 == null ? null : l2.next;
 
-			if (l2 == null) {
-				num2 = 0;
-			} else {
-				num2 = l2.val;
-				l2 = l2.next;
-			}
+			int val = a + b + flag;
 
-			sum = num1 + num2 + count;
-			if (sum >= 10) {
-				temp.next = new ListNode(sum - 10);
-				count = 1;
-			} else {
-				temp.next = new ListNode(sum);
-				count = 0;
-			}
+			curNode.next = new ListNode(val % 10);
+			curNode = curNode.next;
 
-			temp = temp.next;
-
-		} while (l1 != null || l2 != null || count != 0);
-		return result.next;
+			flag = val / 10;
+		}
+		return preHead.next;
 	}
 
-	// 21ms
-	public ListNode addTwoNumbers0(ListNode l1, ListNode l2) {
-		ListNode dummyHead = new ListNode(0);
-		ListNode p = l1, q = l2, curr = dummyHead;
-		int carry = 0;
-		while (p != null && q != null) {
-			int sum = carry + p.val + q.val;
-			carry = sum / 10;
-			curr.next = new ListNode(sum % 10);
-			curr = curr.next;
-			if (p != null)
-				p = p.next;
-			if (q != null)
-				q = q.next;
-		}
-
-		if (p == null) {
-			while (q != null) {
-				int sum = carry + q.val;
-				carry = sum / 10;
-				if (carry > 0) {
-					curr.next = new ListNode(sum % 10);
-					curr = curr.next;
-					q = q.next;
-				} else {
-					ListNode m = new ListNode(sum);
-					m.next = q.next;
-					curr.next = m;
-					break;
-				}
-			}
-		} else if (q == null) {
-			while (p != null) {
-				int sum = carry + p.val;
-				carry = sum / 10;
-				if (carry > 0) {
-					curr.next = new ListNode(sum % 10);
-					curr = curr.next;
-					p = p.next;
-				} else {
-					ListNode m = new ListNode(sum);
-					m.next = p.next;
-					curr.next = m;
-					break;
-				}
-			}
-		}
-		if (carry > 0) {
-			curr.next = new ListNode(carry);
-		}
-
-		return dummyHead.next;
-	}
 }

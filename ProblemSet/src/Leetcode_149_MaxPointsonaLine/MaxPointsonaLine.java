@@ -110,48 +110,36 @@ public class MaxPointsonaLine {
 		}
 	}
 
-	// 6ms
-	public int maxPoints0(Point[] points) {
-		if (points.length == 0) {
-			return 0;
-		}
+	//
+	public int maxPoints0(int[][] points) {
 		if (points.length <= 2) {
 			return points.length;
 		}
-
-		int max = 2;
-		// 第一个点point[i]
+		int res = 0;
 		for (int i = 0; i < points.length; i++) {
-			int samePosition = 0; // 重复位置的点 个数
-			int sameSlope = 1; // 斜率相同的点 个数
-			// 第一个点point[j]
+			int samePosition = 0;
+			int sameLine = 1;
 			for (int j = i + 1; j < points.length; j++) {
-				// 判断是否为重复位置的点
-				long x1 = points[j].x - points[i].x;
-				long y1 = points[j].y - points[i].y;
+				long x1 = points[j][0] - points[i][0];
+				long y1 = points[j][1] - points[i][1];
 				if (x1 == 0 && y1 == 0) {
 					samePosition++;
 				} else {
-					// 第二个点与第一个点一定在同一直线上
-					sameSlope++;
-					// 遍历找到与前两个点在同一个直线上的点
+					sameLine++;
 					for (int k = j + 1; k < points.length; k++) {
-						// 第一个点point[k]
-						long x2 = points[k].x - points[i].x;
-						long y2 = points[k].y - points[i].y;
-						// 斜率相同
+						long x2 = points[k][0] - points[i][0];
+						long y2 = points[k][1] - points[i][1];
 						if (x1 * y2 == x2 * y1) {
-							sameSlope++;
+							sameLine++;
 						}
 					}
 				}
-				if (max < (samePosition + sameSlope)) {
-					max = samePosition + sameSlope;
+				if (res < (samePosition + sameLine)) {
+					res = samePosition + sameLine;
 				}
-				sameSlope = 1;
+				sameLine = 1;
 			}
 		}
-		return max;
-
+		return res;
 	}
 }

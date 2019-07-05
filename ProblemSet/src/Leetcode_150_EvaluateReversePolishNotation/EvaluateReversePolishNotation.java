@@ -1,7 +1,5 @@
 package Leetcode_150_EvaluateReversePolishNotation;
 
-import java.sql.Array;
-import java.util.Arrays;
 import java.util.Stack;
 
 /*
@@ -43,40 +41,32 @@ public class EvaluateReversePolishNotation {
 
 	// 150. 逆波兰表达式求值
 	public int evalRPN(String[] tokens) {
-		Stack<Integer> s = new Stack<Integer>();
+		Stack<Integer> stack = new Stack<Integer>();
 		for (String str : tokens) {
 			if (str.equals("+")) {
-				int temp1 = s.peek();
-				s.pop();
-				int temp2 = s.peek();
-				s.pop();
-				s.push(temp1 + temp2);
+				int b = stack.pop();
+				int a = stack.pop();
+				stack.push(a + b);
 			} else if (str.equals("-")) {
-				int temp1 = s.peek();
-				s.pop();
-				int temp2 = s.peek();
-				s.pop();
-				s.push(temp2 - temp1);
+				int b = stack.pop();
+				int a = stack.pop();
+				stack.push(a - b);
 			} else if (str.equals("*")) {
-				int temp1 = s.peek();
-				s.pop();
-				int temp2 = s.peek();
-				s.pop();
-				s.push(temp1 * temp2);
+				int b = stack.pop();
+				int a = stack.pop();
+				stack.push(a * b);
 			} else if (str.equals("/")) {
-				int temp1 = s.peek();
-				s.pop();
-				int temp2 = s.peek();
-				s.pop();
-				s.push(temp2 / temp1);
+				int b = stack.pop();
+				int a = stack.pop();
+				stack.push(a / b);
 			} else {
-				s.push(Integer.parseInt(str));
+				stack.push(Integer.valueOf(str));
 			}
 		}
-		return s.peek();
+		return stack.pop();
 	}
 
-	// 2ms
+	// 递归
 	private int N = -1;
 
 	public int evalRPN0(String[] tokens) {
@@ -86,8 +76,8 @@ public class EvaluateReversePolishNotation {
 		String s = tokens[N--];
 		char c = s.charAt(0);
 		if (s.length() == 1 && "+-*/".indexOf(c) != -1) {
-			int a = evalRPN(tokens);
-			int b = evalRPN(tokens);
+			int a = evalRPN0(tokens);
+			int b = evalRPN0(tokens);
 			switch (c) {
 			case '+':
 				return a + b;

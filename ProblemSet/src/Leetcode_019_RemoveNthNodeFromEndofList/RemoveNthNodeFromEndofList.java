@@ -28,56 +28,22 @@ public class RemoveNthNodeFromEndofList {
 
 	// 19. 删除链表的倒数第N个节点
 	public ListNode removeNthFromEnd(ListNode head, int n) {
-		ListNode slow = head;
-		ListNode fast = head;
-		int fastIndex = 0;
-		for (int i = 0; i <= n && fast != null; i++) {
-			fastIndex++;
-			fast = fast.next;
-		}
-		while (fast != null) {
-			slow = slow.next;
-			fast = fast.next;
-			fastIndex++;
-		}
-		// 删除节点
-		if (fastIndex == n) {
-			head = head.next;
-		} else if (n == 1) {
-			slow.next = null;
-		} else {
-			slow.next = slow.next.next;
+		ListNode dummy = new ListNode(0);
+		dummy.next = head;
+		ListNode p = dummy;
+		ListNode q = dummy;
+		for (int i = 0; i <= n && q != null; i++) {
+			q = q.next;
 		}
 
-		return head;
+		while (q != null) {
+			p = p.next;
+			q = q.next;
+		}
+
+		p.next = p.next.next;
+
+		return dummy.next;
 	}
 
-	// 7ms
-	public ListNode removeNthFromEnd0(ListNode head, int n) {
-		if (head == null || head.next == null)
-			return null;
-
-		ListNode slow = new ListNode(0);
-		ListNode fast = new ListNode(0);
-		slow.next = head;
-		fast.next = head;
-
-		for (int i = 0; i < n; i++) {
-			fast = fast.next;
-		}
-
-		if (fast.next == null) {
-			head = head.next;
-			return head;
-		}
-
-		while (fast.next != null) {
-			slow = slow.next;
-			fast = fast.next;
-		}
-
-		slow.next = slow.next.next;
-
-		return head;
-	}
 }

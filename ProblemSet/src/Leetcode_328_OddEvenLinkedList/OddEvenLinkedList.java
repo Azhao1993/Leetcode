@@ -50,22 +50,13 @@ public class OddEvenLinkedList {
 		ListNode odd = head;
 		ListNode even = head.next;
 		ListNode evenHead = head.next;
-		// 奇数个，odd.next==null
-		// 偶数个，even.next = null
 		while ((odd.next != null) && (even.next != null)) {
 			odd.next = even.next;
 			odd = odd.next;
-			if (odd == null) {
-				// even.next = odd;
-				break;
-			} else {
-				even.next = odd.next;
-				even = even.next;
-			}
+			even.next = odd.next;
+			even = even.next;
 		}
-
 		odd.next = evenHead;
-
 		return head;
 
 	}

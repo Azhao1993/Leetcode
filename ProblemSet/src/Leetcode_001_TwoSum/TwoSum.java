@@ -1,5 +1,6 @@
 package Leetcode_001_TwoSum;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -15,9 +16,6 @@ public class TwoSum {
 	// 1.两数之和
 	// 双索引对撞
 	// 先排序后，后使用双索引对撞，时间复杂度为：O(n log n) + O(n) = O(n log n)， 可以试一试，也是可以 AC 的。
-	public int[] twoSum3(int[] nums, int target) {
-		return new int[] {-1,-1};
-	}
 
 	// 使用查找表
 	// 将所有元素放入查找表，之后对于每一个元素 a，查找 target - a 是否存在。

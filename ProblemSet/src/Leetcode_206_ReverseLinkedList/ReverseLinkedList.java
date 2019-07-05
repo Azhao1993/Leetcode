@@ -42,19 +42,18 @@ public class ReverseLinkedList {
 	}
 
 	// 迭代
-	public ListNode reverseList2(ListNode head) {
-		// 新表尾pre
+	public ListNode reverseList3(ListNode head) {
+		// 防止数据丢失
 		ListNode pre = null;
-		// 新表头
-		ListNode next = null;
-		while (head != null) {
-			// 新表头
-			next = head.next;
-			// 旧表头指向新表尾
-			head.next = pre;
-
-			pre = head;
-			head = next;
+		ListNode cur = head;
+		// ListNode next = head.next;//防止head为空
+		while (cur != null) {
+			ListNode next = cur.next;
+			// 1.指针翻转
+			cur.next = pre;
+			// 2.指针后移
+			pre = cur;
+			cur = next;
 		}
 		return pre;
 	}
