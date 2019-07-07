@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include <unordered_set>
 using namespace std;
 /*
 65. 有效数字
@@ -41,6 +42,7 @@ using namespace std;
 " "         false
 
 "-02.e+010" True
+".2e81"     True
 
 说明: 我们有意将问题陈述地比较模糊。在实现代码之前，你应当事先思考所有可能的情况。
 更新于 2015-02-10:
@@ -50,6 +52,23 @@ C++函数的形式已经更新了。如果你仍然看见你的函数接收 cons
 class Solution {
 public:
     bool isNumber(string s) {
+        // 转化字符串为固定的几个模式
+        unordered_set<string> hash{"1", "+1", "1.", "+1.", ".1", "+.1", "1.1", "+1.1", "1e1", "1e+1", "+1e1", "+1e+1", "1.e1", "1.e+1", "+1.e1", "+1.e+1", "1.1e1", "1.1e+1", "+1.1e1", "+1.1e+1", ".1e1", ".1e+1", "+.1e1", "+.1e+1"};
+        string res;
+        s.erase(0,s.find_first_not_of(" "));
+        s.erase(s.find_last_not_of(" ")+1);
+        for(int i=0; i<s.size(); i++){
+            if(s[i] == '.' || s[i] == 'e') res += s[i];
+            else if(s[i] == '+' || s[i] == '-') res += '+';
+            else if(s[i] >= '0' && '9' >= s[i]){
+                while(s[i] >= '0' && '9' >= s[i]) i++;
+                i--;
+                res += '1';
+            }else return false;
+        }
+        if(hash.find(res) == hash.end()) return false;
+        else return true;
+        /*
         s.erase(0,s.find_first_not_of(" "));
         s.erase(s.find_last_not_of(" ")+1);
         bool point = false, e = false;
@@ -75,13 +94,14 @@ public:
             }
         }
         return number && numberAfterE;
+        */
     }
 };
 
 int main(){
 
     Solution* so = new Solution();
-    bool num = so->isNumber(" 0");
+    bool num = so->isNumber("-02.e+010e");
     cout<<num<<endl;
 
     return 0;
