@@ -52,7 +52,6 @@ public class MaximumNestingDepthofTwoValidParenthesesStrings {
 				res[i] = res[stack.pop()];
 			}
 		}
-		Arrays.toString(res);
 		return res;
 	}
 }
