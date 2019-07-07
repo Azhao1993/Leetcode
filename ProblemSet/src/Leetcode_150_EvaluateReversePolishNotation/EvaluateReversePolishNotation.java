@@ -63,6 +63,7 @@ public class EvaluateReversePolishNotation {
 				stack.push(Integer.valueOf(str));
 			}
 		}
+
 		return stack.pop();
 	}
 
