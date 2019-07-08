@@ -25,6 +25,32 @@ public class PerfectSquares {
 	}
 
 	// 279. 完全平方数
+	// 广度优先遍历
+	public int numSquares(int n) {
+		boolean[] used = new boolean[n + 1];
+		Queue<int[]> queue = new LinkedList<>();
+		queue.add(new int[] { n, 0 });
+		used[n] = true;
+		while (!queue.isEmpty()) {
+			int[] temp = queue.poll();
+			int num = temp[0];
+			int step = temp[1];
+			for (int i = 1;; i++) {
+				int a = num - i * i;
+				if (a == 0) {
+					return step + 1;
+				} else if (a < 0) {
+					break;
+				}
+				if (!used[a]) {
+					queue.add(new int[] { a, step + 1 });
+					used[a] = true;
+				}
+			}
+		}
+		return n;
+	}
+
 	// Lagrange 四平方定理： 任何一个正整数都可以表示成不超过四个整数的平方之和。
 	// 结果只有1,2,3,4，四种可能。
 	// 推论：满足四数平方和定理的数n（必须满足由四个数构成），必定满足 n=4^a*(8^b+7)
@@ -49,7 +75,7 @@ public class PerfectSquares {
 		return 3;
 	}
 
-	public int numSquares(int n) {
+	public int numSquares1(int n) {
 		Queue<int[]> queue = new LinkedList<int[]>();
 		int[] first = { n, 0 };
 		queue.offer(first);
