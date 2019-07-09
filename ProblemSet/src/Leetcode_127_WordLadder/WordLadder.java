@@ -158,4 +158,45 @@ public class WordLadder {
 		return bfs(next, ed, dic, l + 1);
 	}
 
+	// 花花
+	// 单向BFS	176 ms	68.1 MB
+	public int ladderLength3(String beginWord, String endWord, List<String> wordList) {
+		if (wordList == null || wordList.size() == 0) {
+			return 0;
+		}
+
+		HashSet<String> dict = new HashSet<>(wordList);
+		if (!dict.contains(endWord)) {
+			return 0;
+		}
+
+		Queue<String> q = new LinkedList<>();
+		q.add(beginWord);
+
+		int l = beginWord.length();
+		int step = 0;
+
+		while (!q.isEmpty()) {
+			++step;
+			for (int size = q.size(); size > 0; size--) {
+				char[] w = q.poll().toCharArray();
+				for (int i = 0; i < l; i++) {
+					char ch = w[i];
+					for (char j = 'a'; j <= 'z'; j++) {
+						w[i] = j;
+						String newWord = String.valueOf(w);
+						if (newWord.equals(endWord)) {
+							return step + 1;
+						} else if (dict.contains(newWord)) {
+							dict.remove(newWord);
+							q.add(newWord);
+						}
+					}
+					w[i] = ch;
+				}
+			}
+		}
+		return 0;
+	}
+
 }
