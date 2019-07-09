@@ -159,7 +159,7 @@ public class WordLadder {
 	}
 
 	// 花花
-	// 单向BFS	176 ms	68.1 MB
+	// 单向BFS 176 ms 68.1 MB
 	public int ladderLength3(String beginWord, String endWord, List<String> wordList) {
 		if (wordList == null || wordList.size() == 0) {
 			return 0;
@@ -199,4 +199,58 @@ public class WordLadder {
 		return 0;
 	}
 
+	// 双向bfs 30 ms 38 MB
+	public int ladderLength4(String beginWord, String endWord, List<String> wordList) {
+		if (wordList == null || wordList.size() == 0) {
+			return 0;
+		}
+
+		HashSet<String> dict = new HashSet<>(wordList);
+		if (!dict.contains(endWord)) {
+			return 0;
+		}
+
+		int l = beginWord.length();
+
+		HashSet<String> q1 = new HashSet<>();
+		q1.add(beginWord);
+		HashSet<String> q2 = new HashSet<>();
+		q2.add(endWord);
+
+		int step = 0;
+		HashSet<String> q = new HashSet<>();
+		while (!q1.isEmpty() || !q2.isEmpty()) {
+			++step;
+
+			if (q1.size() > q2.size()) {
+				q = q1;
+				q1 = q2;
+				q2 = q;
+			}
+
+			q = new HashSet<>();
+
+			for (String word : q1) {
+				char[] w = word.toCharArray();
+				for (int i = 0; i < l; i++) {
+					char ch = w[i];
+					for (char j = 'a'; j <= 'z'; j++) {
+						w[i] = j;
+						String newWord = String.valueOf(w);
+						if (q2.contains(newWord)) {
+							return step + 1;
+						} else if (dict.contains(newWord)) {
+							q.add(newWord);
+							dict.remove(newWord);
+						}
+					}
+					w[i] = ch;
+				}
+			}
+			q1 = q;
+
+		}
+		return 0;
+
+	}
 }
