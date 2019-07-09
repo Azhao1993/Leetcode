@@ -1,6 +1,8 @@
 package Leetcode_126_WordLadderII;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
@@ -39,16 +41,16 @@ import java.util.Queue;
 	链接：https://leetcode-cn.com/problems/word-ladder-ii
 	著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
  */
+
+//126. 单词接龙 II
 public class WordLadderII {
 	class Node {
 		String word;
-		int index;
 		List<Node> child;
 		int length;
 
-		public Node(String w, int index, int length) {
+		public Node(String w, int length) {
 			this.word = w;
-			this.index = index;
 			this.length = length;
 			child = new ArrayList<>();
 		}
@@ -62,22 +64,22 @@ public class WordLadderII {
 		int length = wordList.size();
 		boolean[] used = new boolean[length];
 		Queue<Node> queue = new LinkedList<>();
-		Node root = new Node(beginWord, -1, 1);
+		Node root = new Node(beginWord, 1);
 		queue.add(root);
 		int minLength = Integer.MAX_VALUE;
 		while (!queue.isEmpty()) {
 			Node curNode = queue.poll();
 			String start = curNode.word;
 			int curLength = curNode.length;
-			if (curLength > minLength) {
-				break;
+			if (curLength >= minLength) {
+				continue;
 			}
 			List<Node> child = curNode.child;
 			for (int i = 0; i < length; i++) {
 				String next = wordList.get(i);
 				if (!used[i] || next.equals(endWord) && canGoToNext(start, next)) {
 					used[i] = true;
-					Node nextNode = new Node(next, i, curLength + 1);
+					Node nextNode = new Node(next, curLength + 1);
 					if (!next.equals(endWord)) {
 						child.add(nextNode);
 						queue.add(nextNode);
@@ -87,9 +89,15 @@ public class WordLadderII {
 					}
 				}
 			}
-
 		}
+
+		DFS(root, endWord, res);
+
 		return res;
+
+	}
+
+	private void DFS(Node root, String endWord, List<List<String>> res) {
 
 	}
 
@@ -107,4 +115,103 @@ public class WordLadderII {
 		}
 		return res == 1;
 	}
+
+	// 花花
+	// BFS创建图，DFS搜索路径
+	// 同一层中可以重复
+	public List<List<String>> findLadders2(String beginWord, String endWord, List<String> wordList) {
+
+		List<List<String>> ans = new ArrayList<>();
+
+		if (wordList == null || wordList.size() == 0) {
+			return ans;
+		}
+
+		HashSet<String> dict = new HashSet<>(wordList);
+		if (!dict.contains(endWord)) {
+			return ans;
+		}
+		dict.remove(beginWord);
+		dict.remove(endWord);
+
+		HashMap<String, Integer> steps = new HashMap<>();
+		steps.put(beginWord, 1);
+		HashMap<String, List<String>> parents = new HashMap<>();
+
+		Queue<String> q = new LinkedList<>();
+		q.add(beginWord);
+
+		int l = beginWord.length();
+		int step = 0;
+		boolean found = false;
+
+		while (!q.isEmpty() && !found) {
+			++step;
+			for (int size = q.size(); size > 0; size--) {
+				String p = q.poll();
+				char[] w = p.toCharArray();
+				for (int i = 0; i < l; i++) {
+					char ch = w[i];
+					for (char j = 'a'; j <= 'z'; j++) {
+						if (j == ch) {
+							continue;
+						}
+						w[i] = j;
+						String newWord = String.valueOf(w);
+						if (newWord.equals(endWord)) {
+							// parents.getOrDefault(newWord, new ArrayList<String>()).add(p);
+							if (parents.containsKey(newWord)) {
+								parents.get(newWord).add(p);
+							} else {
+								List<String> temp = new ArrayList<>();
+								temp.add(p);
+								parents.put(newWord, temp);
+							}
+							found = true;
+						} else if (steps.containsKey(newWord) && step < steps.get(newWord)) {
+							parents.get(newWord).add(p);
+						}
+						if (dict.contains(newWord)) {
+							dict.remove(newWord);
+							q.add(newWord);
+							steps.put(newWord, step + 1);
+							if (parents.containsKey(newWord)) {
+								parents.get(newWord).add(p);
+							} else {
+								List<String> temp = new ArrayList<>();
+								temp.add(p);
+								parents.put(newWord, temp);
+							}
+						}
+					}
+					w[i] = ch;
+				}
+			}
+		}
+
+		if (found) {
+			LinkedList<String> curr = new LinkedList<>();
+			curr.add(endWord);
+			getPaths(endWord, beginWord, parents, curr, ans);
+		}
+
+		return ans;
+
+	}
+
+	private void getPaths(String word, String beginWord, HashMap<String, List<String>> parents, LinkedList<String> curr,
+			List<List<String>> ans) {
+		if (word.equals(beginWord)) {
+			ans.add(new ArrayList<String>(curr));
+			return;
+		}
+
+		for (String p : parents.get(word)) {
+			curr.addFirst(p);
+			getPaths(p, beginWord, parents, curr, ans);
+			curr.pollFirst();
+		}
+
+	}
+
 }
