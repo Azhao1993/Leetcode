@@ -1,6 +1,7 @@
 package Leetcode_126_WordLadderII;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -44,82 +45,18 @@ import java.util.Queue;
 
 //126. 单词接龙 II
 public class WordLadderII {
-	class Node {
-		String word;
-		List<Node> child;
-		int length;
 
-		public Node(String w, int length) {
-			this.word = w;
-			this.length = length;
-			child = new ArrayList<>();
-		}
-	}
-
-	public List<List<String>> findLadders(String beginWord, String endWord, List<String> wordList) {
-		List<List<String>> res = new ArrayList<>();
-		if (wordList == null || wordList.size() == 0 || !wordList.contains(endWord)) {
-			return res;
-		}
-		int length = wordList.size();
-		boolean[] used = new boolean[length];
-		Queue<Node> queue = new LinkedList<>();
-		Node root = new Node(beginWord, 1);
-		queue.add(root);
-		int minLength = Integer.MAX_VALUE;
-		while (!queue.isEmpty()) {
-			Node curNode = queue.poll();
-			String start = curNode.word;
-			int curLength = curNode.length;
-			if (curLength >= minLength) {
-				continue;
-			}
-			List<Node> child = curNode.child;
-			for (int i = 0; i < length; i++) {
-				String next = wordList.get(i);
-				if (!used[i] || next.equals(endWord) && canGoToNext(start, next)) {
-					used[i] = true;
-					Node nextNode = new Node(next, curLength + 1);
-					if (!next.equals(endWord)) {
-						child.add(nextNode);
-						queue.add(nextNode);
-					} else {
-						child.add(nextNode);
-						minLength = curLength + 1;
-					}
-				}
-			}
-		}
-
-		DFS(root, endWord, res);
-
-		return res;
-
-	}
-
-	private void DFS(Node root, String endWord, List<List<String>> res) {
-
-	}
-
-	private boolean canGoToNext(String start, String next) {
-		char[] st = start.toCharArray();
-		char[] nt = next.toCharArray();
-		int res = 0;
-		for (int i = 0; i < st.length; i++) {
-			if (st[i] != nt[i]) {
-				res++;
-			}
-			if (res > 1) {
-				return false;
-			}
-		}
-		return res == 1;
+	public static void main(String[] args) {
+		String beginWord = "red";
+		String endWord = "tax";
+		List<String> wordList = Arrays.asList(new String[] { "ted", "tex", "red", "tax", "tad", "den", "rex", "pee" });
+		new WordLadderII().findLadders(beginWord, endWord, wordList);
 	}
 
 	// 花花
 	// BFS创建图，DFS搜索路径
 	// 同一层中可以重复
-	public List<List<String>> findLadders2(String beginWord, String endWord, List<String> wordList) {
+	public List<List<String>> findLadders(String beginWord, String endWord, List<String> wordList) {
 
 		List<List<String>> ans = new ArrayList<>();
 
@@ -159,7 +96,6 @@ public class WordLadderII {
 						w[i] = j;
 						String newWord = String.valueOf(w);
 						if (newWord.equals(endWord)) {
-							// parents.getOrDefault(newWord, new ArrayList<String>()).add(p);
 							if (parents.containsKey(newWord)) {
 								parents.get(newWord).add(p);
 							} else {
