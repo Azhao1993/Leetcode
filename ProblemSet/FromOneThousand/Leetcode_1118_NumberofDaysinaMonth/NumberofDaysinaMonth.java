@@ -24,15 +24,10 @@ import java.util.HashSet;
 //1118. 一月有多少天
 public class NumberofDaysinaMonth {
 	public int numberOfDays(int Y, int M) {
-		HashSet<Integer> month31 = new HashSet<>(Arrays.asList(new Integer[] { 1, 3, 5, 7, 8, 10, 12 }));
-		HashSet<Integer> month30 = new HashSet<>(Arrays.asList(new Integer[] { 4, 6, 9, 11 }));
-		if (month31.contains(M)) {
-			return 31;
+		int[] month = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
+		if (M != 2) {
+			return month[M - 1];
 		}
-		if (month30.contains(M)) {
-			return 30;
-		}
-
 		if ((Y % 4 == 0 && Y % 100 != 0) || (Y % 400 == 0)) {
 			return 29;// 闰年
 		} else {
