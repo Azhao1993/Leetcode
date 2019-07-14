@@ -1,8 +1,7 @@
 #include <bits\stdc++.h>
 using namespace std;
-
 /*
-5130. 最小的必要团队
+1125. 最小的必要团队
 
 作为项目的项目经理，你规划了一份需求技能清单 req_skills ，并打算从备选人员名单 people 中选出一些人构成必要团队。
 编号为 i 的备选人员 people[i] 含有一份该备选人员掌握的技能列表。 在一个必要团队中， 对于需求技能列表 req_skills  
