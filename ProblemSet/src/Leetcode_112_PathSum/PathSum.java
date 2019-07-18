@@ -47,23 +47,10 @@ public class PathSum {
 		if (root == null) {
 			return false;
 		}
-		if ((root.left == null) && (root.right == null) && (sum - root.val == 0)) {
-			return true;
+		if (root.left == null && root.right == null) {
+			return root.val == sum;
 		}
-		if (root.left != null) {
-			if (hasPathSum(root.left, sum - root.val)) {
-				return true;
-			}
-		}
-
-		if (root.right != null) {
-			if (hasPathSum(root.right, sum - root.val)) {
-				return true;
-			}
-		}
-
-		return false;
-
+		return hasPathSum(root.left, sum - root.val) || hasPathSum(root.right, sum - root.val);
 	}
 
 	// 0ms
