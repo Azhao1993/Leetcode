@@ -1,7 +1,7 @@
 package Leetcode_046_Permutations;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 
 /*
@@ -22,24 +22,34 @@ import java.util.List;
 
 //46. È«ÅÅÁĞ
 public class Permutations {
+	List<List<Integer>> res = new ArrayList<>();
+	boolean[] used;
+
 	public List<List<Integer>> permute(int[] nums) {
-		List<List<Integer>> list = new ArrayList<>();
-		// Arrays.sort(nums); // not necessary
-		backtrack(list, new ArrayList<>(), nums);
-		return list;
+		used = new boolean[nums.length];
+		if (nums == null || nums.length == 0) {
+			return res;
+		}
+		generatePermutations(nums, 0, new LinkedList<Integer>());
+		return res;
 	}
 
-	private void backtrack(List<List<Integer>> list, List<Integer> tempList, int[] nums) {
-		if (tempList.size() == nums.length) {
-			list.add(new ArrayList<>(tempList));
-		} else {
-			for (int i = 0; i < nums.length; i++) {
-				if (tempList.contains(nums[i]))
-					continue; // element already exists, skip
-				tempList.add(nums[i]);
-				backtrack(list, tempList, nums);
-				tempList.remove(tempList.size() - 1);
+	private void generatePermutations(int[] nums, int index, LinkedList<Integer> list) {
+		if (index == nums.length) {
+			res.add(new ArrayList<Integer>(list));
+			return;
+		}
+
+		for (int i = 0; i < nums.length; i++) {
+			if (!used[i]) {
+				used[i] = true;
+				list.add(nums[i]);
+				generatePermutations(nums, index + 1, list);
+				list.removeLast();
+				used[i] = false;
 			}
 		}
+
 	}
+
 }
