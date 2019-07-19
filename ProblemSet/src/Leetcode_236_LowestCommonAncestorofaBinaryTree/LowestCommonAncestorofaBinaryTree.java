@@ -50,9 +50,9 @@ public class LowestCommonAncestorofaBinaryTree {
 	}
 
 	// 236. 二叉树的最近公共祖先
-	/*
-	 * 先从上往下遍历，再从下往上回溯
-	 */
+
+	// 先从上往下遍历，再从下往上回溯
+
 	public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
 		// 其中一个为root
 		if (root == null || root.val == p.val || root.val == q.val) {
@@ -69,27 +69,30 @@ public class LowestCommonAncestorofaBinaryTree {
 		}
 		return leftN;
 	}
-	
-	//7ms
-    private TreeNode ans;
-    public LowestCommonAncestorofaBinaryTree(){
-        this.ans = null;
-    }
-    public boolean recurseTree(TreeNode curr,TreeNode p,TreeNode q){
-        if(curr!=null){
-            int left = this.recurseTree(curr.left,p,q)?1:0;
-            int right = this.recurseTree(curr.right,p,q)?1:0;
-            int mid = (curr==p)||(curr==q)?1:0;
-            if((left+right+mid) >=2){
-                this.ans = curr;
-            }
-          return (mid + left + right > 0);
 
-        }else
-            return false;
-    }
-    public TreeNode lowestCommonAncestor0(TreeNode root, TreeNode p, TreeNode q) {
-        this.recurseTree(root,p,q);
-        return this.ans;
-    }
+	// 7ms
+	private TreeNode ans;
+
+	public LowestCommonAncestorofaBinaryTree() {
+		this.ans = null;
+	}
+
+	public boolean recurseTree(TreeNode curr, TreeNode p, TreeNode q) {
+		if (curr != null) {
+			int left = this.recurseTree(curr.left, p, q) ? 1 : 0;
+			int right = this.recurseTree(curr.right, p, q) ? 1 : 0;
+			int mid = (curr == p) || (curr == q) ? 1 : 0;
+			if ((left + right + mid) >= 2) {
+				this.ans = curr;
+			}
+			return (mid + left + right > 0);
+
+		} else
+			return false;
+	}
+
+	public TreeNode lowestCommonAncestor0(TreeNode root, TreeNode p, TreeNode q) {
+		this.recurseTree(root, p, q);
+		return this.ans;
+	}
 }
