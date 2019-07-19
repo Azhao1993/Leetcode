@@ -18,37 +18,18 @@ import TreeNode.TreeNode;
 				 -10  5
  */
 public class ConvertSortedArraytoBinarySearchTree {
-	//108. 将有序数组转换为二叉搜索树
+	// 108. 将有序数组转换为二叉搜索树
+
+	// 左右等分建立左右子树，中间节点作为子树根节点，递归该过程
+
 	public TreeNode sortedArrayToBST(int[] nums) {
 		if (nums == null || nums.length == 0) {
 			return null;
 		}
-		TreeNode root = new TreeNode(nums[nums.length / 2]);
-		root.left = sortedArrayToBST(root, 0, nums.length / 2 - 1, nums);
-		root.right = sortedArrayToBST(root, nums.length / 2 + 1, nums.length - 1, nums);
-		return root;
+		return buildTree(nums, 0, nums.length - 1);
 	}
 
-	private TreeNode sortedArrayToBST(TreeNode root, int left, int right, int[] nums) {
-		if (left > right) {
-			return null;
-		}
-		TreeNode node = new TreeNode(nums[(right + left + 1) / 2]);
-		node.left = sortedArrayToBST(node, left, (right + left + 1) / 2 - 1, nums);
-		node.right = sortedArrayToBST(node, (right + left + 1) / 2 + 1, right, nums);
-		return node;
-	}
-
-	// 0ms
-	public TreeNode sortedArrayToBST0(int[] nums) {
-		// 左右等分建立左右子树，中间节点作为子树根节点，递归该过程
-		if (nums == null || nums.length == 0) {
-			return null;
-		}
-		return buildTree0(nums, 0, nums.length - 1);
-	}
-
-	private TreeNode buildTree0(int[] nums, int l, int r) {
+	private TreeNode buildTree(int[] nums, int l, int r) {
 		if (l > r) {
 			return null;
 		}
@@ -57,8 +38,8 @@ public class ConvertSortedArraytoBinarySearchTree {
 		}
 		int mid = (l + r) / 2;
 		TreeNode root = new TreeNode(nums[mid]);
-		root.left = buildTree0(nums, l, mid - 1);
-		root.right = buildTree0(nums, mid + 1, r);
+		root.left = buildTree(nums, l, mid - 1);
+		root.right = buildTree(nums, mid + 1, r);
 		return root;
 	}
 
