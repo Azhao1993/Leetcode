@@ -1,6 +1,7 @@
 package Leetcode_401_BinaryWatch;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /*
@@ -25,118 +26,50 @@ import java.util.List;
 public class BinaryWatch {
 
 	public static void main(String[] args) {
-		int num = 4;
-		BinaryWatch bw = new BinaryWatch();
-
-		List<String> list = bw.readBinaryWatch(num);
-		System.out.println(list);
-		List<String> res = bw.readBinaryWatch0(num);
-		System.out.print("[");
-		for (String str : list) {
-			if (res.contains(str)) {
-				continue;
-			}
-			System.out.print(str);
-			System.out.print(", ");
-		}
-		System.out.println();
-		System.out.print("[");
-		for (String str : res) {
-			if (list.contains(str)) {
-				continue;
-			}
-			System.out.print(str);
-			System.out.print(", ");
-		}
-
+		new BinaryWatch().readBinaryWatch2(1);
 	}
 
 	// 401. 二进制手表
+	List<String> res = new ArrayList<>();
+	int num;
+	int[] watch = new int[10];
 
-	// 遍历时间
-	public List<String> readBinaryWatch1(int num) {
-		List<String> times = new ArrayList<>();
-		for (int h = 0; h < 12; h++)
-			for (int m = 0; m < 60; m++)
-				if (Integer.bitCount(h * 64 + m) == num)
-					times.add(String.format("%d:%02d", h, m));
-		return times;
+	public List<String> readBinaryWatch2(int num) {
+		this.num = num;
+		getBinaryTime(0, 0, 0, 0);
+		return res;
 	}
 
-	// 回溯
-	public List<String> readBinaryWatch(int num) {
-		List<String> result = new ArrayList<String>();
-		if (num == 0) {
-			result.add("0:00");
-			return result;
-		}
-		// boolean[] used = new boolean[10];
-		int[] time = new int[2];
-		readBinaryWatch(0, 0, time, num, result);
-		return result;
-	}
-
-	private void readBinaryWatch(int start, int count, int[] time, int num, List<String> result) {
-		if (count == num) {
-			// result.add(getTime(used, num));
-			result.add(String.format("%d:%02d", time[1], time[0]));
+	private void getBinaryTime(int c, int start, int h, int m) {
+		if (c == num) {
+			res.add(String.valueOf(h) + ":" + String.format("%02d", m));
 			return;
 		}
-		int hour = 0;
-		int min = 0;
-		for (int i = start; i < 10; i++) {
 
-			if (i <= 5) {
-				min = (int) Math.pow(2, i);
-				time[0] += min;
-				if (time[0] >= 60) {
-					time[0] -= min;
+		for (int i = start; i < 10; i++) {
+			int th = h;
+			int tm = m;
+			if (i <= 3) {
+				if (h + (1 << (3 - i)) < 12) {
+					h += (1 << (3 - i));
+					watch[i] = 1;
+				} else {
 					continue;
 				}
 			} else {
-				min = 0;
-				hour = (int) Math.pow(2, i - 6);
-				time[1] += hour;
-				if (time[1] > 11) {
-					time[1] -= hour;
+				if (m + (1 << (9 - i)) < 60) {
+					m += (1 << (9 - i));
+					watch[i] = 1;
+				} else {
 					continue;
 				}
-
 			}
-			// used[i] = true;
-			readBinaryWatch(i + 1, count + 1, time, num, result);
-			time[0] -= min;
-			time[1] -= hour;
-			// used[i] = false;
+			getBinaryTime(c + 1, i + 1, h, m);
+			h = th;
+			m = tm;
+			watch[i] = 0;
 		}
-
 	}
-
-//	public String getTime(boolean[] used, int num) {
-//		int hour = 0;
-//		int min = 0;
-//		int count = 0;
-//		StringBuilder res = new StringBuilder();
-//		for (int i = 0; i < 10; i++) {
-//			if (used[i]) {
-//				if (i <= 5) {
-//					min += (int) Math.pow(2, i);
-//				} else {
-//					hour += (int) Math.pow(2, i - 6);
-//				}
-//				count++;
-//				if (count == num) {
-//					break;
-//				}
-//			}
-//		}
-//		res.append(hour).append(":");
-//		if (min < 10) {
-//			res.append("0");
-//		}
-//		res.append(min);
-//		return res.toString();
-//	}
 
 	// 1ms
 	public List<String> readBinaryWatch0(int num) {
