@@ -18,11 +18,6 @@ package Leetcode_079_WordSearch;
  */
 //79. µ¥´ÊËÑË÷
 public class WordSearch {
-	public static void main(String[] args) {
-		char[][] board = { { 'A', 'B', 'C', 'E' }, { 'S', 'F', 'C', 'S' }, { 'A', 'D', 'E', 'E' } };
-
-		new WordSearch().exist2(board, "ABCCED");
-	}
 
 	int[][] d = { { -1, 0 }, { 0, 1 }, { 1, 0 }, { 0, -1 } };
 	boolean[][] used;
