@@ -21,9 +21,6 @@ using namespace std;
 
 class Solution {
 public:
-    bool if_in(int N, int i, int j){
-        return i >= 0 && j >= 0 && i < N && j < N;
-    }
     double knightProbability(int N, int K, int r, int c) {
         vector<vector<int>> dxy{{-1,-2}, {-2,-1}, {1,-2}, {-2,1}, {-1,2}, {2,-1}, {1,2}, {2,1}};
         double arr[N*N], brr[N*N];
@@ -34,7 +31,7 @@ public:
                 brr[i] = 0;
                 for(int j=0; j<8; j++){
                     int x = i/N+dxy[j][0], y = i%N+dxy[j][1];
-                    if(if_in(N, x, y)) brr[i] += arr[x*N+y]/8.0;
+                    if(x >= 0 && y >= 0 && x < N && y < N) brr[i] += arr[x*N+y]/8.0;
                 }
             }
             memcpy(arr, brr, sizeof(arr));
@@ -46,7 +43,7 @@ public:
 };
 
 int main(){
-    double res = Solution().knightProbability(2,2,0,0);
+    double res = Solution().knightProbability(8,2,0,0);
     cout<<res<<endl;
     return 0;
 }
