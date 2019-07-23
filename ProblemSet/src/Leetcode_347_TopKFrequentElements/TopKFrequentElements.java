@@ -1,9 +1,12 @@
 package Leetcode_347_TopKFrequentElements;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.PriorityQueue;
 
 /*
 	给定一个非空的整数数组，返回其中出现频率前 k 高的元素。
@@ -110,6 +113,36 @@ public class TopKFrequentElements {
 		}
 		return ans;
 
+	}
+
+	// 优先级队列
+	public List<Integer> topKFrequent2(int[] nums, int k) {
+		HashMap<Integer, Integer> map = new HashMap<>();
+		for (int i : nums) {
+			int freq = map.getOrDefault(i, 0) + 1;
+			map.put(i, freq);
+		}
+
+		PriorityQueue<int[]> queue = new PriorityQueue<>(new Comparator<int[]>() {
+			public int compare(int[] o1, int[] o2) {
+				return o1[0] - o2[0];
+			}
+		});
+
+		for (Integer key : map.keySet()) {
+			int freq = map.get(key);
+			if (queue.size() < k) {
+				queue.add(new int[] { freq, key });
+			} else if (queue.peek()[0] < freq) {
+				queue.poll();
+				queue.add(new int[] { freq, key });
+			}
+		}
+		LinkedList<Integer> res = new LinkedList<>();
+		while (!queue.isEmpty()) {
+			res.addFirst(queue.poll()[1]);
+		}
+		return res;
 	}
 
 }

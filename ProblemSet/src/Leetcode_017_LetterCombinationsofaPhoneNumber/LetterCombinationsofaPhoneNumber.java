@@ -1,5 +1,6 @@
 package Leetcode_017_LetterCombinationsofaPhoneNumber;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -13,10 +14,34 @@ import java.util.List;
  */
 //17. 电话号码的字母组合
 public class LetterCombinationsofaPhoneNumber {
+	private char[][] map = { { '0' }, { '1' }, { 'a', 'b', 'c' }, { 'd', 'e', 'f' }, { 'g', 'h', 'i' },
+			{ 'j', 'k', 'l' }, { 'm', 'n', 'o' }, { 'p', 'q', 'r', 's' }, { 't', 'u', 'v' }, { 'w', 'x', 'y', 'z' } };
+	List<String> res = new ArrayList<String>();
 	public List<String> letterCombinations(String digits) {
+		if(digits==null||digits.length()==0) {
+			return res;
+		}
+		helper(digits.toCharArray(),0,"");
+		return res;
+	}
+
+	private void helper(char[] digits, int index, String str) {
+		if(index==digits.length) {
+			res.add(str);
+			return;
+		}
+		int digit = digits[index]-'0';
+		for(int i = 0;i<map[digit].length;i++) {
+			helper(digits,index+1,str+map[digit][i]);
+		}
+		
+	}
+
+	public List<String> letterCombinations1(String digits) {
 		LinkedList<String> ans = new LinkedList<String>();// 队列
-		if (digits.isEmpty())
+		if (digits.isEmpty()) {
 			return ans;
+		}
 		String[] mapping = new String[] { "0", "1", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz" };
 		ans.add("");
 		for (int i = 0; i < digits.length(); i++) {

@@ -78,8 +78,8 @@ public class ValidateBinarySearchTree {
 	}
 
 	// 0ms
-	int last = 0;
-	int first = 0;// flag
+	int last = 0;// 前驱
+	boolean first = true;// flag
 
 	public boolean isValidBST0(TreeNode node) {
 
@@ -91,9 +91,9 @@ public class ValidateBinarySearchTree {
 			return false;
 		}
 		// 如果是第一个根
-		if (first == 0) {
+		if (first) {
 			last = node.val;
-			first = 1;
+			first = false;
 		} else {
 			if (last >= node.val) {
 				return false;

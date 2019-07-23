@@ -2,6 +2,7 @@ package Leetcode_090_Subsets2;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 
 /*
@@ -23,39 +24,33 @@ import java.util.List;
 
 //90. ×Ó¼¯ II
 public class Subsets2 {
-	public static void main(String[] args) {
-		int[] nums = { 1, 2, 2 };
-		Subsets2 s2 = new Subsets2();
-		s2.subsetsWithDup(nums);
-	}
+
+	List<List<Integer>> res = new ArrayList<>();
+	int[] nums;
 
 	public List<List<Integer>> subsetsWithDup(int[] nums) {
-		List<List<Integer>> result = new ArrayList<List<Integer>>();
 		if (nums == null || nums.length == 0) {
-			return result;
+			res.add(new ArrayList<>());
+			return res;
 		}
 		Arrays.sort(nums);
-		boolean[] used = new boolean[nums.length];
-		backtrack(nums, result, new ArrayList<Integer>(), used, 0);
-		return result;
+		this.nums = nums;
+
+		getSubsetsWithDup(0, new LinkedList<Integer>());
+		return res;
 	}
 
-	private void backtrack(int[] nums, List<List<Integer>> result, ArrayList<Integer> templist, boolean[] used,
-			int start) {
-		result.add(new ArrayList<Integer>(templist));
+	private void getSubsetsWithDup(int start, LinkedList<Integer> list) {
+		res.add(new ArrayList<>(list));
 		for (int i = start; i < nums.length; i++) {
-			if (used[i]) {
+			if (i > start && nums[i] == nums[i - 1]) {
 				continue;
 			}
-			if (i > 0 && nums[i] == nums[i - 1] && !(used[i] ^ used[i - 1])) {
-				continue;
-			}
-			used[i] = true;
-			templist.add(nums[i]);
-			backtrack(nums, result, templist, used, i + 1);
-			used[i] = false;
-			templist.remove(templist.size() - 1);
+			list.add(nums[i]);
+			getSubsetsWithDup(i + 1, list);
+			list.removeLast();
 		}
 
 	}
+
 }

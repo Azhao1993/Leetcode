@@ -44,21 +44,26 @@ public class SymmetricTree {
 	// 101. ¶Ô³Æ¶þ²æÊ÷
 
 	// µÝ¹é
-	public boolean isSymmetric0(TreeNode root) {
-		if (root == null) {
-			return true;
-		}
-		return isSymmetric0(root.left, root.right);
+	public boolean isSymmetric(TreeNode root) {
+		return isSymmetric(root, root);
 	}
 
-	private boolean isSymmetric0(TreeNode left, TreeNode right) {
-		if (left == null && right == null) {
+	public boolean isSymmetric(TreeNode left, TreeNode right) {
+		if ((left == null && right != null) || (left != null && right == null)) {
+			return false;
+		} else if (left == null && right == null) {
 			return true;
 		}
-		if ((left != null && right == null) || (left == null && right != null) || (left.val != right.val)) {
+		if (left.val != right.val) {
 			return false;
 		}
-		return isSymmetric0(left.left, right.right) && isSymmetric0(left.right, right.left);
+		if (!isSymmetric(left.left, right.right)) {
+			return false;
+		} else if (!isSymmetric(left.right, right.left)) {
+			return false;
+		}
+		return true;
+
 	}
 
 	// µü´ú

@@ -1,7 +1,9 @@
 package Leetcode_103_BinaryTreeZigzagLevelOrderTraversal;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 
 import TreeNode.TreeNode;
 
@@ -37,6 +39,40 @@ public class BinaryTreeZigzagLevelOrderTraversal {
 		node20.right = node7;
 		BinaryTreeZigzagLevelOrderTraversal btzlot = new BinaryTreeZigzagLevelOrderTraversal();
 		btzlot.zigzagLevelOrder(root);
+
+	}
+
+	// 2 ms 35.6 MB
+	public List<List<Integer>> zigzagLevelOrder2(TreeNode root) {
+		List<List<Integer>> res = new ArrayList<>();
+		if (root == null) {
+			return res;
+		}
+		Queue<TreeNode> queue = new LinkedList<>();
+		queue.add(root);
+		boolean flag = true;
+		while (!queue.isEmpty()) {
+			int size = queue.size();
+			LinkedList<Integer> list = new LinkedList<>();
+			for (int i = 0; i < size; i++) {
+				TreeNode cur = queue.poll();
+				if (flag) {
+					list.addLast(cur.val);
+				} else {
+					list.addFirst(cur.val);
+				}
+				if (cur.left != null) {
+					queue.add(cur.left);
+				}
+
+				if (cur.right != null) {
+					queue.add(cur.right);
+				}
+			}
+			res.add(list);
+			flag = !flag;
+		}
+		return res;
 
 	}
 

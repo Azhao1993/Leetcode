@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Queue;
 
 import TreeNode.TreeNode;
+import javafx.util.Pair;
 
 /*
 	给定一个二叉树，返回其按层次遍历的节点值。 （即逐层地，从左到右访问所有节点）。
@@ -27,19 +28,20 @@ import TreeNode.TreeNode;
 			]
  */
 public class BinaryTreeLevelOrderTraversal {
-	//102. 二叉树的层次遍历
+	// 102. 二叉树的层次遍历
 	public List<List<Integer>> levelOrder(TreeNode root) {
-		List<List<Integer>> list = new ArrayList<List<Integer>>();
-		Queue<List<TreeNode>> queue = new LinkedList<List<TreeNode>>();
+		List<List<Integer>> res = new ArrayList<List<Integer>>();
 		if (root == null) {
-			return list;
+			return res;
 		}
+
+		Queue<List<TreeNode>> queue = new LinkedList<List<TreeNode>>();
 		List<TreeNode> nodelist = new ArrayList<TreeNode>();
 		nodelist.add(root);
 		queue.offer(nodelist);
 		List<Integer> valList = new ArrayList<Integer>();
 		valList.add(root.val);
-		list.add(valList);
+		res.add(valList);
 		while (!queue.isEmpty()) {
 			List<TreeNode> nextNodeList = new ArrayList<TreeNode>();
 			List<Integer> nextValList = new ArrayList<Integer>();
@@ -55,15 +57,15 @@ public class BinaryTreeLevelOrderTraversal {
 			}
 			if (!nextNodeList.isEmpty()) {
 				queue.offer(nextNodeList);
-				list.add(nextValList);
+				res.add(nextValList);
 			}
 			queue.poll();
 		}
-		return list;
+		return res;
 
 	}
 
-	// 0ms
+	// 递归
 	public List<List<Integer>> levelOrder0(TreeNode root) {
 		List<List<Integer>> list = new ArrayList<List<Integer>>();
 		function(root, list, 0);
@@ -81,4 +83,39 @@ public class BinaryTreeLevelOrderTraversal {
 		function(node.left, list, level + 1);
 		function(node.right, list, level + 1);
 	}
+
+	// 迭代
+	class TreeNodeWithLevel {
+		int level;
+		TreeNode node;
+
+		public TreeNodeWithLevel(int level, TreeNode node) {
+			this.level = level;
+			this.node = node;
+		}
+	}
+
+	public List<List<Integer>> levelOrder2(TreeNode root) {
+		List<List<Integer>> list = new ArrayList<List<Integer>>();
+		Queue<TreeNodeWithLevel> queue = new LinkedList<>();
+		queue.add(new TreeNodeWithLevel(0, root));
+		while (!queue.isEmpty()) {
+			TreeNodeWithLevel cur = queue.poll();
+			if (cur.level == list.size()) {
+				List<Integer> temp = new ArrayList<>();
+				list.add(temp);
+			}
+			list.get(cur.level).add(cur.node.val);
+
+			if (cur.node.left != null) {
+				queue.add(new TreeNodeWithLevel(cur.level + 1, cur.node.left));
+			}
+
+			if (cur.node.right != null) {
+				queue.add(new TreeNodeWithLevel(cur.level + 1, cur.node.right));
+			}
+		}
+		return list;
+	}
+
 }

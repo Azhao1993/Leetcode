@@ -3,7 +3,7 @@ package Leetcode_203_RemoveLinkedListElements;
 import LinkedList.ListNode;
 
 /*
-	删除链表中等于给定值 val 的所有节点。
+	删除链表中等于给定值 val的所有节点。
 	
 	示例:	
 		输入: 1->2->6->3->4->5->6, val = 6
@@ -12,8 +12,7 @@ import LinkedList.ListNode;
 public class RemoveLinkedListElements {
 
 	// 203. 移除链表元素
-	// 假头
-	public ListNode removeElements2(ListNode head, int val) {
+	public ListNode removeElements(ListNode head, int val) {
 		ListNode dummyHead = new ListNode(0);// 假头
 		dummyHead.next = head;
 		ListNode cur = dummyHead;
@@ -27,9 +26,6 @@ public class RemoveLinkedListElements {
 				cur = cur.next;
 			}
 		}
-		head = dummyHead.next;
-		dummyHead.next = null;// 还原原本的结构
-		return head;
+		return dummyHead.next;
 	}
-
 }

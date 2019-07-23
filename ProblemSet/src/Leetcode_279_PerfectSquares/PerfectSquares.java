@@ -1,5 +1,6 @@
 package Leetcode_279_PerfectSquares;
 
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -19,12 +20,93 @@ import java.util.Queue;
  */
 public class PerfectSquares {
 	public static void main(String[] args) {
-		int n = 7186;
+		int n = 12;
 		PerfectSquares ps = new PerfectSquares();
-		System.out.println(ps.numSquares0(n));
+		ps.numSquares1(n);
 	}
 
 	// 279. 完全平方数
+	
+	//递归 DFS(超时)
+	public int numSquares2(int n) {
+		return getNumSquares(n,0);
+	}
+
+	private int getNumSquares(int n,int count) {
+		if(n==0) {
+			return count;
+		}
+		int res = Integer.MAX_VALUE;
+		for(int i = 1;n-i*i>=0;i++) {
+			res = Math.min(res, getNumSquares(n-i*i,count+1));
+		}
+		return res;
+	}
+	
+	//记忆化搜索
+	public int numSquares1(int n) {
+		int[] memo = new int[n+1];
+		Arrays.fill(memo, -1);
+		for(int i = 1;i*i<=n;i++) {
+			memo[i*i] = 1;
+		}
+		return getNumSquares(n,memo);
+	}
+
+	private int getNumSquares(int n, int[] memo) {
+		if(memo[n]!=-1) {
+			return memo[n];
+		}
+		int res = Integer.MAX_VALUE;
+		for(int i = 1;n-i*i>=0;i++) {
+			res = Math.min(res, getNumSquares(n-i*i,memo)+1);
+		}
+		memo[n] = res;
+		return memo[n];
+		
+	}
+	
+	//动态规划
+	public int numSquares(int n) {
+		int[] dp = new int[n+1];
+		Arrays.fill(dp, Integer.MAX_VALUE);
+		for(int i = 1;i*i<=n;i++) {
+			dp[i*i] = 1;
+		}
+		for(int i = 1;i<=n;i++) {			
+			for(int j = 1;j*j<i;j++) {
+				dp[i] = Math.min(dp[i], 1+dp[i-j*j]);
+			}
+		}
+		return dp[n];
+	}
+
+	// 广度优先遍历
+	public int numSquares4(int n) {
+		boolean[] used = new boolean[n + 1];
+		Queue<int[]> queue = new LinkedList<>();
+		queue.add(new int[] { n, 0 });
+		used[n] = true;
+		while (!queue.isEmpty()) {
+			int[] temp = queue.poll();
+			int num = temp[0];
+			int step = temp[1];
+			for (int i = 1;; i++) {
+				int a = num - i * i;
+				if (a == 0) {
+					return step + 1;
+				} else if (a < 0) {
+					break;
+				}
+				if (!used[a]) {
+					queue.add(new int[] { a, step + 1 });
+					used[a] = true;
+				}
+			}
+		}
+		return n;
+	}
+
 	// Lagrange 四平方定理： 任何一个正整数都可以表示成不超过四个整数的平方之和。
 	// 结果只有1,2,3,4，四种可能。
 	// 推论：满足四数平方和定理的数n（必须满足由四个数构成），必定满足 n=4^a*(8^b+7)
@@ -48,34 +130,4 @@ public class PerfectSquares {
 		}
 		return 3;
 	}
-
-	public int numSquares(int n) {
-		Queue<int[]> queue = new LinkedList<int[]>();
-		int[] first = { n, 0 };
-		queue.offer(first);
-		while (!queue.isEmpty()) {
-			int num = queue.peek()[0];
-			int step = queue.peek()[1];
-			for (int i = Close(num); i > 0; i--) {
-				int[] temp = { num - i * i, step + 1 };
-				if (temp[0] == 0) {
-					return temp[1];
-				}
-				queue.offer(temp);
-			}
-			queue.poll();
-		}
-		return -1;
-	}
-
-	// 最大的接近的数
-	private int Close(int n) {
-		for (int i = (int) Math.ceil(Math.sqrt(n)); i >= 0; i--) {
-			if (i * i <= n) {
-				return i;
-			}
-		}
-		return 0;
-	}
-
 }

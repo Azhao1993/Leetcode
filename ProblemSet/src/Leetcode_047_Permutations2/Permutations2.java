@@ -2,6 +2,7 @@ package Leetcode_047_Permutations2;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 
 /*
@@ -20,26 +21,23 @@ import java.util.List;
 
 //47. 全排列 II
 public class Permutations2 {
-	public static void main(String[] args) {
-		int[] nums = { 3, 3, 0, 3 };
-		Permutations2 p2 = new Permutations2();
-		p2.permuteUnique(nums);
-	}
+
+	List<List<Integer>> result = new ArrayList<List<Integer>>();
+	boolean[] used;
 
 	public List<List<Integer>> permuteUnique(int[] nums) {
-		List<List<Integer>> result = new ArrayList<List<Integer>>();
+
 		if (nums == null || nums.length == 0) {
 			return result;
 		}
-		boolean[] used = new boolean[nums.length];
-		List<Integer> list = new ArrayList<Integer>();
+		used = new boolean[nums.length];
 		Arrays.sort(nums);
-		dfs(nums, used, list, result);
+		generatePermuteUnique(nums, new LinkedList<Integer>());
 		return result;
 
 	}
 
-	private void dfs(int[] nums, boolean[] used, List<Integer> list, List<List<Integer>> result) {
+	private void generatePermuteUnique(int[] nums, LinkedList<Integer> list) {
 		if (list.size() == nums.length) {
 			result.add(new ArrayList<Integer>(list));
 			return;
@@ -48,15 +46,16 @@ public class Permutations2 {
 			if (used[i]) {
 				continue;
 			}
+			// 防止重复
 			// nums[i] == nums[i - 1] 但nums[i-1]未用，说明情况相同
 			if (i > 0 && nums[i] == nums[i - 1] && !used[i - 1]) {
 				continue;
 			}
 			list.add(nums[i]);
 			used[i] = true;
-			dfs(nums, used, list, result);
+			generatePermuteUnique(nums, list);
 			used[i] = false;
-			list.remove(list.size() - 1);
+			list.removeLast();
 		}
 
 	}

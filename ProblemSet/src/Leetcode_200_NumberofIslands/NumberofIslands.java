@@ -35,11 +35,52 @@ public class NumberofIslands {
 
 	}
 
-	// 200. 岛屿的个数
+	// 200. 岛屿的个数 floodfill
+	boolean[][] used;
+	int m;
+	int n;
+	char[][] grid;
+	int[][] d = { { -1, 0 }, { 0, 1 }, { 1, 0 }, { 0, -1 } };
+
+	public int numIslands(char[][] grid) {
+		if (grid == null || grid.length == 0) {
+			return 0;
+		}
+		this.grid = grid;
+		this.m = grid.length;
+		this.n = grid[0].length;
+
+		int res = 0;
+		for (int i = 0; i < m; i++) {
+			for (int j = 0; j < n; j++) {
+				if (grid[i][j] == '1' && !used[i][j]) {
+					res++;
+					dfs(i, j);
+				}
+			}
+		}
+		return res;
+	}
+
+	private void dfs(int x, int y) {
+		used[x][y] = true;
+		for (int i = 0; i < 4; i++) {
+			int newx = x + d[i][0];
+			int newy = y + d[i][1];
+			if (inArea(newx, newy) && !used[newx][newy] && grid[newx][newy] == '1') {
+				dfs(newx, newy);
+			}
+		}
+	}
+
+	private boolean inArea(int x, int y) {
+		return x >= 0 && x < m && y >= 0 && y < n;
+	}
+
 	// 记录仪
 	boolean[][] bool;
 
-	public int numIslands(char[][] grid) {
+	public int numIslands1(char[][] grid) {
 		int result = 0;
 		if ((grid.length == 0) || (grid == null)) {
 			return 0;
@@ -52,9 +93,7 @@ public class NumberofIslands {
 		// 遍历
 		for (int i = 0; i < col; i++) {
 			for (int j = 0; j < row; j++) {
-				if ((grid[i][j] == '0') || (bool[i][j])) {
-					continue;
-				} else {
+				if ((grid[i][j] == '1') && (bool[i][j])) {
 					bfs(i, j, grid);
 					result++;
 				}
@@ -101,38 +140,6 @@ public class NumberofIslands {
 				queue.poll();
 			}
 		}
-	}
-
-	// 3ms
-	char[][] map;
-	int dep, wid;
-
-	public void dsf(int depth, int width) {
-		if (depth < 0 || width < 0 || depth >= dep || width >= wid || map[depth][width] != '1')
-			return;
-		map[depth][width] = '0';
-		dsf(depth + 1, width);
-		dsf(depth - 1, width);
-		dsf(depth, width + 1);
-		dsf(depth, width - 1);
-	}
-
-	public int numIslands0(char[][] grid) {
-		int count = 0;
-		map = grid;
-		dep = grid.length;
-		if (dep == 0)
-			return 0;
-		wid = grid[0].length;
-		for (int i = 0; i < dep; i++) {
-			for (int j = 0; j < wid; j++) {
-				if (map[i][j] != '1')
-					continue;
-				count++;
-				dsf(i, j);
-			}
-		}
-		return count;
 	}
 
 }
