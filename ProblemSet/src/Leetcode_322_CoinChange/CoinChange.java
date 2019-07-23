@@ -1,5 +1,7 @@
 package Leetcode_322_CoinChange;
 
+import java.util.Arrays;
+
 /*
 	给定不同面额的硬币 coins 和一个总金额 amount。
 	编写一个函数来计算可以凑成总金额所需的最少的硬币个数。
@@ -18,24 +20,109 @@ package Leetcode_322_CoinChange;
 
 //322.零钱兑换
 public class CoinChange {
-	public int coinChange(int[] coins, int amount) {
-		if (amount < 1)
-			return 0;
-		int[] dp = new int[amount + 1];// dp[sum]表示用coins组成sum元需要的最少的硬币
-		int sum = 0;
+	public static void main(String[] args) {
+		new CoinChange().coinChange1(new int[] { 474, 83, 404, 3 }, 264);
+	}
 
-		while (++sum <= amount) {
-			int min = -1;// 最小的硬币数
-			for (int coin : coins) {
-				// coin当前硬币面值，寻找一种需要的最少的面值
-				if (sum >= coin && dp[sum - coin] != -1) {
-					int temp = dp[sum - coin] + 1;// 用组成sum-coin元需要的最少的硬币+1枚
-					min = min < 0 ? temp : (temp < min ? temp : min);
+	// 递归(超时)
+	int[] coins;
+
+	public int coinChange2(int[] coins, int amount) {
+		Arrays.sort(coins);
+		this.coins = coins;
+		if (amount <= 0) {
+			return 0;
+		}
+		if (coins[0] > amount) {
+			return -1;
+		}
+		return coinChange(amount);
+	}
+
+	private int coinChange(int amount) {
+		if (amount == 0) {
+			return 0;
+		}
+		int res = -1;
+		for (int i = 0; i < coins.length; i++) {
+			int nextAmount = amount - coins[i];
+			if (nextAmount >= 0) {
+				int nextcount = coinChange(nextAmount);
+				if (nextcount != -1) {
+					if (res == -1) {
+						res = nextcount + 1;
+					} else {
+						res = Math.min(res, nextcount + 1);
+					}
 				}
 			}
-			dp[sum] = min;
+		}
+		return res;
+	}
+
+	// 记忆化搜索
+	public int coinChange1(int[] coins, int amount) {
+		Arrays.sort(coins);
+		this.coins = coins;
+		if (amount <= 0) {
+			return 0;
+		}
+		if (coins[0] > amount) {
+			return -1;
+		}
+		int[] memo = new int[amount + 1];
+		Arrays.fill(memo, -2);
+		return coinChange(amount, memo);
+
+	}
+
+	private int coinChange(int amount, int[] memo) {
+		if (amount == 0) {
+			return 0;
+		}
+		if (memo[amount] != -2) {
+			return memo[amount];
+		}
+		int res = -1;
+		for (int i = 0; i < coins.length; i++) {
+			int nextAmount = amount - coins[i];
+			if (nextAmount >= 0) {
+				int nextcount = coinChange(nextAmount, memo);
+				if (nextcount != -1) {
+					if (res == -1) {
+						res = nextcount + 1;
+					} else {
+						res = Math.min(res, nextcount + 1);
+					}
+				}
+			}
+		}
+		memo[amount] = res;
+		return res;
+	}
+
+	// 动态规划
+	public int coinChange(int[] coins, int amount) {
+		if (coins == null || coins.length == 0 || amount < 0) {
+			return -1;
+		}
+		int dp[] = new int[amount + 1];
+		Arrays.fill(dp, -1);
+		dp[0] = 0;
+		for (int i = 1; i <= amount; i++) {
+			int res = -1;
+			for (int j = 0; j < coins.length; j++) {
+				int pre_amount = i - coins[j];
+				if (pre_amount >= 0 && dp[pre_amount] != -1) {
+					if (res == -1) {
+						res = dp[pre_amount] + 1;
+					} else {
+						res = Math.min(res, dp[pre_amount] + 1);
+					}
+				}
+			}
+			dp[i] = res;
 		}
 		return dp[amount];
 	}
-
 }
