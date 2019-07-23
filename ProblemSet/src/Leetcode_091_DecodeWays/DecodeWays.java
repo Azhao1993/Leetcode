@@ -93,17 +93,21 @@ public class DecodeWays {
 			memo[length - 1] = 1;
 		}
 		for (int i = length - 2; i >= 0; i--) {
-			String str = s.substring(i, i + 1);
-			int temp = Integer.valueOf(str);
-			if (!str.startsWith("0") && temp <= 26 && temp > 0) {
-				memo[i] += memo[i + 1];
-			}
-			str = s.substring(i, i + 2);
-			temp = Integer.valueOf(str);
-			if (!str.startsWith("0") && temp <= 26 && temp > 0) {
-				memo[i] += memo[i + 2];
+			for (int j = 1; j <= 2; j++) {
+				if (isValid(s, i, i + j)) {
+					memo[i] += memo[i + j];
+				}
 			}
 		}
 		return memo[0];
+	}
+
+	private boolean isValid(String s, int i, int j) {
+		String str = s.substring(i, j);
+		int temp = Integer.valueOf(str);
+		if (!str.startsWith("0") && temp <= 26 && temp > 0) {
+			return true;
+		}
+		return false;
 	}
 }
