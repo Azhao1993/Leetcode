@@ -1,5 +1,7 @@
 package Leetcode_198_HouseRobber;
 
+import java.util.Arrays;
+
 /*
 	你是一个专业的小偷，计划偷窃沿街的房屋。
 	每间房内都藏有一定的现金，影响你偷窃的唯一制约因素就是相邻的房屋装有相互连通的防盗系统，如果两间相邻的房屋在同一晚上被小偷闯入，系统会自动报警。
@@ -58,5 +60,61 @@ public class HouseRobber {
 			f[i] = Math.max(f[i - 2] + nums[i], f[i - 1]);
 		}
 		return f[n - 1];
+	}
+
+	// 递归（超时）
+	public int rob2(int[] nums) {
+		if (nums == null || nums.length == 0) {
+			return 0;
+		}
+		return rob(nums, 0);
+	}
+
+	// [i,nums.length-1]能获得的最大财富
+	private int rob(int[] nums, int start) {
+		if (start >= nums.length) {
+			return 0;
+		}
+		int res = Math.max(nums[start] + rob(nums, start + 2), rob(nums, start + 1));
+		return res;
+	}
+
+	// 记忆化搜索
+	public int rob1(int[] nums) {
+		if (nums == null || nums.length == 0) {
+			return 0;
+		}
+		int[] memo = new int[nums.length];
+		Arrays.fill(memo, -1);
+		return rob(nums, 0, memo);
+	}
+
+	// [i,nums.length-1]能获得的最大财富
+	private int rob(int[] nums, int start, int[] memo) {
+		if (start >= nums.length) {
+			return 0;
+		}
+		if (memo[start] != -1) {
+			return memo[start];
+		}
+		int res = Math.max(nums[start] + rob(nums, start + 2, memo), rob(nums, start + 1, memo));
+		memo[start] = res;
+		return res;
+	}
+
+	// 动态规划
+	public int rob0(int[] nums) {
+		if (nums == null || nums.length == 0) {
+			return 0;
+		}
+		int length = nums.length;
+		if (length == 1) {
+			return nums[0];
+		}
+		nums[length - 2] = Math.max(nums[length - 2], nums[length - 1]);
+		for (int i = length - 3; i >= 0; i--) {
+			nums[i] = Math.max(nums[i + 1], nums[i] + nums[i + 2]);
+		}
+		return nums[0];
 	}
 }
