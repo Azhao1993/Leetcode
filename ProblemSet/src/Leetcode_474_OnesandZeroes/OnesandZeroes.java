@@ -74,8 +74,8 @@ public class OnesandZeroes {
 	}
 
 	public static void main(String[] args) {
-		String[] strs = { "10", "0001", "111001", "1", "0" };
-		System.out.println(new OnesandZeroes().findMaxForm1(strs, 5, 4));
+		String[] strs = { "001", "11110", "0011", "1" };
+		System.out.println(new OnesandZeroes().findMaxForm1(strs, 1, 5));
 	}
 
 	// 记忆化搜索
