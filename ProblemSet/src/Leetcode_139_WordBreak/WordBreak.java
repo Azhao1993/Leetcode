@@ -32,6 +32,7 @@ import java.util.Set;
 	链接：https://leetcode-cn.com/problems/word-break
 	著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
  */
+//139. 单词拆分
 public class WordBreak {
 	public static void main(String[] args) {
 		String s = "leetcode";
@@ -60,7 +61,7 @@ public class WordBreak {
 	// 记忆化回溯
 	public boolean wordBreak2(String s, List<String> wordDict) {
 		int[] memo = new int[s.length()];
-		Arrays.fill(memo, -1);
+		Arrays.fill(memo, -1);// new Boolean[s.length()
 		return word_Break(s, new HashSet(wordDict), 0, memo);
 	}
 
@@ -69,17 +70,17 @@ public class WordBreak {
 		if (start == s.length()) {
 			return true;
 		}
-		if (memo[start] != -1) {
+		if (memo[start] != -1) {// memo[start] != null
 			return memo[start] == 1;
 		}
 
 		for (int end = start + 1; end <= s.length(); end++) {
 			if (wordDict.contains(s.substring(start, end)) && word_Break(s, wordDict, end, memo)) {
-				memo[start] = 1;
+				memo[start] = 1;// memo[start] = true
 				return true;
 			}
 		}
-		memo[start] = 0;
+		memo[start] = 0;// memo[start] = false
 		return false;
 	}
 
