@@ -17,28 +17,9 @@ using namespace std;
 */
 
 class Solution {
-private:
-    // true 有 num 个 1     false 有 num 个 0
-    int findMax(vector<string>& strs, int num, bool flag){
-        vector<int> dp(num+1, 0);
-        for(int i = 0; i<strs.size(); i++){
-            int zero = 0, one = 0;
-            for(auto it : strs[i]){
-                if(it == '0') zero++;
-                else one++;
-            }
-            if((zero > 0 && flag) || (one > 0 && !flag)) continue;
-            int tem = flag ? one : zero;
-            for(int j = tem; j <= num; j++)
-                dp[j] = max(dp[j], dp[j-tem]+1);
-        }
-        return dp[num];
-    }
 public:
     int findMaxForm(vector<string>& strs, int m, int n) {
         if(m == 0 && n == 0) return 0;
-        if(m == 0) return findMax(strs, n, true);
-        if(n == 0) return findMax(strs, m, false);
         vector<vector<int>> dp(m+1, vector<int>(n+1, 0));
         
         for(int k = 0; k<strs.size(); k++){
@@ -58,8 +39,8 @@ public:
 };
 
 int main(){
-    vector<string> arr = {"10", "1", "0"};
-    int num = Solution().findMaxForm(arr, 1, 1);
+    vector<string> arr = {"001", "11110", "0011", "1"};
+    int num = Solution().findMaxForm(arr, 1, 5);
     cout << num << endl;
     return 0;
 }
