@@ -10,19 +10,22 @@ using namespace std;
 说明:  必须在原数组上操作，不能拷贝额外的数组。		尽量减少操作次数。
 */
 
-void moveZeroes(vector<int>& nums) {
-    for (int i = 0, j = 0; i < nums.size(); ++i) 
-        if (nums[i] != 0){
-        	if(i != j) swap(nums[i], nums[j]);
-        	j++;
-        }
-}
+class Solution {
+public:
+    void moveZeroes(vector<int>& nums) {
+        for (int i = 0, j = 0; i < nums.size(); ++i) 
+            if (nums[i] != 0){
+                if(i != j) swap(nums[i], nums[j]);
+                j++;
+            }
+    }
+};
 
 int main(){
-    int x[7] = {0,1,0,3,12,2,2};
-    vector<int>nums(x,x+7);
-    moveZeroes(nums);
-    for(int i = 0;i<nums.size();i++)
-        cout<<nums[i]<<endl;
+
+    vector<int> nums{0,1,0,3,12,2,2};
+    Solution().moveZeroes(nums);
+    for(auto it:nums) 
+        cout<<it<<' '; cout<<endl;
 	return 0;
 }
