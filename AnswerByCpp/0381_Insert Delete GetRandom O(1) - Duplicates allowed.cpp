@@ -54,7 +54,7 @@ public:
         if(last == val){
             hashMap[val].erase(arr.size()-1);
         } else {
-            int ind = *hashMap[val].back();
+            int ind = *hashMap[val].cbegin();
             arr[ind] = last;
             hashMap[val].erase(ind);
             hashMap[last].erase(arr.size()-1);
