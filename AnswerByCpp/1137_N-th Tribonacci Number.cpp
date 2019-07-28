@@ -10,7 +10,6 @@ using namespace std;
 解释： T_3 = 0 + 1 + 1 = 2         T_4 = 1 + 1 + 2 = 4
 示例 2：   输入：n = 25       输出：1389537
  
-
 提示：     0 <= n <= 37        答案保证是一个 32 位整数，即 answer <= 2^31 - 1。
 conections[i][0] != conections[i][1]
 */
