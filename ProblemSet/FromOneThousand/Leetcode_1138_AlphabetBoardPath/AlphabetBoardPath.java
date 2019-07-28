@@ -28,6 +28,30 @@ public class AlphabetBoardPath {
 	public String alphabetBoardPath(String target) {
 		int x = 0;
 		int y = 0;
-
+		StringBuilder res = new StringBuilder();
+		;
+		for (char ch : target.toCharArray()) {
+			int index = ch - 'a';
+			int nx = index / 5;
+			int ny = index % 5;
+			while (x < nx) {
+				res.append("U");
+				x++;
+			}
+			while (y > ny) {
+				res.append("L");
+				y--;
+			}
+			while (x > nx) {
+				res.append("D");
+				x--;
+			}
+			while (y < ny) {
+				res.append("R");
+				y++;
+			}
+			res.append("!");
+		}
+		return res.toString();
 	}
 }
