@@ -27,30 +27,42 @@ using namespace std;
 */
 
 class Solution {
+private:
+    vector<int> faMap;
+    int getFa(int a){
+        int fa = faMap[a];
+        if(fa != a) fa = getFa(fa);
+        faMap[a] = fa;
+        return fa;
+    }
+    void unionMap(int a, int b){
+        int fa = getFa(a), fb = getFa(b);
+        if(fa == fb) return ;
+        faMap[fb] = fa;
+    }
 public:
-    int findMaxForm(vector<string>& strs, int m, int n) {
-        if(m == 0 && n == 0) return 0;
-        vector<vector<int>> dp(m+1, vector<int>(n+1, 0));
-        
-        for(int k = 0; k<strs.size(); k++){
-            int zero = 0, one = 0;
-            for(auto it : strs[k]){
-                if(it == '0') zero++;
-                else one++;
-            }
-            // dp[i][j] 代表 i 个 0  j  个 1 最多组成的个数
-            // 逆序进行查找，不改变之前的值
-            for(int i = m; i >= zero; i--)
-                for(int j = n; j >= one; j--)
-                    dp[i][j] = max(dp[i][j], dp[i-zero][j-one]+1);
-        }
-        return dp[m][n];
+    int findCircleNum(vector<vector<int>>& M) {
+        int N = M.size(), res = 0;
+        // 初始化并查集
+        faMap.resize(N);
+        for(int i=0; i<N; i++)
+            faMap[i] = i;
+        // 对称矩形，只遍历下三角既可
+        for(int i=1; i<N; i++)
+            for(int j=0; j<i; j++)
+                if(M[i][j] == 1)
+                    unionMap(i, j);
+        // 看看有多少结点，判断有多少圈子
+        for(int i=0; i<N; i++)
+            if(faMap[i] == i)
+                res++;
+        return res;
     }
 };
 
 int main(){
-    vector<string> arr = {"001", "11110", "0011", "1"};
-    int num = Solution().findMaxForm(arr, 1, 5);
+    vector<vector<int>> arr = {{1,1,0,0,0},{1,1,0,0,0},{0,0,1,0,0},{0,0,0,1,1},{0,0,0,1,1}};
+    int num = Solution().findCircleNum(arr);
     cout << num << endl;
     return 0;
 }
