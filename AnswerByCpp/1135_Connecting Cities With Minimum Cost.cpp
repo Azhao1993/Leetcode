@@ -1,6 +1,4 @@
-#include<iostream>
-#include<vector>
-#include<memory.h>
+#include <bits\stdc++.h>
 using namespace std;
 /*
 1135. 最低成本联通所有城市
@@ -23,8 +21,8 @@ conections[i][0] != conections[i][1]
 
 class Solution {
 private:
-    unordered_map<int, int> faMap;
-    unordered_map<int, int> sizeMap;
+    vector<int> faMap;
+    vector<int> sizeMap;
     int getFa(int a){
         int fa = faMap[a];
         if(fa != a) fa = getFa(fa);
@@ -63,7 +61,7 @@ public:
 
 int main(){
     vector<vector<int>> arr{{1,2,3}, {3,4,4}};
-    int res = Solution().minimumCost()
+    int res = Solution().minimumCost(4, arr);
     cout<<res<<endl;
     return 0;
 }
