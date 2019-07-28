@@ -4,9 +4,10 @@ using namespace std;
 /*
 146. LRU缓存机制
 
-运用你所掌握的数据结构，设计和实现一个  LRU (最近最少使用) 缓存机制。它应该支持以下操作： 获取数据 get 和 写入数据 put 。
-获取数据 get(key) - 如果密钥 (key) 存在于缓存中，则获取密钥的值（总是正数），否则返回 -1。
-写入数据 put(key, value) - 如果密钥不存在，则写入其数据值。当缓存容量达到上限时，它应该在写入新数据之前删除最近最少使用的数据值，从而为新的数据值留出空间。
+运用你所掌握的数据结构，设计和实现一个  LRU (最近最少使用) 缓存机制。它应该支持以下操作： 
+获取数据 get 和 写入数据 put 。 获取数据 get(key) - 如果密钥 (key) 存在于缓存中，
+则获取密钥的值（总是正数），否则返回 -1。 写入数据 put(key, value) - 如果密钥不存在，则写入其数据值。
+当缓存容量达到上限时，它应该在写入新数据之前删除最近最少使用的数据值，从而为新的数据值留出空间。
 
 进阶: 你是否可以在 O(1) 时间复杂度内完成这两种操作？
 示例:
@@ -24,40 +25,45 @@ cache.get(4);       // 返回  4
  */
 
 class LRUCache {
+private:
+    int cap; // 缓存容量
+    list<pair<int,int>> cacheList;// 双向链表，方便插入和删除
+    // key 为数据的密钥， value 为存放当前密钥的节点 迭代器
+    unordered_map<int, list<pair<int, int>>::iterator> cacheMap;
 public:
-    LRUCache( int capacity ) {
-        size = capacity;
-    }
+    LRUCache( int capacity ) : cap(capacity) {};
 
     int get( int key ) {
-        unordered_map<int, list<pair<int, int>>::iterator>::iterator iter = mmap.find(key);
-        if (iter==mmap.end())//不在容器内的默认为0，不然就用find
+        auto iter = cacheMap.find(key);
+        // iter 的类型为  unordered_map<int, list<pair<int, int>>::iterator>::iterator
+        if (iter==cacheMap.end()) //  查找元素不在容器内
             return -1;
-        // 一个快捷的插入函数，参数分别为  插入位置，开始和结束
-        q.splice( q.begin(), q, iter->second );//移到开头,而不是删除再插入，也不是插到末尾
+
+        // list 的一个快捷方法，参数分别为   位置，所移动的链表，要移动的节点（可以为一个范围）
+        cacheList.splice( cacheList.begin(), cacheList, iter->second );
         return iter->second->second;
     }
 
     void put( int key, int value ) {
-        unordered_map<int, list<pair<int, int>>::iterator>::iterator iter = mmap.find( key );
-        if (iter!=mmap.end()) {
+        auto iter = cacheMap.find( key );
+        
+        if (iter == cacheMap.end()) {
+            // 新增当前元素
+            cacheList.push_front({key, value});
+            cacheMap.insert({ key, cacheList.begin() });
+
+            // 若容量超了，则删除末尾节点，并在 哈希表中删除
+            if (cacheMap.size() > cap) 
+                cacheMap.erase(cacheList.back().first), cacheList.pop_back();
+        } else {
+            // 更新当前节点， 并移动到第一个位置
             iter->second->second = value;
-            q.splice( q.begin(), q, iter->second );
-            return;
-        }
-        q.push_front( make_pair( key, value ) );
-        mmap[key] = q.begin();
-        if (q.size() > size) {
-            mmap.erase( q.back().first );
-            q.pop_back();
+            cacheList.splice( cacheList.begin(), cacheList, iter->second );
         }
     }
-
-private:
-    unordered_map<int, list<pair<int, int>>::iterator> mmap;//value用来存q中的某项迭代器
-    list<pair<int,int>> q;//先进先出功能，每次把队头的key的缓存剔除，用的链表，元素是pair<key，value>
-    int size;//缓存的给定大小
 };
+
+
 
 struct Node{
     int key;
