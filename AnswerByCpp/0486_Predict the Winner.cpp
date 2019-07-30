@@ -30,11 +30,9 @@ public:
 
         for(int l=n-1; l>=0; l--)
             for(int r=l+1; r<n; r++){
+                int total = sum[r+1]-sum[l];
                 if(r==l+1) dp[l][r] = max(nums[l], nums[r]);
-                else{
-                    dp[l][r] = nums[l] + sum[r+1]-sum[l+1]-dp[l+1][r];
-                    dp[l][r] = max(dp[l][r], nums[r] + sum[r]-sum[l]-dp[l][r-1]);
-                }
+                else dp[l][r] = max(total - dp[l+1][r], total - dp[l][r-1]);
             }
         return dp[0][n-1] >= sum.back()-dp[0][n-1];
     }
@@ -55,6 +53,39 @@ public:
     }
 private: int cache[21][21];
     */
+};
+
+class Solution {
+private: int cache[21][21];
+public:
+    bool PredictTheWinner(vector<int>& nums) {
+        if(nums.size() < 3) return true;
+        int n = nums.size();
+        // 数据预处理，方便查找部分和
+        vector<int> sum(n+1, 0);
+        for(int i=1; i<=n; i++) sum[i] = sum[i-1] + nums[i-1];
+        // 缓存数组初始化
+        for(int i=0; i<=n; i++)
+            for(int j=0; j<=n; j++)
+                cache[i][j] = -1;
+
+        int res = helper(nums, sum, 0, n-1);
+        return res >= sum.back()-res;
+    }
+    // 更容易理解的记忆化搜索
+    int helper(vector<int>& nums, vector<int>& sum, int l, int r){
+        // 递归终止条件
+        if(l+1 == r) cache[l][r] = max(nums[l], nums[r]);
+        if(cache[l][r] != -1) return cache[l][r];
+
+        // 另外一个人可能获得的最大收益
+        int res1 = helper(nums,sum,l+1,r);
+        int res2 = helper(nums,sum,l,r-1);
+        int total = sum[r+1] - sum[l];
+
+        cache[l][r] = max( total - res1, total - res2);
+        return cache[l][r];
+    }
 };
 
 int main(){
