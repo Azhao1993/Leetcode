@@ -34,19 +34,41 @@ public class TargetSum {
 
 	// 494. 目标和
 
+	// dfs
+	public int findTargetSumWays2(int[] nums, int s) {
+		if (nums == null || nums.length == 0) {
+			return 0;
+		}
+		return findTargetSumWays2(0, 0, nums, s);
+	}
+
+	private int findTargetSumWays2(int index, int sum, int[] nums, int s) {
+		if (index == nums.length) {
+			if (sum == s) {
+				return 1;
+			} else {
+				return 0;
+			}
+		}
+		int res = 0;
+		res += findTargetSumWays2(index + 1, sum - nums[index], nums, s);
+		res += findTargetSumWays2(index + 1, sum + nums[index], nums, s);
+		return res;
+	}
+
 	public int findTargetSumWays(int[] nums, int s) {
 		int sum = 0;
 		for (int n : nums) {
 			sum += n;
 		}
-		// 元素和sum达不到目标值s；
-		// 元素和sum和目标值s的奇偶性不同
+		// sum<s || -sum > s
+		// 在某个解中正数和为x
+		// 负数和的绝对值为y
+		// 则x+y=sum,x-y=S
+		// 所以sum+s一定是偶数且x=(sum+S)/2
+
 		return sum < s || (s + sum) % 2 > 0 ? 0 : subsetSum(nums, (s + sum) >>> 1);
 	}
-
-	/**
-	 * s:新目标值=（s+num）/ 2.
-	 */
 
 	public int subsetSum(int[] nums, int s) {
 		// dp[i]：nums的子集组成目标值i的方案数
@@ -57,6 +79,7 @@ public class TargetSum {
 		for (int n : nums) {
 			for (int i = s; i >= n; i--) {
 				// 目标值为i的方案数=当前方案数+目标值为i-n的方案数
+				// dp[i][j] = dp[i - 1][j] + dp[i - 1][j - nums[i];
 				dp[i] += dp[i - n];
 			}
 		}

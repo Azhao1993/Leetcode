@@ -1,5 +1,7 @@
 package Leetcode_300_LongestIncreasingSubsequence;
 
+import java.util.Arrays;
+
 /*
 	给定一个无序的整数数组，找到其中最长上升子序列的长度。
 	
@@ -14,26 +16,40 @@ package Leetcode_300_LongestIncreasingSubsequence;
  */
 //300.最长的上升子序列
 public class LongestIncreasingSubsequence {
+	// O(n^2)
 	public int lengthOfLIS(int[] nums) {
+		if (nums == null || nums.length == 0) {
+			return 0;
+		}
 		int length = nums.length;
 		int[] dp = new int[length];
-		int result = Integer.MIN_VALUE;
+		Arrays.fill(dp, 1);
+
 		for (int i = 0; i < length; i++) {
-			dp[i] = 1;
 			for (int j = i - 1; j >= 0; j--) {
 				if (nums[i] > nums[j]) {
 					dp[i] = Math.max(dp[i], dp[j] + 1);
 				}
 			}
-			result = Math.max(result, dp[i]);
+		}
+		int result = 1;
+		for (int d : dp) {
+			result = Math.max(result, d);
 		}
 		return result;
 	}
 
+	public static void main(String[] args) {
+		int[] nums = { 10, 9, 2, 5, 3, 7, 101, 18 };
+		new LongestIncreasingSubsequence().lengthOfLIS0(nums);
+	}
+
 	// 0ms
 	public int lengthOfLIS0(int[] nums) {
-		if (nums == null || nums.length == 0)
+		if (nums == null || nums.length == 0) {
 			return 0;
+		}
+
 		int len = nums.length;
 		int last = 0;
 		int[] dp = new int[len];

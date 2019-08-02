@@ -1,6 +1,9 @@
 package Leetcode_146_LRUCache;
 
 import java.util.HashMap;
+import java.util.Hashtable;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 /*
 	运用你所掌握的数据结构，设计和实现一个  LRU (最近最少使用) 缓存机制。
@@ -31,155 +34,132 @@ import java.util.HashMap;
 	int param_1 = obj.get(key);
 	obj.put(key,value);
 */
+
+//146. LRU缓存机制
 public class LRUCache {
-	// Map key-key Value-Node
-	private HashMap<Integer, Node<Integer>> keyNodeMap;
-	// Map key-Node Value-key
-	private HashMap<Node<Integer>, Integer> nodeKeyMap;
-	// 优先级
-	private NodeDoubleLinkedList<Integer> nodeList;
-	// 容量
-	private int capacity;
+	// 利用LinkedHashMap
+	class LRUCache0 extends LinkedHashMap<Integer, Integer> {
+		private int capacity;
 
-	public LRUCache(int capacity) {
-		this.capacity = capacity;
-		keyNodeMap = new HashMap<Integer, Node<Integer>>();
-		nodeKeyMap = new HashMap<Node<Integer>, Integer>();
-		nodeList = new NodeDoubleLinkedList<Integer>();
-	}
-
-	public int get(int key) {
-		if (keyNodeMap.containsKey(key)) {
-			// 拿到key对应的节点
-			Node<Integer> node = keyNodeMap.get(key);
-			// 将此节点挪至尾部
-			nodeList.moveNodeToTail(node);
-			return node.value;
-		} else {
-			return -1;
+		public LRUCache0(int capacity) {
+			super(capacity, 0.75F, true);
+			this.capacity = capacity;
 		}
 
-	}
-
-	public void put(int key, int value) {
-		// 包含当前key
-		if (keyNodeMap.containsKey(key)) {
-			Node<Integer> node = keyNodeMap.get(key);
-			node.value = value;
-			nodeList.moveNodeToTail(node);
-			// value值相同
-//			if (keyNodeMap.get(key).value == value) {
-//				nodeList.moveNodeToTail(keyNodeMap.get(key));
-//			} else {
-//				// 值不同
-//				nodeKeyMap.remove(keyNodeMap.get(key));
-//				Node<Integer> node = new Node<Integer>(value);
-//				keyNodeMap.put(key, node);
-//				nodeKeyMap.put(node, key);
-//			}
-		} else {
-			// 不存在key
-			Node<Integer> node = new Node<Integer>(value);
-			keyNodeMap.put(key, node);
-			nodeKeyMap.put(node, key);
-			nodeList.addNode(node);
-			// 容量是否越界
-			if (keyNodeMap.size() == capacity + 1) {
-				removeMostUnusedCache();
-			}
-
+		public int get(int key) {
+			return super.getOrDefault(key, -1);
 		}
 
-	}
+		public void put(int key, int value) {
+			super.put(key, value);
+		}
 
-	public void removeMostUnusedCache() {
-		Node<Integer> oldHead = nodeList.removeHead();
-		Integer oldkey = nodeKeyMap.get(oldHead);
-		keyNodeMap.remove(oldkey);
-		nodeKeyMap.remove(oldHead);
-	}
-
-	// 哈希表+双向链表
-	class Node<V> {
-		V value;
-		Node<V> last;
-		Node<V> next;
-
-		Node(V value) {
-			this.value = value;
+		@Override
+		protected boolean removeEldestEntry(Map.Entry<Integer, Integer> eldest) {
+			return size() > capacity;
 		}
 	}
 
-	// 自定义双向链表
-	class NodeDoubleLinkedList<V> {
-		private Node<V> head;
-		private Node<V> tail;
+	// 哈希表+双端队列
 
-		// 构造
-		public NodeDoubleLinkedList() {
-			this.head = null;
-			this.tail = null;
+	// 哈希表 key=value
+	// 双端队列：head + tail + removeNode + moveToHead + addNode + poptail
+	public class LRUCache1 {
+
+		// 定义双端队列的结点
+		class DLinkedNode {
+			int key;
+			int value;
+			DLinkedNode prev;
+			DLinkedNode next;
 		}
 
-		// 增加一个节点
-		public void addNode(Node<V> newNode) {
-			// 新节点为空
-			if (newNode == null) {
-				return;
-			}
-			// 双向链表为空
-			if (this.head == null) {
-				this.head = newNode;
-				this.tail = newNode;
-			} else {
-				// 不为空
-				this.tail.next = newNode;
-				newNode.last = this.tail;
-				this.tail = newNode;
-			}
+		private void addNode(DLinkedNode node) {
+			// 总是将新节点增加在head后面
+			node.prev = head;
+			node.next = head.next;
+
+			head.next.prev = node;
+			head.next = node;
 		}
 
-		// 将某个节点挪向尾结点（调整有优先级）
-		public void moveNodeToTail(Node<V> node) {
-			// 当前节点已经在尾部
-			if (node == this.tail) {
-				return;
-			}
-			// 当前节点在头部
-			if (node == this.head) {
-				this.head = node.next;
-				this.head.last = null;
-			} else {
-				// 当前节点在中间
-				node.next.last = node.last;
-				node.last.next = node.next;
-			}
-			// 将node节点放在尾部
-			this.tail.next = node;
-			node.last = this.tail;
-			node.next = null;// ！！！
-			this.tail = node;
+		private void removeNode(DLinkedNode node) {
+			// 删除已经存在的结点.
+			DLinkedNode prev = node.prev;// 前一个节点
+			DLinkedNode next = node.next;// 后一个节点
+			// 跨过当前节点
+			prev.next = next;
+			next.prev = prev;
 		}
 
-		// 当空间不够时，移除优先级最低的节点（head）
-		public Node<V> removeHead() {
-			// 链表为空
-			if (this.head == null) {
-				return null;
-			}
+		private void moveToHead(DLinkedNode node) {
+			// 将已存在的结点挪至头的下一个 removeNode(node);
+			DLinkedNode res = tail.prev;
+			removeNode(res);
+			// return res;
+		}
 
-			Node<V> res = this.head;
-			// 链表只有一个节点
-			if (this.head == this.tail) {
-				this.head = null;
-				this.tail = null;
-			} else {
-				// 链表上有多个节点
-				this.head = res.next;
-				res.next = null;// 断开此处！！！
-				this.head.last = null;
-			}
+		private DLinkedNode popTail() {
+			// 超过当前容量时将tail的前一个节点删除
+			DLinkedNode res = tail.prev;
+			removeNode(res);
 			return res;
+		}
+
+		private Hashtable<Integer, DLinkedNode> cache = new Hashtable<Integer, DLinkedNode>();
+		private int size;
+		private int capacity;
+		private DLinkedNode head, tail;
+
+		public LRUCache1(int capacity) {
+			this.size = 0;
+			this.capacity = capacity;
+
+			head = new DLinkedNode();
+			// head.prev = null;
+
+			tail = new DLinkedNode();
+			// tail.next = null;
+
+			head.next = tail;
+			tail.prev = head;
+		}
+
+		public int get(int key) {
+			DLinkedNode node = cache.get(key);
+			if (node == null)
+				return -1;
+
+			// move the accessed node to the head;
+			moveToHead(node);
+
+			return node.value;
+		}
+
+		public void put(int key, int value) {
+			DLinkedNode node = cache.get(key);
+
+			if (node == null) {
+				DLinkedNode newNode = new DLinkedNode();
+				newNode.key = key;
+				newNode.value = value;
+
+				cache.put(key, newNode);
+				addNode(newNode);
+
+				++size;
+
+				if (size > capacity) {
+					// pop the tail
+					DLinkedNode tail = popTail();
+					cache.remove(tail.key);
+					--size;
+				}
+			} else {
+				// update the value.
+				node.value = value;
+				moveToHead(node);
+			}
 		}
 	}
 
