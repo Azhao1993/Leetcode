@@ -26,6 +26,18 @@ using namespace std;
  */
 class Solution {
 public:
+    TreeNode* lcaDeepestLeaves(TreeNode* root) {
+        return helper(root).first;
+    }
+    pair<TreeNode*, int> helper(TreeNode* root){
+        if(root == nullptr) return {nullptr, 0};
+        auto left = helper(root->left);
+        auto right = helper(root->right);
+        if(left.second == right.second) return {root, left.second+1};
+        if(left.second > right.second) return {left.first, left.second+1};
+        else return {right.first, right.second+1};
+    }
+    /*
     unordered_map<TreeNode*, int> hash;
     TreeNode* lcaDeepestLeaves(TreeNode* root) {
         if(root == NULL) return root;
@@ -48,4 +60,5 @@ public:
         hash[root] = max(leftNum, rightNum) + 1;
         return hash[root];
     }
+    */
 };
