@@ -37,11 +37,8 @@ public:
 };
 
 int main(){
-    vector<int> nums{4,6,7,7};
-    vector<vector<int>> res = Solution().findSubsequences(nums);
-    for(auto &it:res){
-        for(auto &i:it) cout<<i<<' ';
-        cout<<endl;
-    }
+    vector<int> nums{1,0,0,0,1};
+    bool res = Solution().canPlaceFlowers(nums, 1);
+    cout<<res<<endl;
     return 0;
 }
