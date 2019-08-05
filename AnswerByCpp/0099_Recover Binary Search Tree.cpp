@@ -80,3 +80,30 @@ public:
         if(first && second)swap(first->val, second->val);
     }
 };
+
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    void recoverTree(TreeNode* root) {
+        vector<TreeNode*> cache;
+        inOrder(cache, root);
+        int ind = 0, last = cache.size()-1;
+        while(ind+1 < cache.size() && cache[ind]->val < cache[ind+1]->val) ind++;
+        while(last-1 >= 0 && cache[last]->val > cache[last-1]->val) last--;
+        swap(cache[ind]->val, cache[last]->val);
+    }
+    void inOrder(vector<TreeNode*>& cache, TreeNode* root){
+        if(root == nullptr) return ;
+        inOrder(cache, root->left);
+        cache.push_back(root);
+        inOrder(cache, root->right);
+    }
+};
