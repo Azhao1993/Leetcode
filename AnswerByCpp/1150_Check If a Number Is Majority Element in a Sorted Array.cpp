@@ -1,4 +1,4 @@
-#include<iostream>
+#include<bits\stdc++.h>
 using namespace std;
 /*
 1150. 检查一个数是否在数组中占绝大多数
