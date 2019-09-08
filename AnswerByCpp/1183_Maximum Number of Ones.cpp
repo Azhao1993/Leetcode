@@ -27,15 +27,24 @@ static int x = [](){std::ios::sync_with_stdio(false); cin.tie(0); return 0;}();
 class Solution {
 public:
     int maximumNumberOfOnes(int width, int height, int sideLength, int maxOnes) {
+        priority_queue<int> que;
+        for(int i=0; i<sideLength; i++)
+            for(int j=0; j<sideLength; j++) {
+                int w = width / sideLength + (i < width % sideLength);
+                int h = height / sideLength + (j < height % sideLength);
+                que.push(w * h);
+            }
+        /*
         // 算出对应位置重叠的个数，每个尽量选最大重叠位置的数
         vector<vector<int>> arr(sideLength, vector<int>(sideLength, 0));
         for(int i=0; i<width; i++)
             for(int j=0; j<height; j++)
                 arr[i%sideLength][j%sideLength]++;
-        priority_queue<int> que;
         for(auto &it:arr)
             for(auto &i:it)
                 que.push(i);
+        */
+
         int res = 0;
         while(maxOnes-- > 0) 
             res += que.top(), que.pop();
