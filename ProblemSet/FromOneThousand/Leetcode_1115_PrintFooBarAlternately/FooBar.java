@@ -52,9 +52,9 @@ public class FooBar {
 	}
 
 	public void foo(Runnable printFoo) throws InterruptedException {
-		for (int i = 0; i < n; i++) {	
+		for (int i = 0; i < n; i++) {
 			fooqueue.take();
-			printFoo.run();	
+			printFoo.run();
 			barqueue.put(0);
 		}
 
@@ -64,9 +64,46 @@ public class FooBar {
 
 		for (int i = 0; i < n; i++) {
 			barqueue.take();
-			printBar.run();	
+			printBar.run();
 			fooqueue.put(0);
 		}
+
+	}
+
+	public static void main(String[] args) {
+		FooBar fb = new FooBar(4);
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				try {
+					fb.foo(new Runnable() {
+						@Override
+						public void run() {
+							System.out.print("foo");
+						}
+					});
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}).start();
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				try {
+					fb.bar(new Runnable() {
+						@Override
+						public void run() {
+							System.out.print("bar");
+						}
+					});
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}).start();
 
 	}
 }
