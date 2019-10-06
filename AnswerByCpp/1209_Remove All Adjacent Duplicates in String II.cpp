@@ -20,6 +20,7 @@ using namespace std;
 class Solution {
 public:
     string removeDuplicates(string s, int k) {
+        // 每轮查看当前可以消除的东西
         while(1) {
             string tem = "";
             int cur = 0, next = 1, len = s.size(), cnt = 0;
@@ -37,9 +38,7 @@ public:
 };
 
 int main(){
-    vector<int> arr{3,8,-10,23,19,-4,-14,27};
-    vector<vector<int>> res = Solution().minimumAbsDifference(arr);
-    for(auto &it:res)
-        cout << it[0] << "  " << it[1] << endl;   
+    string res = Solution().removeDuplicates("pbbcggttciiippooaais", 2);
+    cout << res << endl;  
     return 0;
 }
