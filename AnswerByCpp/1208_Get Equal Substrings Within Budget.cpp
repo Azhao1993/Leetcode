@@ -35,9 +35,7 @@ public:
 };
 
 int main(){
-    vector<int> arr{3,8,-10,23,19,-4,-14,27};
-    vector<vector<int>> res = Solution().minimumAbsDifference(arr);
-    for(auto &it:res)
-        cout << it[0] << "  " << it[1] << endl;   
+    int res = Solution().equalSubstring("abcd", "bcdf", 3);
+    cout << res << endl;   
     return 0;
 }
