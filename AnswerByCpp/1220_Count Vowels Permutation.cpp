@@ -25,10 +25,52 @@ using namespace std;
 
 class Solution {
 public:
+    typedef long long ll;
+    typedef vector<ll> vec;
+    typedef vector<vec> mat;
+     
+    const int MODE = 1e9 + 7;
+     
+    mat multiply(mat& A, mat& B) {
+        int m = A.size(), n = B[0].size();
+        mat res(m, vec(n, 0));
+     
+        // 两个矩阵相乘的算法
+        for(int i=0; i<m; i++)
+            for(int j=0; j<n; j++)
+                for(int k=0; k<A[i].size(); k++)
+                    res[i][j] = (res[i][j] + A[i][k] * B[k][j]) % MODE;
+     
+        return res;
+    }
+     
+    mat pow(mat& A, long long n) {
+        // 初始为单位矩阵
+        mat res(A.size(), vec(A.size(), 0));
+        for(int i=0; i<A.size(); i++)
+            res[i][i] = 1;
+     
+        // 通过快速幂算法快速计算矩阵的 n 次方
+        while(n > 0){
+            if((n&1) == 1) res = multiply(A, res);
+            n >>= 1;
+            A = multiply(A, A);
+        }
+     
+        return res;
+    }
     int countVowelPermutation(int n) {
         // 矩阵的公式
         int mode = 1e9 + 7;
-        vector<vector<int>> grid{{0,1,0,0,0}, {1,0,1,0,0}, {1,1,0,1,1}, {0,0,1,0,1}, {1,0,0,0,0} };
+        mat grid{{0,1,0,0,0}, {1,0,1,0,0}, {1,1,0,1,1}, {0,0,1,0,1}, {1,0,0,0,0} };
+        mat gri = pow(grid, n-1);
+
+        mat fir{{1}, {1}, {1}, {1}, {1}};
+        mat rr = multiply(gri, fir);
+        for(int i=1; i<5; i++) rr[i][0] += rr[i-1][0];
+        return rr.back().back() % mode;
+
+
         vector<long long> arr(5, 1);
         for(int i=1; i<n; i++) {
             vector<long long> tem(5, 0);
