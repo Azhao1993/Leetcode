@@ -38,6 +38,25 @@ public:
                 lcp[i][j] = (S[i] == S[j] ? lcp[i+1][j+1] + 1 : 0), res = max(res, lcp[i][j]);
         
         return res;
+        /*
+        // 最快
+        vector<char> Sc(S.begin(), S.end());
+
+        int start = 1;
+        for(int i=1; start<S.length()-i; i++){
+            int idx=0;
+            int temp=0;
+            for(int j=i; start-temp<S.length()-j; j++){
+                if(Sc[idx++]==Sc[j]){
+                    temp++;
+                    if(temp>start)
+                        start = temp;
+                }else
+                    temp = 0;
+            }
+        }
+        return start==1?0:start;
+        */
 
         /*
         int len = S.length();
