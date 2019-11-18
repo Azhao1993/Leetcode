@@ -1,6 +1,8 @@
-#include<iostream>
-#include<vector>
-#include<algorithm>
+#include <iostream>
+#include <vector>
+#include <queue>
+#include <unordered_set>
+#include <algorithm>
 using namespace std;
 /*
 1210. 穿过迷宫的最少移动次数
@@ -54,7 +56,7 @@ public:
                 que.pop();
                 int a, b, c, d;
                 getIdx(a,b,c,d,cur);
-                cout << a << " " << b << " " << c << " " << d <<endl;
+                // cout << a << " " << b << " " << c << " " << d <<endl;
                 // 向右走
                 if(b+1 < n && grid[a][b+1] == 0 && d + 1 < n && grid[c][d+1] == 0) {
                     int num = hashCode(a, b+1, c, d+1);
@@ -88,9 +90,13 @@ public:
 };
 
 int main(){
-    vector<int> arr{3,8,-10,23,19,-4,-14,27};
-    vector<vector<int>> res = Solution().minimumAbsDifference(arr);
-    for(auto &it:res)
-        cout << it[0] << "  " << it[1] << endl;   
+    vector<vector<int>> arr{{0,0,1,1,1,1},
+                   {0,0,0,0,1,1},
+                   {1,1,0,0,0,1},
+                   {1,1,1,0,0,1},
+                   {1,1,1,0,0,1},
+                   {1,1,1,0,0,0}};
+    int res = Solution().minimumMoves(arr);
+    cout << res << endl;   
     return 0;
 }
