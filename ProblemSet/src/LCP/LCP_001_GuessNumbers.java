@@ -28,6 +28,7 @@ package LCP;
 	链接：https://leetcode-cn.com/problems/guess-numbers
 	著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
  */
+//LCP 1. 猜数字
 public class LCP_001_GuessNumbers {
 	public int game(int[] guess, int[] answer) {
 		int res = 0;
