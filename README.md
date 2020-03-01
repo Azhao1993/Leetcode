@@ -5,7 +5,7 @@ Explore是按照LeetCode探索中的每个章节进行划分文件夹，包括C+
 
 AnswerByCpp文件夹是根据题目顺序的C++实现的代码
 
-ProblemSet文件夹则是一个Eclipse工程项目，按照LeetCode题目编号顺序建包，JAVA实现，JDK版本1.8
+ProblemSet文件夹则是一个Eclipse工程项目，按照LeetCode题目编号顺序建包，JAVA实现，JDK版本1.8，2020年03月01日起转C++，该项目已废弃。
 
 ### 章节直通车
 
