@@ -1,7 +1,7 @@
 # Leetcode
 The code of Leetcode
 
-LG文件夹是按照LeetCode探索中的每个章节进行划分文件夹，包括C++实现和JAVA实现
+Explore是按照LeetCode探索中的每个章节进行划分文件夹，包括C++实现和JAVA实现
 
 AnswerByCpp文件夹是根据题目顺序的C++实现的代码
 
