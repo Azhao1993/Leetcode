@@ -42,7 +42,7 @@ public:
         }
         ListNode* newHead = nullptr;
         ListNode* cur;
-        while (head!= nullptr){
+        while (head != nullptr) {
             cur = head -> next;
             head -> next = newHead;
             newHead = head;
