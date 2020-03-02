@@ -49,9 +49,5 @@ public:
             head = cur;
         }
         return newHead;
-
-
-
-
     }
 };
