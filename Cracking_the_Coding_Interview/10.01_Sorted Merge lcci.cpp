@@ -20,7 +20,6 @@ B = [2,5,6],       n = 3
  */
 class Solution {
 public:
-
     // 提示：尝试从数组的末端向前端移动。
     void merge(vector<int>& A, int m, vector<int>& B, int n) {
         if (n == 0) {
