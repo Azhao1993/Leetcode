@@ -1,15 +1,15 @@
 # Leetcode
 The code of Leetcode
 
-AnswerByCpp:[题目顺序，C++](https://leetcode-cn.com/problemset/all/)
-
+AnswerByCpp               ：[题目顺序，C++](https://leetcode-cn.com/problemset/all/)
+ 
 CrackingTheCodingInterview：[《程序员面试金典（第 6 版）》](https://leetcode-cn.com/problemset/lcci/)
 
-Explore：[「探索」](https://leetcode-cn.com/explore/)中的章节划分，包括C++实现和JAVA实现（不完整）
+Explore                   ：[「探索」](https://leetcode-cn.com/explore/)中的章节划分，包括C++实现和JAVA实现（不完整）
 
-DailyCommit：[「每日 1 题」](https://leetcode-cn.com/circle/article/9EZfRE/)打卡刷题活动
+DailyCommit               ：[「每日 1 题」](https://leetcode-cn.com/circle/article/9EZfRE/)打卡刷题活动
 
-ProblemSet：Eclipse工程项目，按照[LeetCode题目编号顺序](https://leetcode-cn.com/problemset/all/)建包，JAVA，JDK版本1.8，2020年03月01日起转C++，该项目已废弃。
+ProblemSet                ：Eclipse工程项目，按照[LeetCode题目编号顺序](https://leetcode-cn.com/problemset/all/)建包，JAVA，JDK版本1.8，2020年03月01日起转C++，该项目已废弃。
 
 [「剑指offer（第 2 版）」](https://leetcode-cn.com/problemset/lcof/)：[作者代码](https://github.com/zhedahht/CodingInterviewChinese2)
 
