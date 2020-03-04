@@ -1,12 +1,8 @@
-# 剑指offer（第 2 版）
+# 程序员面试金典（第 6 版）
 
-The code of CodingInterviews
+Cracking the Coding Interview
 
-通行全球的程序员经典面试秘籍
+源自硅谷程序员的面试红宝书
 
-OJ : [Leetcode](https://leetcode-cn.com/problemset/lcof/)
-
-C++ : [作者代码](https://github.com/zhedahht/CodingInterviewChinese2)
-
-Java : [代码](https://github.com/Azhao1993/CodingInterviews)
+OJ : [Leetcode](https://leetcode-cn.com/problemset/lcci/)
 
